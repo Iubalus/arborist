@@ -1,0 +1,81 @@
+<html>
+
+<head>
+    <style>
+
+        .card {
+            width:100px;
+            min-height:100px;
+            padding:10px;
+            text-align:center;
+            background: rgb(255, 234, 177);
+            border:solid 1px black;
+            margin:auto;
+        }
+
+        .cardwrap {
+            display:inline;
+        }
+
+        .row {
+            margin:auto;
+            margin-top:20px;            
+            display:flex;
+            justify-content:center;
+            gap:20px;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div id="root">
+    </div>
+    <script>
+        let root = document.getElementById("root");
+        let card = document.createElement("div");
+        let content = {
+            text: "1",
+            children: [
+                {
+                    text: "1.1",
+                    children:[
+                        {
+                            text:"1.1.1"
+                        },
+                        {
+                            text:"1.1.2"
+                        },
+                        {
+                            text:"1.1.3"
+                        }
+                    ]                    
+                },
+                {
+                    text: "1.2"
+                }
+            ]
+        }
+
+        function toCard(root) {
+            let wrap = document.createElement("div");
+            wrap.classList = "cardwrap"
+            let text = document.createElement("div");
+            text.classList = "card"
+            text.textContent = root.text;
+            let row = document.createElement("div");
+            row.classList = "row";
+            wrap.append(text);
+            wrap.append(row);
+            if(!!root.children){
+                root.children.forEach(child => {
+                    row.append(toCard(child))
+                });
+            }
+            return wrap;
+        }
+        root.append(toCard(content));
+    </script>
+</body>
+
+</html>
