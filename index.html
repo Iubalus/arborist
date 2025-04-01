@@ -115,11 +115,14 @@
             }
             let card = document.createElement("div");
             card.textContent = root.text;
+            card.classList = "card-content";
             cell.append(card);
             return cell;
         }
-
-        function breadth(tBody, children, depth) {
+        
+        let table2 = document.createElement("table");
+        let body2 = document.createElement("tbody");
+        function breadth(children, depth) {
             let allChildren = [];
             let hadChildren = false;
             let row = document.createElement("tr");
@@ -132,13 +135,14 @@
                     allChildren.push({});
                 }
             })
-            tBody.append(row);
+            body2.append(row);
             if (hadChildren) {
                 breadth(allChildren, depth + 1);
             }
         }
-
+        console.log(body2);
         breadth([content], 0);
+        root.append(table2);
 
         function countChildren(root) {
             if (!root.children) {
@@ -177,7 +181,7 @@
             table.append(body);
             return table;
         }
-        root.append(toCard(content));
+        //root.append(toCard(content));
 
     </script>
 </body>
