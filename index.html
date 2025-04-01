@@ -18,9 +18,8 @@
         }
 
         td {
-            align-content:baseline;
+            align-content: baseline;
         }
-        
     </style>
 </head>
 
@@ -54,7 +53,8 @@
                             text: "1.1.3",
                             children: [
                                 {
-                                    text: "1.1.3.1 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat at nunc et egestas."
+                                    text: "1.1.3.1 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat at nunc et egestas.",
+                                    color: 'rgb(177, 224, 255)'
                                 }
                             ]
 
@@ -70,14 +70,15 @@
         function toCard(root) {
             let card = document.createElement("div");
             card.textContent = root.text;
-            card.classList="card-content";
-            if(!root.children){
+            card.classList = "card-content";
+            card.style.background = root.color;
+            if (!root.children) {
                 return card;
             }
             let table = document.createElement("table");
             let body = document.createElement("tbody");
             let row = document.createElement("tr");
-            let cell = document.createElement("td");                        
+            let cell = document.createElement("td");
             if (!!root.children) {
                 cell.colSpan = root.children.length;
             }
