@@ -2,7 +2,7 @@
 
 <head>
     <style>
-        .card {
+        td {
             width: 150px;
             min-height: 100px;
             padding: 10px;
@@ -12,44 +12,7 @@
             margin: auto;
             position: relative;
         }
-
-        .card-row {
-            margin: auto;
-            margin-top: 40px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            position: relative;
-        }
-
-        .card-row:after {
-            position: absolute;
-            width: 100%;
-            content: ' ';
-            height: 1px;
-            background: black;
-            top: -20px;
-        }
-
-        .card-row .card:before {
-            position: absolute;
-            top: -20px;
-            right: 50%;
-            height: 18px;
-            border-right: solid 1px black;
-            border-top: solid 2px black;
-            content: ' ';
-        }
-
-        .card:after {
-            position: absolute;
-            bottom: -21px;
-            right: 50%;
-            width: 1px;
-            height: 20px;
-            border-right: solid 1px black;
-            content: ' ';
-        }
+        
     </style>
 </head>
 
@@ -97,20 +60,27 @@
         }
 
         function toCard(root) {
-            let wrap = document.createElement("div");
-            let text = document.createElement("div");
-            text.classList = "card"
-            text.textContent = root.text;
-            let row = document.createElement("div");
-            row.classList = "card-row";
-            wrap.append(text);
-            wrap.append(row);
+            let table = document.createElement("table");
+            let body = document.createElement("tbody");
+            let row = document.createElement("tr");
+            let cell = document.createElement("td");
+            cell.textContent = root.text;
             if (!!root.children) {
-                root.children.forEach(child => {
-                    row.append(toCard(child))
-                });
+                cell.colSpan = root.children.length;
             }
-            return wrap;
+            row.append(cell);
+            body.append(row);
+            if (!!root.children) {
+                let row2 = document.createElement("tr");
+                root.children.forEach(child => {
+                    let cell2 = document.createElement("td");
+                    cell2.append(toCard(child));
+                    row2.append(cell2);
+                });
+                body.append(row2);
+            }
+            table.append(body);
+            return table;
         }
         root.append(toCard(content));
     </script>
