@@ -24,46 +24,6 @@
 </head>
 
 <body>
-    <table>
-        <tbody>
-            <tr>
-                <td colspan="5">
-                    <div class="card-content">1</div>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="4">
-                    <div class="card-content">1.1</div>
-                </td>
-                <td>
-                    <div class="card-content">1.2</div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="card-content">1.1.1</div>
-                </td>
-                <td colspan="2">
-                    <div class="card-content">1.1.2</div>
-                </td>
-                <td>
-                    <div class="card-content">1.1.3</div>
-                </td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>
-                    <div class="card-content">1.1.2.1</div>
-                </td>
-                <td>
-                    <div class="card-content">1.1.2.2</div>
-                </td>
-                <td></td>
-                <td></td>
-            </tr>
-        </tbody>
-    </table>
     <div id="root">
     </div>
     <script>
@@ -107,22 +67,31 @@
             ]
         }
 
+        function countLeaves(root) {
+            if (!root.children) {
+                return 1;
+            }
+            return root.children.map(c => countLeaves(c)).reduce((l, r) => l + r, 0);
+        }
+
         function toCell(root) {
+            if (!root.text) {
+                return document.createElement("td");//placeholder cell for spacing
+            }
             let cell = document.createElement("td");
-            let children = countChildren(root);
-            if (children > 1) {
-                cell.colSpan = children;
+            let leaves = countLeaves(root);
+            if (leaves > 1) {
+                cell.colSpan = leaves;
             }
             let card = document.createElement("div");
             card.textContent = root.text;
             card.classList = "card-content";
+            card.style.background = root.color;
             cell.append(card);
             return cell;
         }
-        
-        let table2 = document.createElement("table");
-        let body2 = document.createElement("tbody");
-        function breadth(children, depth) {
+
+        function toRows(children) {
             let allChildren = [];
             let hadChildren = false;
             let row = document.createElement("tr");
@@ -132,57 +101,29 @@
                     allChildren = allChildren.concat(child.children);
                     hadChildren = true;
                 } else {
-                    allChildren.push({});
+                    allChildren.push({});//placeholder object for spacing
                 }
             })
-            body2.append(row);
+            let rows = [];
+            rows.push(row);
             if (hadChildren) {
-                breadth(allChildren, depth + 1);
+                rows = rows.concat(toRows(allChildren));
             }
-        }
-        console.log(body2);
-        breadth([content], 0);
-        root.append(table2);
-
-        function countChildren(root) {
-            if (!root.children) {
-                return 1;
-            }
-            return root.children.map(c => countChildren(c)).reduce((l, r) => l + r, 0);
+            return rows;
         }
 
-        function toCard(root) {
-            let card = document.createElement("div");
-            card.textContent = root.text;
-            card.classList = "card-content";
-            card.style.background = root.color;
-            if (!root.children) {
-                return card;
-            }
+        function toTable(node) {
             let table = document.createElement("table");
             let body = document.createElement("tbody");
-            let row = document.createElement("tr");
-            let cell = document.createElement("td");
-            if (!!root.children) {
-                cell.colSpan = root.children.length;
-            }
-            cell.append(card);
-            row.append(cell);
-            body.append(row);
-            if (!!root.children) {
-                let row2 = document.createElement("tr");
-                root.children.forEach(child => {
-                    let cell2 = document.createElement("td");
-                    cell2.append(toCard(child));
-                    row2.append(cell2);
-                });
-                body.append(row2);
-            }
+            let rows = toRows([node]);
+            rows.forEach(r => {
+                body.append(r);
+            })
             table.append(body);
             return table;
         }
-        //root.append(toCard(content));
 
+        root.append(toTable(content));
     </script>
 </body>
 
