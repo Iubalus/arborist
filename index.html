@@ -14,6 +14,25 @@
             box-shadow: 2px 2px 5px rgba(0, 0, 0, .6);
         }
 
+        .card-content .card-title {
+            display: block;
+            font-weight: bold;
+        }
+
+        .card-content .card-author {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            font-size: 10px;
+        }
+
+        .card-content .card-last {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            font-size: 10px;
+        }
+
         td {
             align-content: baseline;
             padding: 10px;
@@ -97,7 +116,25 @@
                 cell.colSpan = leaves;
             }
             let card = document.createElement("div");
-            card.textContent = root.text;
+            if (!!root.author) {
+                let author = document.createElement("span");
+                author.classList = "card-author";
+                author.textContent = root.author;
+                card.append(author);
+            }
+            if (!!root.last) {
+                let last = document.createElement("span");
+                last.classList = "card-last";
+                last.textContent = root.last;
+                card.append(last);
+            }
+            if (!!root.title) {
+                let last = document.createElement("span");
+                last.classList = "card-title";
+                last.textContent = root.title;
+                card.append(last);
+            }
+            card.append(root.text);
             card.classList = "card-content";
             card.style.background = root.color;
             cell.append(card);
