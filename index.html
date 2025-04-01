@@ -107,6 +107,46 @@
             ]
         }
 
+        function toCell(root) {
+            let cell = document.createElement("td");
+            let children = countChildren(root);
+            if (children > 1) {
+                cell.colSpan = children;
+            }
+            let card = document.createElement("div");
+            card.textContent = root.text;
+            cell.append(card);
+            return cell;
+        }
+
+        function breadth(tBody, children, depth) {
+            let allChildren = [];
+            let hadChildren = false;
+            let row = document.createElement("tr");
+            children.forEach(child => {
+                row.append(toCell(child));
+                if (!!child.children) {
+                    allChildren = allChildren.concat(child.children);
+                    hadChildren = true;
+                } else {
+                    allChildren.push({});
+                }
+            })
+            tBody.append(row);
+            if (hadChildren) {
+                breadth(allChildren, depth + 1);
+            }
+        }
+
+        breadth([content], 0);
+
+        function countChildren(root) {
+            if (!root.children) {
+                return 1;
+            }
+            return root.children.map(c => countChildren(c)).reduce((l, r) => l + r, 0);
+        }
+
         function toCard(root) {
             let card = document.createElement("div");
             card.textContent = root.text;
@@ -138,6 +178,7 @@
             return table;
         }
         root.append(toCard(content));
+
     </script>
 </body>
 
