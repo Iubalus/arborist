@@ -13,12 +13,9 @@
             position: relative;
         }
 
-        table {
-            border: solid 1px red;
-        }
-
         td {
             align-content: baseline;
+            padding:10px 5px;
         }
     </style>
 </head>
@@ -114,6 +111,8 @@
 
         function toTable(node) {
             let table = document.createElement("table");
+            table.cellPadding = 0;
+            table.cellSpacing = 0;
             let body = document.createElement("tbody");
             let rows = toRows([node]);
             rows.forEach(r => {
