@@ -8,14 +8,25 @@
             padding: 10px;
             text-align: center;
             background: rgb(255, 234, 177);
-            border: solid 1px black;
+            border-radius: 5px;
             margin: auto;
             position: relative;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, .6);
         }
 
         td {
             align-content: baseline;
-            padding:10px 5px;
+            padding: 10px;
+            border-left: 3px solid #cfcfff;
+            border-top: 3px solid #cfcfff;
+        }
+
+        td:last-of-type {
+            border-right: 3px solid #cfcfff;
+        }
+
+        tr:last-of-type td {
+            border-bottom: 3px solid #cfcfff;
         }
     </style>
 </head>
@@ -30,6 +41,9 @@
             text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat at nunc et egestas.",
             children: [
                 {
+                    title: "Foo",
+                    author: "Robin",
+                    last: "3/31/25 2:54PM",
                     text: "1.1",
                     children: [
                         {
@@ -73,7 +87,9 @@
 
         function toCell(root) {
             if (!root.text) {
-                return document.createElement("td");//placeholder cell for spacing
+                let empty = document.createElement("td");
+                empty.classList = "empty-cell";
+                return empty;//placeholder cell for spacing
             }
             let cell = document.createElement("td");
             let leaves = countLeaves(root);
