@@ -1,26 +1,34 @@
-<script setup lang="ts">
-import Snapshots from './components/InterviewSnapshot.vue';
-</script>
-
 <template>
   <div>
-    <Snapshots></Snapshots>
+    <div v-for="(profile, i) in profiles" :key="i" class="profile-option" @click="() => selectedProfile = profile">{{
+      profile.name }} at {{
+        profile.company }} on {{ profile.when }}
+    </div>
+    <InterviewSnapshot v-if="selectedProfile" :profile="selectedProfile" :key="selectedProfile.id"></InterviewSnapshot>
   </div>
 </template>
-
+<script lang="ts">
+import { defineComponent } from "vue";
+import InterviewSnapshot from './components/InterviewSnapshot.vue';
+import { loadProfiles } from "./data";
+export default defineComponent({
+  components: { InterviewSnapshot },
+  data() {
+    return {
+      profiles: [],
+      selectedProfile: null
+    }
+  },
+  created() {
+    this.profiles = loadProfiles();
+  }
+})
+</script>
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+.profile-option {
+  &:hover {
+    cursor: pointer;
+    background-color: #ebebeb;
+  }
 }
 </style>

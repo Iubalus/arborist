@@ -1,32 +1,32 @@
 <template>
     <div class="snapshot">
-        <h1>{{ profile.name }} at {{ profile.company }}</h1>
-        <span class="when">{{ profile.when }}</span>
+        <h1>{{ internalProfile.name }} at {{ internalProfile.company }}</h1>
+        <span class="when">{{ internalProfile.when }}</span>
         <div class="overview">
             <div class="profile">
-                <img :src="profile.profile" alt="profile"></img>
+                <img :src="internalProfile.profile" alt="profile"></img>
             </div>
             <div>
-                <span v-for="memorableQuote in profile.memorableQuotes" class="quote">
+                <span v-for="memorableQuote in internalProfile.memorableQuotes" class="quote">
                     {{ memorableQuote }}
                 </span>
             </div>
         </div>
         <div class="present">
             <span class="float-label">Present</span>
-            <span v-for="name in profile.present">
+            <span v-for="name in internalProfile.present">
                 {{ name }}
             </span>
         </div>
         <div class="interview-question">
             <span class="float-label">Interview Question</span>
-            <textarea v-model="profile.interviewQuestion"></textarea>
+            <textarea v-model="internalProfile.interviewQuestion"></textarea>
         </div>
         <div class="lists">
             <div>
                 <span class="float-label">Quick Facts</span>
                 <ul>
-                    <li v-for="quickFact in profile.quickFacts">
+                    <li v-for="quickFact in internalProfile.quickFacts">
                         {{ quickFact }}
                     </li>
                 </ul>
@@ -34,7 +34,7 @@
             <div>
                 <span class="float-label">Insights</span>
                 <ul>
-                    <li v-for="insight in profile.insights">
+                    <li v-for="insight in internalProfile.insights">
                         {{ insight }}
                     </li>
                 </ul>
@@ -43,47 +43,37 @@
         <div class="experience-map">
             <span class="float-label">Experience Map</span>
             <div>
-                <img :src="profile.experienceMap" alt="experience map"></img>
+                <img :src="internalProfile.experienceMap" alt="experience map"></img>
             </div>
-            <textarea v-model="profile.story">
+            <textarea v-model="internalProfile.story">
             </textarea>
         </div>
     </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
-
-export interface Profile {
-    name: string;
-    company: string;
-    when: string;
-    interviewQuestion: string;
-    memorableQuotes: string[];
-    present: string[];
-    quickFacts: string[],
-    opportunities: number[],
-    experienceMap: string;
-    story: string;
-    profile: string;
-}
+import { defineComponent, PropType } from 'vue'
+import { Profile } from '../data'
 
 export default defineComponent({
+    props: {
+        profile: {
+            type: Object as PropType<Profile>,
+            required: true
+        }
+    },
+    emits: ['update'],
     data() {
         return {
-            profile: {
-                name: "John Smith",
-                company: "John Smith's Company",
-                when: "4/13/25 4:45PM",
-                interviewQuestion: "Have you ever had a dream that's that you um you had you would you could you'd do you whi... you want you you could do some you you do you could you wanna you want him to do you so much you could do anything?",
-                memorableQuotes: ["You're aren't *epic backfelp*", "It just stood there holding it's tail and whispering... what did it say?"],
-                present: ["Jeff Whelks", "Kim Kimberly", "Froden Bodensoden"],
-                quickFacts: ["Can bench over 200lbs", "Been with the company for 200 years", "Hydrophobic"],
-                insights: ["May like strawberry icecream"],
-                opportunities: [1, 123, 32, 1233],
-                experienceMap: "./experience.png",
-                story: "Felt hungry, opened the fridge, noticed the milk had gone off, took out phone, tried to log into app, too much butter on fingers, password didn't work, dropped phone, knelt down, banged head on fridge door",
-                profile: "./profile.jpg"
-            } as Profile
+            internalProfile: this.profile            
+        }
+    },
+    watch: {
+        internalProfile: {
+            handler: function (v: Profile) {
+                //@ts-ignore
+                this.$emit('update', v);
+            },
+            deep: true
         }
     }
 })
