@@ -64,7 +64,7 @@ export default defineComponent({
     emits: ['update'],
     data() {
         return {
-            internalProfile: this.profile            
+            internalProfile: this.profile
         }
     },
     watch: {
@@ -81,10 +81,11 @@ export default defineComponent({
 </script>
 <style scoped>
 .snapshot {
-    border: dashed 1px gray;
+    text-align: center;
     padding: 10px;
     box-shadow: 5px 5px 5px gray;
     position: relative;
+    background: white;
 
     .when {
         position: absolute;

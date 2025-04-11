@@ -5,7 +5,7 @@ export interface Profile {
     when: string;
     interviewQuestion: string;
     memorableQuotes: string[];
-    presentIds: number[];
+    present: number[];
     quickFacts: string[],
     insights: string[],
     opportunityIds: number[],
@@ -29,7 +29,7 @@ export function loadProfiles(): Profile[] {
             when: "4/13/25 4:45PM",
             interviewQuestion: "Have you ever had a dream that's that you um you had you would you could you'd do you whi... you want you you could do some you you do you could you wanna you want him to do you so much you could do anything?",
             memorableQuotes: ["You're aren't *epic backfelp*", "It just stood there holding it's tail and whispering... what did it say?"],
-            presentIds: [1, 2, 3, 4],
+            present: ["Jeff Whelks", "Kim Kimberly", "Froden Bodensoden"],
             quickFacts: ["Can bench over 200lbs", "Been with the company for 200 years", "Hydrophobic"],
             insights: ["May like strawberry icecream"],
             opportunityIds: [1, 123, 32, 1233],
@@ -44,7 +44,7 @@ export function loadProfiles(): Profile[] {
             when: "4/25/25 4:45PM",
             interviewQuestion: "Have you ever had a dream that's that you um you had you would you could you'd do you whi... you want you you could do some you you do you could you wanna you want him to do you so much you could do anything?",
             memorableQuotes: ["You're aren't *epic backfelp*", "It just stood there holding it's tail and whispering... what did it say?"],
-            presentIds: [1, 2, 3, 4],
+            present: ["Jeff Whelks", "Kim Kimberly", "Froden Bodensoden"],
             quickFacts: ["Can bench over 200lbs", "Been with the company for 200 years", "Hydrophobic"],
             insights: ["May like strawberry icecream"],
             opportunityIds: [1, 123, 32, 1233],

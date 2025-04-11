@@ -1,16 +1,28 @@
 <template>
   <div>
-    <div v-for="(profile, i) in profiles" :key="i" class="profile-option" @click="() => selectedProfile = profile">{{
-      profile.name }} at {{
-        profile.company }} on {{ profile.when }}
+    <div class="interview-panel">
+      <div>
+        <div v-for="(profile, i) in profiles" :key="i" class="profile-option" @click="() => selectedProfile = profile">
+          {{
+            profile.name }} at {{
+            profile.company }} on {{ profile.when }}
+        </div>
+      </div>
+      <div>
+        <InterviewSnapshot v-if="selectedProfile" :profile="selectedProfile"
+          @update="(v: Profile) => selectedProfile = { ...selectedProfile, ...v }" :key="selectedProfile.id">
+        </InterviewSnapshot>
+      </div>
     </div>
-    <InterviewSnapshot v-if="selectedProfile" :profile="selectedProfile" :key="selectedProfile.id"></InterviewSnapshot>
+    <pre>
+      {{ profiles }}
+    </pre>
   </div>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
 import InterviewSnapshot from './components/InterviewSnapshot.vue';
-import { loadProfiles } from "./data";
+import { loadProfiles, Profile } from "./data";
 export default defineComponent({
   components: { InterviewSnapshot },
   data() {
@@ -25,10 +37,23 @@ export default defineComponent({
 })
 </script>
 <style scoped>
-.profile-option {
-  &:hover {
-    cursor: pointer;
-    background-color: #ebebeb;
+.interview-panel {
+  display: flex;
+  gap: 20px;
+
+  div:first-of-type {
+    flex-grow: 1;
+  }
+
+  .profile-option {
+    text-wrap: nowrap;
+    text-align: left;
+    padding: 5px 10px;
+
+    &:hover {
+      cursor: pointer;
+      background-color: #ebebeb;
+    }
   }
 }
 </style>
