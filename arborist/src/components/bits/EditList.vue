@@ -1,7 +1,7 @@
 <template>
     <Labelled :label="label">
         <ul :class="[readOnly ? '' : 'draggable']">
-            <li v-for="(ignored, i) in visibleList" :key="keys[i]" :draggable="!readOnly" :ondragover="dragOver"
+            <li v-for="(v, i) in visibleList" :key="keys[i]" :draggable="!readOnly" :ondragover="dragOver"
                 :ondragstart="dragStart" :ondragend="dragEnd" :data-index="i">
                 <LabelText v-model:value="internalValue[i]" :read-only="readOnly"></LabelText>
             </li>
@@ -33,7 +33,7 @@ export default defineComponent({
     emits: ['update:value'],
     data() {
         return {
-            internalValue: this.value,
+            internalValue: this.value as string[],
             keys: this.makeKeys(this.value),
             dragStartIndex: 0,
             dragEndIndex: 0
@@ -56,7 +56,7 @@ export default defineComponent({
     methods: {
         makeKeys(list: any[]) {
             return list.map((v, i) => {
-                return `${v.substring(0, 50)}, ${i}`
+                return `${new Date().getTime()} ${i}`;
             })
         },
         dragEnd() {
