@@ -14,16 +14,11 @@
         </InterviewSnapshot>
       </div>
     </div>
-    <Card
-      title="Hello World"
-    >
-      <EditList
-        v-model:value="editList"
-      ></EditList>      
-      <EditList
-        v-model:value="editList"
-        read-only
-      ></EditList>
+    <Card title="Hello World">
+      <Btn text="Click Me" @click="() => console.log('hello')"></Btn>
+      <Btn label="Nice" text="Click Me" read-only @click="() => console.log('hello')"></Btn>
+      <EditList v-model:value="editList"></EditList>
+      <EditList v-model:value="editList" label="Read Only" read-only></EditList>
     </Card>
     <Card>
       <LabelText v-model:value="testValue" />
@@ -44,14 +39,15 @@ import { loadProfiles, Profile } from "./data";
 import LabelText from "./components/bits/LabelText.vue";
 import Card from "./components/bits/Card.vue";
 import EditList from "./components/bits/EditList.vue";
+import Btn from "./components/bits/Btn.vue";
 export default defineComponent({
-  components: { InterviewSnapshot, LabelText, Card, EditList },
+  components: { InterviewSnapshot, LabelText, Card, EditList, Btn },
   data() {
     return {
       profiles: [],
       selectedProfile: null,
       testValue: "Hello",
-      editList:["Foo", "Bar", "Baz"]
+      editList: ["Foo", "Bar", "Baz"]
     }
   },
   created() {

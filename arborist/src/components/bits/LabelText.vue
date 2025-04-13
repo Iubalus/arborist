@@ -1,13 +1,14 @@
 <template>
-    <div class="label-container">
-        <label v-show="!!label">{{ label }}</label>
+    <Labelled :label="label">
         <input v-model="internalValue" type="text" :disabled="readOnly" />
-    </div>
+    </Labelled>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
+import Labelled from './Labelled.vue';
 
 export default defineComponent({
+    components: { Labelled },
     props: {
         label: {
             type: String,
@@ -40,21 +41,11 @@ export default defineComponent({
 
 </script>
 <style scoped>
-.label-container {
-    margin-top: 10px;
+input {
+    padding: 5px 10px;
     width: 100%;
     box-sizing: border-box;
-
-    label {
-        font-size: 0.8em;
-        display: block;
-        margin-bottom: 3px;
-    }
-
-    input {
-        padding: 5px 10px;
-        width: 100%;
-        box-sizing: border-box;
-    }
+    border-radius:5px;
+    border:solid 1px black;
 }
 </style>

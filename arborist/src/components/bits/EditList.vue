@@ -1,21 +1,21 @@
 <template>
-    <div :class="['label-container', !readOnly ? 'draggable' : null]">
-        <label v-show="!!label">{{ label }}</label>
-        <ul>
+    <Labelled :label="label">
+        <ul :class="[readOnly ? '' : 'draggable']">
             <li v-for="(ignored, i) in visibleList" :key="keys[i]" :draggable="!readOnly" :ondragover="dragOver"
                 :ondragstart="dragStart" :ondragend="dragEnd" :data-index="i">
                 <LabelText v-model:value="internalValue[i]" :read-only="readOnly"></LabelText>
             </li>
         </ul>
         <pre>{{ keys }}</pre>
-    </div>
+    </Labelled>
 </template>
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
 import LabelText from './LabelText.vue';
+import Labelled from './Labelled.vue';
 
 export default defineComponent({
-    components: { LabelText },
+    components: { LabelText, Labelled },
     props: {
         label: {
             type: String,
@@ -78,40 +78,20 @@ export default defineComponent({
 
 </script>
 <style scoped>
-.label-container {
-    margin-top: 10px;
-    width: 100%;
-    box-sizing: border-box;
-
-    label {
-        font-size: 0.8em;
-        display: block;
-        margin-bottom: 3px;
+.draggable {
+    li:hover {
+        cursor: grab;
     }
+}
 
-    input {
-        padding: 5px 10px;
-        width: 100%;
-        box-sizing: border-box;
-    }
+ul {
+    margin: 0;
+    padding: 0 0 0 25px;
 
-    &.draggable {
-        li:hover {
-            cursor: grab;
+    li {
+        +li {
+            margin-top: 5px;
         }
     }
-
-    ul {
-        margin: 0;
-        padding: 0 0 0 25px;
-
-        li {
-            +li {
-                margin-top: 5px;
-            }
-        }
-
-    }
-
 }
 </style>
