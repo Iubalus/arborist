@@ -17,13 +17,20 @@
     <Card
       title="Hello World"
     >
-
+      <EditList
+        v-model:value="editList"
+      ></EditList>      
+      <EditList
+        v-model:value="editList"
+        read-only
+      ></EditList>
     </Card>
     <Card>
       <LabelText v-model:value="testValue" />
       <LabelText label="Sample" v-model:value="testValue" />
       <LabelText label="Sample" v-model:value="testValue" read-only />
     </Card>
+    <pre>{{ editList }}</pre>
     <pre>{{ testValue }}</pre>
     <pre>
       {{ profiles }}
@@ -36,13 +43,15 @@ import InterviewSnapshot from './components/InterviewSnapshot.vue';
 import { loadProfiles, Profile } from "./data";
 import LabelText from "./components/bits/LabelText.vue";
 import Card from "./components/bits/Card.vue";
+import EditList from "./components/bits/EditList.vue";
 export default defineComponent({
-  components: { InterviewSnapshot, LabelText, Card },
+  components: { InterviewSnapshot, LabelText, Card, EditList },
   data() {
     return {
       profiles: [],
       selectedProfile: null,
-      testValue: "Hello"
+      testValue: "Hello",
+      editList:["Foo", "Bar", "Baz"]
     }
   },
   created() {
