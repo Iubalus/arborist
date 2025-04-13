@@ -1,6 +1,7 @@
 <template>
-    <Labelled :label="label">
-        <button type="button" :class="[readOnly ? 'disabled' : '']" :disabled="readOnly" @click="doClick">
+    <Labelled :label="label" :style="`width:${width}`">
+        <button type="button" :class="[readOnly ? 'disabled' : '']" :disabled="readOnly"
+            @click="doClick">
             {{ text }}
         </button>
     </Labelled>
@@ -19,6 +20,10 @@ export default defineComponent({
         text: {
             type: String,
             required: true
+        },
+        width: {
+            type: String,
+            default: () => null
         },
         readOnly: {
             type: Boolean,

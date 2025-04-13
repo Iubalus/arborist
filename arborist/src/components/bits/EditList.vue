@@ -3,7 +3,10 @@
         <ul :class="[readOnly ? '' : 'draggable']">
             <li v-for="(v, i) in visibleList" :key="keys[i]" :draggable="!readOnly" :ondragover="dragOver"
                 :ondragstart="dragStart" :ondragend="dragEnd" :data-index="i">
-                <LabelText v-model:value="internalValue[i]" :read-only="readOnly"></LabelText>
+                <div class="item-row">
+                    <LabelText v-model:value="internalValue[i]" :read-only="readOnly"></LabelText>
+                    <Btn v-if="!readOnly" text="X" width="30px" @click="() => deleteItem(i)"></Btn>
+                </div>
             </li>
             <li v-show="!readOnly">
                 <Btn text="Add" @click="addItem"></Btn>
@@ -13,7 +16,7 @@
     </Labelled>
 </template>
 <script lang="ts">
-import { defineComponent, type PropType } from 'vue'
+import { defineComponent, readonly, type PropType } from 'vue'
 import LabelText from './LabelText.vue';
 import Labelled from './Labelled.vue';
 import Btn from './Btn.vue';
@@ -77,8 +80,11 @@ export default defineComponent({
         dragStart(e: any) {
             this.dragStartIndex = e.target.dataset.index;
         },
-        addItem(){
+        addItem() {
             this.internalValue.push("");
+        },
+        deleteItem(index: number) {
+            this.internalValue.splice(index, 1);
         }
     }
 })
@@ -100,5 +106,10 @@ ul {
             margin-top: 5px;
         }
     }
+}
+
+.item-row {
+    display: flex;
+    gap: 10px;
 }
 </style>
