@@ -14,18 +14,16 @@
         </InterviewSnapshot>
       </div>
     </div>
-    <LabelText
-      v-model:value="testValue"
-    />
-    <LabelText
-      label="Sample"
-      v-model:value="testValue"
-    />    
-    <LabelText
-      label="Sample"
-      v-model:value="testValue"
-      read-only
-    />
+    <Card
+      title="Hello World"
+    >
+
+    </Card>
+    <Card>
+      <LabelText v-model:value="testValue" />
+      <LabelText label="Sample" v-model:value="testValue" />
+      <LabelText label="Sample" v-model:value="testValue" read-only />
+    </Card>
     <pre>{{ testValue }}</pre>
     <pre>
       {{ profiles }}
@@ -37,8 +35,9 @@ import { defineComponent } from "vue";
 import InterviewSnapshot from './components/InterviewSnapshot.vue';
 import { loadProfiles, Profile } from "./data";
 import LabelText from "./components/bits/LabelText.vue";
+import Card from "./components/bits/Card.vue";
 export default defineComponent({
-  components: { InterviewSnapshot, LabelText },
+  components: { InterviewSnapshot, LabelText, Card },
   data() {
     return {
       profiles: [],

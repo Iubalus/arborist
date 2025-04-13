@@ -54,6 +54,7 @@ export default defineComponent({
     input {
         padding: 5px 10px;
         width: 100%;
+        box-sizing: border-box;
     }
 }
 </style>
