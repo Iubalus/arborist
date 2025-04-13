@@ -5,6 +5,9 @@
                 :ondragstart="dragStart" :ondragend="dragEnd" :data-index="i">
                 <LabelText v-model:value="internalValue[i]" :read-only="readOnly"></LabelText>
             </li>
+            <li v-show="!readOnly">
+                <Btn text="Add" @click="addItem"></Btn>
+            </li>
         </ul>
         <pre>{{ keys }}</pre>
     </Labelled>
@@ -13,9 +16,10 @@
 import { defineComponent, type PropType } from 'vue'
 import LabelText from './LabelText.vue';
 import Labelled from './Labelled.vue';
+import Btn from './Btn.vue';
 
 export default defineComponent({
-    components: { LabelText, Labelled },
+    components: { LabelText, Labelled, Btn },
     props: {
         label: {
             type: String,
@@ -72,6 +76,9 @@ export default defineComponent({
         },
         dragStart(e: any) {
             this.dragStartIndex = e.target.dataset.index;
+        },
+        addItem(){
+            this.internalValue.push("");
         }
     }
 })
