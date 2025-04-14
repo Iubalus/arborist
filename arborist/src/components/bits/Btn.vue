@@ -47,7 +47,7 @@ button {
     padding: 5px 10px;
     box-sizing: border-box;
     border-radius: 5px;
-    background: rgb(204, 204, 255);
+    background: linear-gradient(360deg, rgb(129, 214, 253), white);
     width: 100%;
     border: solid 1px rgb(128, 128, 128);
 
@@ -57,7 +57,8 @@ button {
 
     &:hover:not(.disabled) {
         cursor: pointer;
-        background: rgb(223, 223, 248);
+        box-shadow:inset 0 0 3px rgb(90, 90, 90);
+        background: linear-gradient(360deg, rgb(103, 165, 194), white);
     }
 }
 </style>
