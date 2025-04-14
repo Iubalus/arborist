@@ -14,6 +14,8 @@
         </div>
         <div class="present">
             <span class="float-label">Present</span>
+            <EditList v-model:value="internalProfile.present" as-row>
+            </EditList>
             <span v-for="name in internalProfile.present">
                 {{ name }}
             </span>
@@ -53,8 +55,10 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import { Profile } from '../data'
+import EditList from './bits/EditList.vue';
 
 export default defineComponent({
+    components: { EditList },
     props: {
         profile: {
             type: Object as PropType<Profile>,
@@ -64,7 +68,7 @@ export default defineComponent({
     emits: ['update'],
     data() {
         return {
-            internalProfile: this.profile
+            internalProfile: this.profile as Profile
         }
     },
     watch: {

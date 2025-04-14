@@ -1,6 +1,6 @@
 <template>
     <Labelled :label="label">
-        <ul :class="[readOnly ? '' : 'draggable']">
+        <ul :class="[readOnly ? '' : 'draggable', asRow ? 'as-row' : '']">
             <li v-for="(v, i) in visibleList" :key="keys[i]" :draggable="!readOnly" :ondragover="dragOver"
                 :ondragstart="dragStart" :ondragend="dragEnd" :data-index="i">
                 <div class="item-row">
@@ -12,11 +12,10 @@
                 <Btn text="Add" @click="addItem"></Btn>
             </li>
         </ul>
-        <pre>{{ keys }}</pre>
     </Labelled>
 </template>
 <script lang="ts">
-import { defineComponent, readonly, type PropType } from 'vue'
+import { defineComponent, type PropType } from 'vue'
 import LabelText from './LabelText.vue';
 import Labelled from './Labelled.vue';
 import Btn from './Btn.vue';
@@ -33,6 +32,10 @@ export default defineComponent({
             required: true
         },
         readOnly: {
+            type: Boolean,
+            default: false
+        },
+        asRow: {
             type: Boolean,
             default: false
         }
@@ -97,6 +100,20 @@ export default defineComponent({
     }
 }
 
+.as-row {
+    display: flex;
+    flex-wrap:wrap;
+    gap: 10px;
+    padding: 0;
+    margin:0;
+
+    li {
+        display: inline;
+        padding:0;
+        margin:0;
+    }
+}
+
 ul {
     margin: 0;
     padding: 0 0 0 25px;
@@ -110,6 +127,6 @@ ul {
 
 .item-row {
     display: flex;
-    gap: 10px;
+    gap: 5px;
 }
 </style>
