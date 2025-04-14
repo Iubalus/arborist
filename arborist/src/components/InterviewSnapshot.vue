@@ -12,53 +12,33 @@
                 </span>
             </div>
         </div>
-        <div class="present">
-            <span class="float-label">Present</span>
-            <EditList v-model:value="internalProfile.present" as-row>
-            </EditList>
-            <span v-for="name in internalProfile.present">
-                {{ name }}
-            </span>
-        </div>
+        <EditList label="Present" v-model:value="internalProfile.present" as-row />
         <div class="interview-question">
             <span class="float-label">Interview Question</span>
             <textarea v-model="internalProfile.interviewQuestion"></textarea>
         </div>
         <div class="lists">
-            <div>
-                <span class="float-label">Quick Facts</span>
-                <ul>
-                    <li v-for="quickFact in internalProfile.quickFacts">
-                        {{ quickFact }}
-                    </li>
-                </ul>
-            </div>
-            <div>
-                <span class="float-label">Insights</span>
-                <ul>
-                    <li v-for="insight in internalProfile.insights">
-                        {{ insight }}
-                    </li>
-                </ul>
-            </div>
+            <EditList label="Quick Facts" v-model:value="internalProfile.quickFacts" />
+            <EditList label="Insights" v-model:value="internalProfile.insights" />
         </div>
-        <div class="experience-map">
-            <span class="float-label">Experience Map</span>
-            <div>
-                <img :src="internalProfile.experienceMap" alt="experience map"></img>
+        <Card title="Experience Map">
+            <div class="experience-map">
+                <div>
+                    <img :src="internalProfile.experienceMap" alt="experience map"></img>
+                </div>
+                <textarea v-model="internalProfile.story"></textarea>
             </div>
-            <textarea v-model="internalProfile.story">
-            </textarea>
-        </div>
+        </Card>
     </div>
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import { Profile } from '../data'
 import EditList from './bits/EditList.vue';
+import Card from './bits/Card.vue';
 
 export default defineComponent({
-    components: { EditList },
+    components: { EditList, Card },
     props: {
         profile: {
             type: Object as PropType<Profile>,
@@ -87,7 +67,6 @@ export default defineComponent({
 .snapshot {
     text-align: center;
     padding: 10px;
-    box-shadow: 5px 5px 5px gray;
     position: relative;
     background: white;
 

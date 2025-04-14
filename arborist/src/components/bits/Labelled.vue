@@ -24,6 +24,7 @@ export default defineComponent({
     box-sizing: border-box;
 
     label {
+        text-align: left;
         font-size: 0.8em;
         display: block;
         margin-bottom: 3px;
