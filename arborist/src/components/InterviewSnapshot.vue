@@ -9,10 +9,10 @@
             <EditList label="Present" v-model:value="internalProfile.present" as-row />
             <LabelText v-model:value="internalProfile.interviewQuestion" big-text label="Interview Question">
             </LabelText>
-            <div class="lists">
+            <FlexRow>
                 <EditList label="Quick Facts" v-model:value="internalProfile.quickFacts" />
                 <EditList label="Insights" v-model:value="internalProfile.insights" />
-            </div>
+            </FlexRow>
             <Card title="Experience Map">
                 <LabelText v-model:value="internalProfile.experienceMap" label="Experience Map Image Path"></LabelText>
                 <div class="experience-map">
@@ -32,9 +32,10 @@ import Card from './bits/Card.vue';
 import LabelText from './bits/LabelText.vue';
 import type { Profile } from '../data';
 import Page from './bits/Page.vue';
+import FlexRow from './bits/FlexRow.vue';
 
 export default defineComponent({
-    components: { EditList, Card, LabelText, Page },
+    components: { EditList, Card, LabelText, Page, FlexRow },
     props: {
         profile: {
             type: Object as PropType<Profile>,
@@ -72,12 +73,6 @@ export default defineComponent({
         max-height: 100%;
         max-width: 100%;
     }
-}
-
-.lists {
-    display: flex;
-    gap: 10px;
-    align-content: center;
 }
 
 .experience-map {
