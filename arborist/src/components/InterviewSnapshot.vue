@@ -1,21 +1,26 @@
 <template>
     <Page :title="`${internalProfile.name} at ${internalProfile.company}`" :super-header="`At ${internalProfile.when}`">
-        <div class="snapshot">
-            <ImagePane v-model:value="internalProfile.profile" alt-text="Profile" circle background="black" />
-            <LabelText v-model:value="internalProfile.profile" label="Profile Image Path"></LabelText>            
-            <EditList v-model:value="internalProfile.memorableQuotes" />
-            <EditList label="Present" v-model:value="internalProfile.present" as-row />
-            <LabelText v-model:value="internalProfile.interviewQuestion" big-text label="Interview Question">
-            </LabelText>
+
+        <ImagePane v-model:value="internalProfile.profile" alt-text="Profile" circle background="black" />        
+        <EditList v-model:value="internalProfile.memorableQuotes" />
+        <EditList label="Present" v-model:value="internalProfile.present" as-row />
+        <LabelText v-model:value="internalProfile.interviewQuestion" big-text label="Interview Question">
+        </LabelText>
+        <FlexRow>
+            <EditList label="Quick Facts" v-model:value="internalProfile.quickFacts" />
+            <EditList label="Insights" v-model:value="internalProfile.insights" />
+        </FlexRow>
+        <Card title="Experience Map">
+            <ImagePane v-model:value="internalProfile.experienceMap" alt-text="Experience Map" />
+            <LabelText v-model:value="internalProfile.story" big-text label="Story"></LabelText>
+        </Card>
+        <Card title="Maint">
             <FlexRow>
-                <EditList label="Quick Facts" v-model:value="internalProfile.quickFacts" />
-                <EditList label="Insights" v-model:value="internalProfile.insights" />
+                <LabelText v-model:value="internalProfile.name" label="Name" />
+                <LabelText v-model:value="internalProfile.company" label="Company" />
+                <LabelText v-model:value="internalProfile.when" label="At" />
             </FlexRow>
-            <Card title="Experience Map">
-                <ImagePane v-model:value="internalProfile.experienceMap" alt-text="Experience Map" />                
-                <LabelText v-model:value="internalProfile.story" big-text label="Story"></LabelText>
-            </Card>
-        </div>
+        </Card>
     </Page>
 </template>
 <script lang="ts">
@@ -54,5 +59,4 @@ export default defineComponent({
 })
 
 </script>
-<style scoped>
-</style>
+<style scoped></style>
