@@ -1,6 +1,7 @@
 <template>
     <Page :title="`${internalProfile.name} at ${internalProfile.company}`" :super-header="`At ${internalProfile.when}`">
         <div class="snapshot">
+            <LabelText v-model:value="internalProfile.profile" label="Profile Image Path"></LabelText>
             <div class="profile">
                 <img :src="internalProfile.profile" alt="profile"></img>
             </div>
@@ -13,6 +14,7 @@
                 <EditList label="Insights" v-model:value="internalProfile.insights" />
             </div>
             <Card title="Experience Map">
+                <LabelText v-model:value="internalProfile.experienceMap" label="Experience Map Image Path"></LabelText>
                 <div class="experience-map">
                     <div>
                         <img :src="internalProfile.experienceMap" alt="experience map"></img>
