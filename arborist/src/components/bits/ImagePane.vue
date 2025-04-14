@@ -71,6 +71,7 @@ export default defineComponent({
     img {
         max-height: 100%;
         max-width: 100%;
+        filter: contrast(175%) brightness(120%) grayscale(60%);
     }
 }
 </style>
