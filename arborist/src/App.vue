@@ -24,12 +24,9 @@
       <LabelText v-model:value="testValue" />
       <LabelText label="Sample" v-model:value="testValue" />
       <LabelText label="Sample" v-model:value="testValue" read-only />
-    </Card>
-    <pre>{{ editList }}</pre>
-    <pre>{{ testValue }}</pre>
-    <pre>
-      {{ profiles }}
-    </pre>
+      <LabelText big-text label="Sample" v-model:value="testValue" read-only />
+      <LabelText big-text label="Sample" v-model:value="testValue" />
+    </Card>    
   </div>
 </template>
 <script lang="ts">

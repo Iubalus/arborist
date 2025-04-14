@@ -1,6 +1,7 @@
 <template>
     <Labelled :label="label">
-        <input v-model="internalValue" type="text" :disabled="readOnly" />
+        <textarea v-if="bigText" v-model="internalValue" type="text" :disabled="readOnly"></textarea>
+        <input v-else v-model="internalValue" type="text" :disabled="readOnly" />
     </Labelled>
 </template>
 <script lang="ts">
@@ -19,6 +20,10 @@ export default defineComponent({
             required: true
         },
         readOnly: {
+            type: Boolean,
+            default: false
+        },
+        bigText: {
             type: Boolean,
             default: false
         }
@@ -45,7 +50,17 @@ input {
     padding: 5px 10px;
     width: 100%;
     box-sizing: border-box;
-    border-radius:5px;
-    border:solid 1px black;
+    border-radius: 5px;
+    border: solid 1px black;
+}
+
+textarea {
+    width: 100%;
+    min-height: 100px;
+    box-sizing: border-box;
+    background: transparent;
+    border-radius: 5px;
+    margin: 0;    
+    padding: 10px;
 }
 </style>

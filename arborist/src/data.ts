@@ -5,7 +5,7 @@ export interface Profile {
     when: string;
     interviewQuestion: string;
     memorableQuotes: string[];
-    present: number[];
+    present: string[];
     quickFacts: string[],
     insights: string[],
     opportunityIds: number[],
@@ -54,7 +54,7 @@ export function loadProfiles(): Profile[] {
         }
     ] as Profile[]
 }
-let identities = new Map<Identity>();
+let identities = new Map<Number,Identity>();
 identities.set(1, { id: 1, name: "John Smith", company: "John Smith's Company" });
 identities.set(2, { id: 2, name: "Jeff Whelks" });
 identities.set(3, { id: 3, name: "Kim Kimberly" });
@@ -65,5 +65,5 @@ export function findIdentities(ids: number[]) {
 }
 
 export function findIdentity(id: number): Identity {
-    return identities.get(id) || {};
+    return identities.get(id) || {} as Identity;
 }
