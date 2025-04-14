@@ -5,11 +5,11 @@
                 :ondragstart="dragStart" :ondragend="dragEnd" :data-index="i">
                 <div class="item-row">
                     <LabelText v-model:value="internalValue[i]" :read-only="readOnly"></LabelText>
-                    <Btn v-if="!readOnly" text="X" width="30px" @click="() => deleteItem(i)"></Btn>
+                    <Btn v-if="!readOnly" text="-" width="30px" @click="() => deleteItem(i)"></Btn>
                 </div>
             </li>
             <li v-show="!readOnly">
-                <Btn text="Add" @click="addItem"></Btn>
+                <Btn text="+" @click="addItem"></Btn>
             </li>
         </ul>
     </Labelled>
