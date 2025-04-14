@@ -1,7 +1,6 @@
 <template>
     <Labelled :label="label" :style="`width:${width}`">
-        <button type="button" :class="[readOnly ? 'disabled' : '']" :disabled="readOnly"
-            @click="doClick">
+        <button type="button" :class="[readOnly ? 'disabled' : '']" :disabled="readOnly" @click="doClick">
             {{ text }}
         </button>
     </Labelled>
@@ -43,6 +42,8 @@ export default defineComponent({
 </script>
 <style scoped>
 button {
+    font-family: monospace;
+    text-align: center;
     padding: 5px 10px;
     box-sizing: border-box;
     border-radius: 5px;

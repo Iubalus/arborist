@@ -1,10 +1,8 @@
 <template>
     <Page :title="`${internalProfile.name} at ${internalProfile.company}`" :super-header="`At ${internalProfile.when}`">
         <div class="snapshot">
-            <LabelText v-model:value="internalProfile.profile" label="Profile Image Path"></LabelText>
-            <div class="profile">
-                <img :src="internalProfile.profile" alt="profile"></img>
-            </div>
+            <ImagePane v-model:value="internalProfile.profile" alt-text="Profile" circle background="black" />
+            <LabelText v-model:value="internalProfile.profile" label="Profile Image Path"></LabelText>            
             <EditList v-model:value="internalProfile.memorableQuotes" />
             <EditList label="Present" v-model:value="internalProfile.present" as-row />
             <LabelText v-model:value="internalProfile.interviewQuestion" big-text label="Interview Question">
@@ -14,13 +12,8 @@
                 <EditList label="Insights" v-model:value="internalProfile.insights" />
             </FlexRow>
             <Card title="Experience Map">
-                <LabelText v-model:value="internalProfile.experienceMap" label="Experience Map Image Path"></LabelText>
-                <div class="experience-map">
-                    <div>
-                        <img :src="internalProfile.experienceMap" alt="experience map"></img>
-                    </div>
-                    <LabelText v-model:value="internalProfile.story" big-text></LabelText>
-                </div>
+                <ImagePane v-model:value="internalProfile.experienceMap" alt-text="Experience Map" />                
+                <LabelText v-model:value="internalProfile.story" big-text label="Story"></LabelText>
             </Card>
         </div>
     </Page>
@@ -33,9 +26,10 @@ import LabelText from './bits/LabelText.vue';
 import type { Profile } from '../data';
 import Page from './bits/Page.vue';
 import FlexRow from './bits/FlexRow.vue';
+import ImagePane from './bits/ImagePane.vue';
 
 export default defineComponent({
-    components: { EditList, Card, LabelText, Page, FlexRow },
+    components: { EditList, Card, LabelText, Page, FlexRow, ImagePane },
     props: {
         profile: {
             type: Object as PropType<Profile>,
@@ -61,37 +55,4 @@ export default defineComponent({
 
 </script>
 <style scoped>
-.profile {
-    display: inline-block;
-    width: 500px;
-    height: 500px;
-    border-radius: 100%;
-    overflow: hidden;
-    background: black;
-
-    img {
-        max-height: 100%;
-        max-width: 100%;
-    }
-}
-
-.experience-map {
-    position: relative;
-    padding-top: 20px;
-    margin-top: 15px;
-    display: block;
-
-    div {
-        width: 100%;
-        max-height: 500px;
-        overflow: hidden;
-        background: white;
-        border-radius: 5px;
-
-        img {
-            max-height: 100%;
-            max-width: 100%;
-        }
-    }
-}
 </style>

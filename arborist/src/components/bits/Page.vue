@@ -24,10 +24,11 @@ export default defineComponent({
 </script>
 <style scoped>
 .page {
+    --page-pad: 20px;    
     overflow: auto;
     box-sizing: border-box;
     display: block;
-    padding: 20px 10px 10px 10px;
+    padding: var(--page-pad);
     margin-top: 10px;
     border-radius: 5px;
     box-shadow: 2px 2px 5px gray;
@@ -36,15 +37,15 @@ export default defineComponent({
     text-align: center;
 
     >h1 {
-        margin: 0 0 30px;
+        margin: var(--page-pad) 0 30px;
         padding: 0;
     }
 
     .super-header {
         position: absolute;
-        top: 10px;
-        right: 10px;
-        font-size:0.8em;
+        top: var(--page-pad);
+        right: var(--page-pad);
+        font-size: 0.8em;
     }
 }
 </style>
