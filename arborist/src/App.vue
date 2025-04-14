@@ -19,6 +19,7 @@
         <Btn text="Click Me" @click="() => console.log('hello')"></Btn>
         <Btn label="Nice" text="Click Me" read-only @click="() => console.log('hello')"></Btn>
         <EditList v-model:value="editList" as-row></EditList>
+        <EditList v-model:value="editList"></EditList>
         <EditList v-model:value="editList" label="Read Only" read-only></EditList>
       </Card>
       <Card>
@@ -34,7 +35,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import InterviewSnapshot from './components/InterviewSnapshot.vue';
-import { loadProfiles, Profile } from "./data";
+import { loadProfiles, type Profile } from "./data";
 import LabelText from "./components/bits/LabelText.vue";
 import Card from "./components/bits/Card.vue";
 import EditList from "./components/bits/EditList.vue";
@@ -44,8 +45,8 @@ export default defineComponent({
   components: { InterviewSnapshot, LabelText, Card, EditList, Btn, Page },
   data() {
     return {
-      profiles: [],
-      selectedProfile: null,
+      profiles: [] as Profile[],
+      selectedProfile: null as unknown as Profile,
       testValue: "Hello",
       editList: ["Foo", "Bar", "Baz"]
     }
