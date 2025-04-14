@@ -75,12 +75,12 @@ export default defineComponent({
             this.internalValue.splice(this.dragEndIndex, 0, elt);
             this.keys = this.makeKeys(this.internalValue);
             //@ts-ignore
-            this.$emit('update:value', v);
+            this.$emit('update:value', this.internalValue);            
         },
         dragOver(e: any) {
             this.dragEndIndex = e.target.dataset.index;
         },
-        dragStart(e: any) {
+        dragStart(e: any) {            
             this.dragStartIndex = e.target.dataset.index;
         },
         addItem() {
@@ -104,15 +104,15 @@ export default defineComponent({
 
 .as-row {
     display: flex;
-    flex-wrap:wrap;
+    flex-wrap: wrap;
     gap: 10px;
     padding: 0;
-    margin:0;
+    margin: 0;
 
     li {
         display: inline;
-        padding:0;
-        margin:0;
+        padding: 0;
+        margin: 0;
     }
 }
 
