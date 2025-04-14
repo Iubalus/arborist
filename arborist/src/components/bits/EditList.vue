@@ -85,9 +85,11 @@ export default defineComponent({
         },
         addItem() {
             this.internalValue.push("");
+            this.keys = this.makeKeys(this.internalValue);
         },
         deleteItem(index: number) {
             this.internalValue.splice(index, 1);
+            this.keys = this.makeKeys(this.internalValue);
         }
     }
 })
