@@ -1,18 +1,22 @@
 <template>
     <div class="canvas">
-        <div v-for="(card, i) in cards" :key="i" class="card" :style="`top:${card.y}px;left:${card.x}px;z-index:${card.z};`">
+        <div v-for="(card, i) in cards" :key="i" class="card"
+            :style="`top:${card.y}px;left:${card.x}px;z-index:${card.z};`">
             <div class="grab-arrow" draggable="true" v-on:dragstart="(e) => dragStart(e, i)"
                 v-on:drag="(e) => drag(e, i)">
                 &#10021;
             </div>
-            {{ card.text }}
+            <LabelText :label="'From ' + card.sources?.join(',')" v-model:value="card.title" />
+            <LabelText big-text v-model:value="card.text" />
         </div>
     </div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
+import LabelText from './bits/LabelText.vue';
 
 export default defineComponent({
+    components: { LabelText },
     data() {
         return {
             dragStartX: 0,
@@ -22,13 +26,17 @@ export default defineComponent({
             canvasHeight: 1000,
             cards: [
                 {
+                    title: "Card 1",
                     text: "Card 1",
+                    sources: ["#i2", "#i2"],
                     z: 0,
                     x: 100,
                     y: 100
                 },
                 {
+                    title: "Card 2",
                     text: "Card 2",
+                    sources: ["#i1"],
                     z: 1,
                     x: 30,
                     y: 30
@@ -73,8 +81,9 @@ export default defineComponent({
 
     .card {
         position: absolute;
-        width: 100px;
-        height: 100px;
+        padding: 10px;
+        width: 200px;
+        min-height: 200px;
         background: rgb(218, 218, 255);
         box-shadow: 2px 2px 5px rgba(0, 0, 0, .6);
     }
