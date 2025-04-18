@@ -22,6 +22,7 @@
         <EditList v-model:value="editList"></EditList>
         <EditList v-model:value="editList" label="Read Only" read-only></EditList>
       </Card>
+      <DragCanvas />
       <Card>
         <LabelText v-model:value="testValue" />
         <LabelText label="Sample" v-model:value="testValue" />
@@ -41,8 +42,9 @@ import Card from "./components/bits/Card.vue";
 import EditList from "./components/bits/EditList.vue";
 import Btn from "./components/bits/Btn.vue";
 import Page from "./components/bits/Page.vue";
+import DragCanvas from "./components/DragCanvas.vue";
 export default defineComponent({
-  components: { InterviewSnapshot, LabelText, Card, EditList, Btn, Page },
+  components: { InterviewSnapshot, LabelText, Card, EditList, Btn, Page, DragCanvas },
   data() {
     return {
       profiles: [] as Profile[],

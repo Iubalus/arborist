@@ -3,7 +3,7 @@
         <ul :class="[readOnly ? '' : 'draggable', asRow ? 'as-row' : '']">
             <li v-for="(v, i) in internalValue" :key="keys[i]" :draggable="!readOnly" :ondragover="dragOver"
                 :ondragstart="dragStart" :ondragend="dragEnd" :data-index="i">
-                <div class="item-row">
+                <div class="item-row" :data-use="v">
                     <LabelText v-model:value="internalValue[i]" :read-only="readOnly"></LabelText>
                     <Btn v-if="!readOnly" text="-" width="30px" @click="() => deleteItem(i)"></Btn>
                 </div>
