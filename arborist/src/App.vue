@@ -18,6 +18,8 @@
       <Card title="Hello World">
         <Btn text="Click Me" @click="() => console.log('hello')"></Btn>
         <Btn label="Nice" text="Click Me" read-only @click="() => console.log('hello')"></Btn>
+        <DualEditList v-model:value="doubleList" key-a="a" key-b="b" width-b="30%"></DualEditList>
+        <pre>{{ doubleList }}</pre>
         <EditList v-model:value="editList" as-row></EditList>
         <EditList v-model:value="editList"></EditList>
         <EditList v-model:value="editList" label="Read Only" read-only></EditList>
@@ -43,14 +45,16 @@ import EditList from "./components/bits/EditList.vue";
 import Btn from "./components/bits/Btn.vue";
 import Page from "./components/bits/Page.vue";
 import DragCanvas from "./components/DragCanvas.vue";
+import DualEditList from "./components/bits/DualEditList.vue";
 export default defineComponent({
-  components: { InterviewSnapshot, LabelText, Card, EditList, Btn, Page, DragCanvas },
+  components: { InterviewSnapshot, LabelText, Card, EditList, Btn, Page, DragCanvas, DualEditList },
   data() {
     return {
       profiles: [] as Profile[],
       selectedProfile: null as unknown as Profile,
       testValue: "Hello",
-      editList: ["Foo", "Bar", "Baz"]
+      editList: ["Foo", "Bar", "Baz"],
+      doubleList: [{ a: "hello", b: "World" }]
     }
   },
   created() {
