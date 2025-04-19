@@ -9,10 +9,11 @@ export interface Quote {
     from: string;
 }
 
-export interface Snapshot {
+export interface SnapshotData {
     id: string;
     interviewees: Interviewee[];
     company: string;
+    recordingURL: string;
     date: Date;
     interviewers: string[];
     leadInterviewer: string;
@@ -27,22 +28,27 @@ export interface Snapshot {
     story: string;
 }
 
-export function createSnapshot() {
-
-}
-
-export function loadSnapshots(): Promise<Snapshot[]> {
+export function loadSnapshots(): Promise<SnapshotData[]> {
     return Promise.resolve([
         {
-            id: "i1",
+            id: "i-1",
             interviewees: [
                 {
                     name: "Robin Smith",
                     profileURL: "/profile.jpg"
+                },
+                {
+                    name: "Jeff Smith",
+                    profileURL: "/profile.jpg"
+                },
+                {
+                    name: "Jane Smith",
+                    profileURL: "/profile.jpg"
                 }
             ],
             company: "My Company",
-            date: new Date("4/19/25 4:50PM"),
+            recordingURL: "#",
+            date: new Date("4/19/25 4:50 PM"),
             interviewers: ["Jeff"],
             leadInterviewer: "Jeff",
             interviewQuestions: ["Tell us about the last time you something"],

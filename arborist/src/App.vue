@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Snapshot v-if="snapshots.length > 0" :snapshot="snapshots[0]"></Snapshot>
     <div class="interview-panel">
       <div>
         <div v-for="(profile, i) in profiles" :key="i" class="profile-option" @click="() => selectedProfile = profile">
@@ -46,19 +47,23 @@ import Btn from "./components/bits/Btn.vue";
 import Page from "./components/bits/Page.vue";
 import DragCanvas from "./components/DragCanvas.vue";
 import DualEditList from "./components/bits/DualEditList.vue";
+import Snapshot from "./components/pages/Snapshot.vue";
+import { loadSnapshots, type SnapshotData } from "./snapshot-api";
 export default defineComponent({
-  components: { InterviewSnapshot, LabelText, Card, EditList, Btn, Page, DragCanvas, DualEditList },
+  components: { InterviewSnapshot, LabelText, Card, EditList, Btn, Page, DragCanvas, DualEditList, Snapshot },
   data() {
     return {
       profiles: [] as Profile[],
+      snapshots: [] as SnapshotData[],
       selectedProfile: null as unknown as Profile,
       testValue: "Hello",
       editList: ["Foo", "Bar", "Baz"],
       doubleList: [{ a: "hello", b: "World" }]
     }
   },
-  created() {
+  async created() {
     this.profiles = loadProfiles();
+    this.snapshots = await loadSnapshots();
   }
 })
 </script>
