@@ -2,16 +2,19 @@
     <div>
         <Page :title="title"
             :super-header="`${internalSnapshot.date.toLocaleDateString()} ${internalSnapshot.date.toLocaleTimeString()}`">
+            <FlexRow>
+                <Card title="Edit values" min-width="50%">
+                    <LabelText label="Company" v-model:value="internalSnapshot.company"></LabelText>
+                    <DualEditList label="Interviewees" v-model:value="internalSnapshot.interviewees" key-a="name" width-a="50%"
+                        key-b="profileURL" />
+                    <DualEditList label="Memorable Quotes" v-model:value="internalSnapshot.memorableQuotes" key-a="quote" key-b="from"
+                        width-b="30%" />
+                </Card>
+                <div>
+                    <QuoteDisplay :quotes="internalSnapshot.memorableQuotes"></QuoteDisplay>
+                </div>
+            </FlexRow>
         </Page>
-        <QuoteDisplay
-            :quotes="internalSnapshot.memorableQuotes"
-        ></QuoteDisplay>
-        <DualEditList
-            v-model:value="internalSnapshot.memorableQuotes"
-            key-a="quote"
-            key-b="from"
-            width-b="20%"
-        ></DualEditList>
     </div>
 </template>
 <script lang="ts">
@@ -20,9 +23,12 @@ import type { SnapshotData } from '../../snapshot-api';
 import Page from '../bits/Page.vue';
 import QuoteDisplay from '../bits/QuoteDisplay.vue';
 import DualEditList from '../bits/DualEditList.vue';
+import Card from '../bits/Card.vue';
+import FlexRow from '../bits/FlexRow.vue';
+import LabelText from '../bits/LabelText.vue';
 
 export default defineComponent({
-    components: { Page, QuoteDisplay, DualEditList },
+    components: { Page, QuoteDisplay, DualEditList, Card, FlexRow, LabelText },
     props: {
         snapshot: {
             type: Object as PropType<SnapshotData>,
@@ -50,6 +56,9 @@ export default defineComponent({
     },
     methods: {
         dolist(values: string[]) {
+            if (values.length == 0) {
+                return "";
+            }
             if (values.length == 1) {
                 return values[0];
             } else {

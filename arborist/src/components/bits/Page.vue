@@ -24,7 +24,7 @@ export default defineComponent({
 </script>
 <style scoped>
 .page {
-    --page-pad: 20px;    
+    --page-pad: 20px;
     overflow: auto;
     box-sizing: border-box;
     display: block;
@@ -35,6 +35,7 @@ export default defineComponent({
     background: white;
     position: relative;
     text-align: center;
+    width: 100%;
 
     >h1 {
         margin: var(--page-pad) 0 30px;

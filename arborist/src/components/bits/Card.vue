@@ -1,5 +1,5 @@
 <template>
-    <div class="card">
+    <div class="card" :style="`min-width:${minWidth};`">
         <h2 v-show="!!title">{{ title }}</h2>
         <slot></slot>
     </div>
@@ -12,6 +12,10 @@ export default defineComponent({
         title: {
             type: String,
             default: () => null
+        },
+        minWidth: {
+            type: String,
+            default: () => "0"
         }
     }
 })
