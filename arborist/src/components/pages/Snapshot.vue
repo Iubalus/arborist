@@ -2,16 +2,27 @@
     <div>
         <Page :title="title"
             :super-header="`${internalSnapshot.date.toLocaleDateString()} ${internalSnapshot.date.toLocaleTimeString()}`">
-        </Page>        
+        </Page>
+        <QuoteDisplay
+            :quotes="internalSnapshot.memorableQuotes"
+        ></QuoteDisplay>
+        <DualEditList
+            v-model:value="internalSnapshot.memorableQuotes"
+            key-a="quote"
+            key-b="from"
+            width-b="20%"
+        ></DualEditList>
     </div>
 </template>
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
 import type { SnapshotData } from '../../snapshot-api';
 import Page from '../bits/Page.vue';
+import QuoteDisplay from '../bits/QuoteDisplay.vue';
+import DualEditList from '../bits/DualEditList.vue';
 
 export default defineComponent({
-    components: { Page },
+    components: { Page, QuoteDisplay, DualEditList },
     props: {
         snapshot: {
             type: Object as PropType<SnapshotData>,

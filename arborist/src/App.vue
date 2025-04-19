@@ -19,8 +19,7 @@
       <Card title="Hello World">
         <Btn text="Click Me" @click="() => console.log('hello')"></Btn>
         <Btn label="Nice" text="Click Me" read-only @click="() => console.log('hello')"></Btn>
-        <DualEditList v-model:value="doubleList" key-a="a" key-b="b" width-b="30%"></DualEditList>
-        <pre>{{ doubleList }}</pre>
+        <DualEditList v-model:value="doubleList" key-a="a" key-b="b" width-b="30%"></DualEditList>        
         <EditList v-model:value="editList" as-row></EditList>
         <EditList v-model:value="editList"></EditList>
         <EditList v-model:value="editList" label="Read Only" read-only></EditList>

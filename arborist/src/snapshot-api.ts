@@ -58,7 +58,7 @@ export function loadSnapshots(): Promise<SnapshotData[]> {
                     from: "Robin"
                 },
                 {
-                    quote: "But what if?",
+                    quote: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pellentesque mi consectetur mauris fermentum, id faucibus neque dapibus. Phasellus vestibulum felis placerat, egestas dui ut, dictum dolor. Maecenas id euismod purus, ac faucibus nisi. Aenean et maximus neque, eu mollis turpis. In vitae urna libero. ",
                     from: "Robin"
                 }
             ],
