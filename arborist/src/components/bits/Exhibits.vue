@@ -2,7 +2,9 @@
     <div>
         <Labelled :label="exhibit.name" v-for="exhibit in exhibits" :key="exhibit.name">
             <div :class="'image-container'">
-                <img :src="exhibit.url" :alt="exhibit.name"></img>
+                <a :href="exhibit.url" target="_blank">
+                    <img :src="exhibit.url" :alt="exhibit.name"></img>
+                </a>
             </div>
         </Labelled>
     </div>
@@ -36,7 +38,7 @@ export default defineComponent({
 
     img {
         max-height: 100%;
-        max-width: 100%;        
+        max-width: 100%;
     }
 }
 </style>
