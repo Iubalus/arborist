@@ -4,8 +4,8 @@
             :super-header="`${internalSnapshot.date.toLocaleDateString()} ${internalSnapshot.date.toLocaleTimeString()}`">
             <FlexRow>
                 <Card title="Edit values" min-width="50%">
-                    <LabelText label="Company" v-model:value="internalSnapshot.company"/>
-                    <LabelText label="Recording URL" v-model:value="internalSnapshot.recordingURL"/>
+                    <LabelText label="Company" v-model:value="internalSnapshot.company" />
+                    <LabelText label="Recording URL" v-model:value="internalSnapshot.recordingURL" />
                     <DualEditList label="Interviewees" v-model:value="internalSnapshot.interviewees" key-a="name"
                         width-a="50%" key-b="profileURL" />
                     <EditList label="Interviewers" v-model:value="internalSnapshot.interviewers" />
@@ -14,6 +14,9 @@
                     <DualEditList label="Memorable Quotes" v-model:value="internalSnapshot.memorableQuotes"
                         key-a="quote" key-b="from" width-b="30%" />
                     <EditList label="Quick Facts" v-model:value="internalSnapshot.quickFacts" />
+                    <EditList label="Insights" v-model:value="internalSnapshot.insights" />
+                    <EditList label="Moments in Time" v-model:value="internalSnapshot.momentsInTime" />
+                    <LabelText label="Story" big-text v-model:value="internalSnapshot.story" />
                 </Card>
                 <div>
                     <a :href="internalSnapshot.recordingURL">Recording [link] &#8617;</a>
@@ -25,6 +28,10 @@
                             :interviewers="internalSnapshot.interviewers" />
                         <DisplayList label="Quick Facts" :values="internalSnapshot.quickFacts" />
                     </FlexRow>
+                    <DisplayList label="Insights" :values="internalSnapshot.insights" />
+                    <Exhibits :exhibits="internalSnapshot.exhibits"/>
+                    <DisplayList label="Moments in Time" :values="internalSnapshot.momentsInTime" />
+                    <DisplayTextBlock label="Story" :text="internalSnapshot.story" />
                 </div>
             </FlexRow>
         </Page>
@@ -45,9 +52,11 @@ import PresentDisplay from '../bits/PresentDisplay.vue';
 import { dolist } from '../bits/list-util';
 import ProfileImages from '../bits/ProfileImages.vue';
 import DisplayList from '../bits/DisplayList.vue';
+import DisplayTextBlock from '../bits/DisplayTextBlock.vue';
+import Exhibits from '../bits/Exhibits.vue';
 
 export default defineComponent({
-    components: { Page, QuoteDisplay, DualEditList, Card, FlexRow, LabelText, EditList, Selct, PresentDisplay, ProfileImages, DisplayList },
+    components: { Page, QuoteDisplay, DualEditList, Card, FlexRow, LabelText, EditList, Selct, PresentDisplay, ProfileImages, DisplayList, DisplayTextBlock, Exhibits },
     props: {
         snapshot: {
             type: Object as PropType<SnapshotData>,

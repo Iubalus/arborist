@@ -21,7 +21,7 @@ export interface SnapshotData {
     memorableQuotes: Quote[];
     quickFacts: string[];
     insights: string[];
-    exhibitsURLs: string[];
+    exhibits: { name: string, url: string }[];
     opportunityIds: string[];
     experienceMapURL: string;
     momentsInTime: string[];
@@ -60,7 +60,7 @@ export function loadSnapshots(): Promise<SnapshotData[]> {
             ],
             quickFacts: ["16ft tall", "Green and brown", "somewhat \"woodsy\""],
             insights: ["Might actually be a tree. Check out exhibit 1"],
-            exhibitsURLs: ["/ex1.png"],
+            exhibits: [{ name: "Exhibit 1", url: "/profile.jpg" }, { name: "Exhibit 2", url: "/profile.jpg" }],
             opportunityIds: ["1", "2", "3"],
             experienceMapURL: "/experience.png",
             momentsInTime: ["A", "B", "C"],
