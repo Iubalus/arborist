@@ -17,9 +17,10 @@
     </div>
     <Page title="Sample Page" super-header="Hello">
       <Card title="Hello World">
+        <Selct label="Hello" v-model:selected="selected" :options="options" ></Selct>        
         <Btn text="Click Me" @click="() => console.log('hello')"></Btn>
         <Btn label="Nice" text="Click Me" read-only @click="() => console.log('hello')"></Btn>
-        <DualEditList v-model:value="doubleList" key-a="a" key-b="b" width-b="30%"></DualEditList>        
+        <DualEditList v-model:value="doubleList" key-a="a" key-b="b" width-b="30%"></DualEditList>
         <EditList v-model:value="editList" as-row></EditList>
         <EditList v-model:value="editList"></EditList>
         <EditList v-model:value="editList" label="Read Only" read-only></EditList>
@@ -48,8 +49,9 @@ import DragCanvas from "./components/DragCanvas.vue";
 import DualEditList from "./components/bits/DualEditList.vue";
 import Snapshot from "./components/pages/Snapshot.vue";
 import { loadSnapshots, type SnapshotData } from "./snapshot-api";
+import Selct from "./components/bits/Selct.vue";
 export default defineComponent({
-  components: { InterviewSnapshot, LabelText, Card, EditList, Btn, Page, DragCanvas, DualEditList, Snapshot },
+  components: { InterviewSnapshot, LabelText, Card, EditList, Btn, Page, DragCanvas, DualEditList, Snapshot, Selct },
   data() {
     return {
       profiles: [] as Profile[],
@@ -57,7 +59,9 @@ export default defineComponent({
       selectedProfile: null as unknown as Profile,
       testValue: "Hello",
       editList: ["Foo", "Bar", "Baz"],
-      doubleList: [{ a: "hello", b: "World" }]
+      doubleList: [{ a: "hello", b: "World" }],
+      options: [{ value: "1", label: "Foo" }, { value: "2", label: "Bar" }],
+      selected: "1"
     }
   },
   async created() {
