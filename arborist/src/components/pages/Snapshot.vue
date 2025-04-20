@@ -12,13 +12,17 @@
                         :options="interviewerOptions" />
                     <DualEditList label="Memorable Quotes" v-model:value="internalSnapshot.memorableQuotes"
                         key-a="quote" key-b="from" width-b="30%" />
+                    <EditList label="Quick Facts" v-model:value="internalSnapshot.quickFacts" />
                 </Card>
                 <div>
-                    <ProfileImages :profiles="internalSnapshot.interviewees"/>
+                    <ProfileImages :profiles="internalSnapshot.interviewees" />
                     <QuoteDisplay :quotes="internalSnapshot.memorableQuotes" />
-                    <PresentDisplay label="Present" :lead-interviewer="internalSnapshot.leadInterviewer"
-                        :interviewees="internalSnapshot.interviewees.map(v => v.name)"
-                        :interviewers="internalSnapshot.interviewers" />
+                    <FlexRow>
+                        <PresentDisplay label="Present" :lead-interviewer="internalSnapshot.leadInterviewer"
+                            :interviewees="internalSnapshot.interviewees.map(v => v.name)"
+                            :interviewers="internalSnapshot.interviewers" />
+                        <DisplayList label="Quick Facts" :values="internalSnapshot.quickFacts" />
+                    </FlexRow>
                 </div>
             </FlexRow>
         </Page>
@@ -38,9 +42,10 @@ import Selct from '../bits/Selct.vue';
 import PresentDisplay from '../bits/PresentDisplay.vue';
 import { dolist } from '../bits/list-util';
 import ProfileImages from '../bits/ProfileImages.vue';
+import DisplayList from '../bits/DisplayList.vue';
 
 export default defineComponent({
-    components: { Page, QuoteDisplay, DualEditList, Card, FlexRow, LabelText, EditList, Selct, PresentDisplay, ProfileImages },
+    components: { Page, QuoteDisplay, DualEditList, Card, FlexRow, LabelText, EditList, Selct, PresentDisplay, ProfileImages, DisplayList },
     props: {
         snapshot: {
             type: Object as PropType<SnapshotData>,

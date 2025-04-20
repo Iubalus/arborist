@@ -40,16 +40,12 @@ export function loadSnapshots(): Promise<SnapshotData[]> {
                 {
                     name: "Jeff Smith",
                     profileURL: "/profile.jpg"
-                },
-                {
-                    name: "Jane Smith",
-                    profileURL: "/profile.jpg"
                 }
             ],
             company: "My Company",
             recordingURL: "#",
             date: new Date("4/19/25 4:50 PM"),
-            interviewers: ["Jeff"],
+            interviewers: ["Jeff", "Jake", "Jane"],
             leadInterviewer: "Jeff",
             interviewQuestions: ["Tell us about the last time you something"],
             memorableQuotes: [
