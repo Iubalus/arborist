@@ -1,6 +1,5 @@
 <template>
     <Page :title="`${internalProfile.name} at ${internalProfile.company}`" :super-header="`At ${internalProfile.when}`">
-
         <ImagePane v-model:value="internalProfile.profile" alt-text="Profile" circle background="black" />        
         <EditList v-model:value="internalProfile.memorableQuotes" />
         <EditList label="Present" v-model:value="internalProfile.present" as-row />

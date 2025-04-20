@@ -4,7 +4,8 @@
             :super-header="`${internalSnapshot.date.toLocaleDateString()} ${internalSnapshot.date.toLocaleTimeString()}`">
             <FlexRow>
                 <Card title="Edit values" min-width="50%">
-                    <LabelText label="Company" v-model:value="internalSnapshot.company"></LabelText>
+                    <LabelText label="Company" v-model:value="internalSnapshot.company"/>
+                    <LabelText label="Recording URL" v-model:value="internalSnapshot.recordingURL"/>
                     <DualEditList label="Interviewees" v-model:value="internalSnapshot.interviewees" key-a="name"
                         width-a="50%" key-b="profileURL" />
                     <EditList label="Interviewers" v-model:value="internalSnapshot.interviewers" />
@@ -15,6 +16,7 @@
                     <EditList label="Quick Facts" v-model:value="internalSnapshot.quickFacts" />
                 </Card>
                 <div>
+                    <a :href="internalSnapshot.recordingURL">Recording [link] &#8617;</a>
                     <ProfileImages :profiles="internalSnapshot.interviewees" />
                     <QuoteDisplay :quotes="internalSnapshot.memorableQuotes" />
                     <FlexRow>
