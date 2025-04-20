@@ -14,6 +14,7 @@
                         key-a="quote" key-b="from" width-b="30%" />
                 </Card>
                 <div>
+                    <ProfileImages :profiles="internalSnapshot.interviewees"/>
                     <QuoteDisplay :quotes="internalSnapshot.memorableQuotes" />
                     <PresentDisplay label="Present" :lead-interviewer="internalSnapshot.leadInterviewer"
                         :interviewees="internalSnapshot.interviewees.map(v => v.name)"
@@ -36,9 +37,10 @@ import EditList from '../bits/EditList.vue';
 import Selct from '../bits/Selct.vue';
 import PresentDisplay from '../bits/PresentDisplay.vue';
 import { dolist } from '../bits/list-util';
+import ProfileImages from '../bits/ProfileImages.vue';
 
 export default defineComponent({
-    components: { Page, QuoteDisplay, DualEditList, Card, FlexRow, LabelText, EditList, Selct, PresentDisplay },
+    components: { Page, QuoteDisplay, DualEditList, Card, FlexRow, LabelText, EditList, Selct, PresentDisplay, ProfileImages },
     props: {
         snapshot: {
             type: Object as PropType<SnapshotData>,

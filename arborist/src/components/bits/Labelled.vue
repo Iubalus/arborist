@@ -1,6 +1,6 @@
 <template>
     <div class="label-container">
-        <label v-show="!!label">{{ label }}</label>
+        <label v-show="!!label" :class="[center ? 'center' : '']">{{ label }}</label>
         <slot></slot>
     </div>
 </template>
@@ -12,6 +12,10 @@ export default defineComponent({
         label: {
             type: String,
             default: () => null
+        },
+        center: {
+            type: Boolean,
+            default: () => false
         }
     }
 })
@@ -24,10 +28,14 @@ export default defineComponent({
     box-sizing: border-box;
 
     label {
-        text-align: left;
         font-size: 0.8em;
+        text-align: left;
         display: block;
         margin-bottom: 3px;
+
+        &.center {
+            text-align: center;
+        }
     }
 }
 </style>
