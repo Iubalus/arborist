@@ -15,6 +15,9 @@
                         key-a="quote" key-b="from" width-b="30%" />
                     <EditList label="Quick Facts" v-model:value="internalSnapshot.quickFacts" />
                     <EditList label="Insights" v-model:value="internalSnapshot.insights" />
+                    <DualEditList label="Exhibits" v-model:value="internalSnapshot.exhibits" key-a="name" key-b="url"
+                        width-a="20%" />
+                    <LabelText label="Experience Map URL" v-model:value="internalSnapshot.experienceMapURL" />
                     <EditList label="Moments in Time" v-model:value="internalSnapshot.momentsInTime" />
                     <LabelText label="Story" big-text v-model:value="internalSnapshot.story" />
                 </Card>
@@ -29,7 +32,8 @@
                         <DisplayList label="Quick Facts" :values="internalSnapshot.quickFacts" />
                     </FlexRow>
                     <DisplayList label="Insights" :values="internalSnapshot.insights" />
-                    <Exhibits :exhibits="internalSnapshot.exhibits"/>
+                    <Exhibits :exhibits="internalSnapshot.exhibits" />
+                    <LabelImage :url="internalSnapshot.experienceMapURL" label="Experience Map" />
                     <DisplayList label="Moments in Time" :values="internalSnapshot.momentsInTime" />
                     <DisplayTextBlock label="Story" :text="internalSnapshot.story" />
                 </div>
@@ -54,9 +58,10 @@ import ProfileImages from '../bits/ProfileImages.vue';
 import DisplayList from '../bits/DisplayList.vue';
 import DisplayTextBlock from '../bits/DisplayTextBlock.vue';
 import Exhibits from '../bits/Exhibits.vue';
+import LabelImage from '../bits/LabelImage.vue';
 
 export default defineComponent({
-    components: { Page, QuoteDisplay, DualEditList, Card, FlexRow, LabelText, EditList, Selct, PresentDisplay, ProfileImages, DisplayList, DisplayTextBlock, Exhibits },
+    components: { Page, QuoteDisplay, DualEditList, Card, FlexRow, LabelText, EditList, Selct, PresentDisplay, ProfileImages, DisplayList, DisplayTextBlock, Exhibits, LabelImage },
     props: {
         snapshot: {
             type: Object as PropType<SnapshotData>,
