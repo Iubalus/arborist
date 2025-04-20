@@ -1,23 +1,9 @@
 <template>
   <div>
     <Snapshot v-if="snapshots.length > 0" :snapshot="snapshots[0]"></Snapshot>
-    <div class="interview-panel">
-      <div>
-        <div v-for="(profile, i) in profiles" :key="i" class="profile-option" @click="() => selectedProfile = profile">
-          {{
-            profile.name }} at {{
-            profile.company }} on {{ profile.when }}
-        </div>
-      </div>
-      <div>
-        <InterviewSnapshot v-if="selectedProfile" :profile="selectedProfile"
-          @update="(v: Profile) => selectedProfile = { ...selectedProfile, ...v }" :key="selectedProfile.id">
-        </InterviewSnapshot>
-      </div>
-    </div>
     <Page title="Sample Page" super-header="Hello">
       <Card title="Hello World">
-        <Selct label="Hello" v-model:selected="selected" :options="options" ></Selct>        
+        <Selct label="Hello" v-model:selected="selected" :options="options"></Selct>
         <Btn text="Click Me" @click="() => console.log('hello')"></Btn>
         <Btn label="Nice" text="Click Me" read-only @click="() => console.log('hello')"></Btn>
         <DualEditList v-model:value="doubleList" key-a="a" key-b="b" width-b="30%"></DualEditList>
@@ -38,8 +24,6 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-import InterviewSnapshot from './components/InterviewSnapshot.vue';
-import { loadProfiles, type Profile } from "./data";
 import LabelText from "./components/bits/LabelText.vue";
 import Card from "./components/bits/Card.vue";
 import EditList from "./components/bits/EditList.vue";
@@ -51,12 +35,10 @@ import Snapshot from "./components/pages/Snapshot.vue";
 import { loadSnapshots, type SnapshotData } from "./snapshot-api";
 import Selct from "./components/bits/Selct.vue";
 export default defineComponent({
-  components: { InterviewSnapshot, LabelText, Card, EditList, Btn, Page, DragCanvas, DualEditList, Snapshot, Selct },
+  components: { LabelText, Card, EditList, Btn, Page, DragCanvas, DualEditList, Snapshot, Selct },
   data() {
     return {
-      profiles: [] as Profile[],
       snapshots: [] as SnapshotData[],
-      selectedProfile: null as unknown as Profile,
       testValue: "Hello",
       editList: ["Foo", "Bar", "Baz"],
       doubleList: [{ a: "hello", b: "World" }],
@@ -65,29 +47,8 @@ export default defineComponent({
     }
   },
   async created() {
-    this.profiles = loadProfiles();
     this.snapshots = await loadSnapshots();
   }
 })
 </script>
-<style scoped>
-.interview-panel {
-  display: flex;
-  gap: 20px;
-
-  div:first-of-type {
-    flex-grow: 1;
-  }
-
-  .profile-option {
-    text-wrap: nowrap;
-    text-align: left;
-    padding: 5px 10px;
-
-    &:hover {
-      cursor: pointer;
-      background-color: #ebebeb;
-    }
-  }
-}
-</style>
+<style scoped></style>
