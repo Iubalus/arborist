@@ -4,7 +4,10 @@
             :super-header="`${internalSnapshot.date.toLocaleDateString()} ${internalSnapshot.date.toLocaleTimeString()}`">
             <FlexRow>
                 <Card title="Edit values" min-width="50%">
-                    <LabelText label="Company" v-model:value="internalSnapshot.company" />
+                    <FlexRow>
+                        <LabelText label="Company" v-model:value="internalSnapshot.company" />
+                        <DateTime label="When" v-model:value="internalSnapshot.date" />                        
+                    </FlexRow>
                     <LabelText label="Recording URL" v-model:value="internalSnapshot.recordingURL" />
                     <DualEditList label="Interviewees" v-model:value="internalSnapshot.interviewees" key-a="name"
                         width-a="50%" key-b="profileURL" />
@@ -59,9 +62,10 @@ import DisplayList from '../bits/DisplayList.vue';
 import DisplayTextBlock from '../bits/DisplayTextBlock.vue';
 import Exhibits from '../bits/Exhibits.vue';
 import LabelImage from '../bits/LabelImage.vue';
+import DateTime from '../bits/DateTime.vue';
 
 export default defineComponent({
-    components: { Page, QuoteDisplay, DualEditList, Card, FlexRow, LabelText, EditList, Selct, PresentDisplay, ProfileImages, DisplayList, DisplayTextBlock, Exhibits, LabelImage },
+    components: { Page, QuoteDisplay, DualEditList, Card, FlexRow, LabelText, EditList, Selct, PresentDisplay, ProfileImages, DisplayList, DisplayTextBlock, Exhibits, LabelImage, DateTime },
     props: {
         snapshot: {
             type: Object as PropType<SnapshotData>,
