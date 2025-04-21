@@ -45,6 +45,9 @@ export default defineComponent({
     box-sizing: border-box;
     margin-bottom: -13px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, .6);
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 
     &.active {
         font-weight: bold;
