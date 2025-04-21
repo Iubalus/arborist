@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <Home>
     <Snapshot v-if="snapshots.length > 0" :snapshot="snapshots[0]"></Snapshot>
     <Page title="Sample Page" super-header="Hello">
       <Card title="Hello World">
@@ -20,7 +20,7 @@
         <LabelText big-text label="Sample" v-model:value="testValue" />
       </Card>
     </Page>
-  </div>
+  </Home>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
@@ -34,8 +34,9 @@ import DualEditList from "./components/bits/DualEditList.vue";
 import Snapshot from "./components/pages/Snapshot.vue";
 import { loadSnapshots, type SnapshotData } from "./snapshot-api";
 import Selct from "./components/bits/Selct.vue";
+import Home from "./components/pages/Home.vue";
 export default defineComponent({
-  components: { LabelText, Card, EditList, Btn, Page, DragCanvas, DualEditList, Snapshot, Selct },
+  components: { LabelText, Card, EditList, Btn, Page, DragCanvas, DualEditList, Snapshot, Selct, Home },
   data() {
     return {
       snapshots: [] as SnapshotData[],
