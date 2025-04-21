@@ -1,8 +1,9 @@
 <template>
     <div>
-        <Page title="Snapshots">
-            <ul class="selection-list">
-                <li v-for="(snapshot, i) in snapshots" @click="() => selectSnapshot(i)"
+        <Page title="Snapshots" :key="reRender">
+            <Btn text="New" @click="createNew" />
+            <ul class="selection-list">                
+                <li v-for="(snapshot, i) in snapshots" @click="() => selectSnapshot(i)" :key="i"
                     :class="[i === selectedInd ? 'active' : '']">
                     {{ makeTitle(snapshot) }}
                     <span class="date"> {{ makeDate(snapshot) }}</span>
@@ -15,15 +16,17 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import Page from '../bits/Page.vue';
-import { loadSnapshots, type SnapshotData } from '../../snapshot-api';
+import { createSnapshot, loadSnapshots, type SnapshotData } from '../../snapshot-api';
 import Snapshot from './Snapshot.vue';
 import Tabs from '../bits/Tabs.vue';
 import { makeTitle, snapshotDate } from '../bits/snapshot-util';
+import Btn from '../bits/Btn.vue';
 
 export default defineComponent({
-    components: { Page, Snapshot, Tabs },
+    components: { Page, Snapshot, Tabs, Btn },
     data() {
         return {
+            reRender: 0,
             selectedInd: null as unknown as number,
             snapshots: [] as SnapshotData[]
         }
@@ -44,6 +47,11 @@ export default defineComponent({
             } else {
                 this.selectedInd = index;
             }
+        },
+        async createNew() {
+            await createSnapshot();
+            this.snapshots = await loadSnapshots();
+            this.reRender++;//Todo: Figure out why the snapshots array is losing reactivity
         }
     }
 })
@@ -51,8 +59,8 @@ export default defineComponent({
 <style scoped>
 ul.selection-list {
     padding: 0;
-    margin: 0;
-    text-align: left;    
+    margin: 10px 0 0 0;
+    text-align: left;
 
     li {
         padding: 10px 20px;
@@ -83,7 +91,7 @@ ul.selection-list {
             position: absolute;
             top: 3px;
             right: 3px;
-            font-size:0.7em;
+            font-size: 0.7em;
         }
     }
 

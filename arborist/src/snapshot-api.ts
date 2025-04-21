@@ -28,61 +28,87 @@ export interface SnapshotData {
     story: string;
 }
 
-export function loadSnapshots(): Promise<SnapshotData[]> {
-    return Promise.resolve([
+let _snapshots = [
+    {
+        id: "i-1",
+        interviewees: [
+            {
+                name: "Robin Smith",
+                profileURL: "/profile.jpg"
+            },
+            {
+                name: "Jeff Smith",
+                profileURL: "/profile.jpg"
+            }
+        ],
+        company: "My Company",
+        recordingURL: "#",
+        date: new Date("4/19/25 4:50 PM"),
+        interviewers: ["Jeff", "Jake", "Jane"],
+        leadInterviewer: "Jeff",
+        interviewQuestions: ["Tell us about the last time you something"],
+        memorableQuotes: [
+            {
+                quote: "You're aren't",
+                from: "Robin"
+            },
+            {
+                quote: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pellentesque mi consectetur mauris fermentum, id faucibus neque dapibus. Phasellus vestibulum felis placerat, egestas dui ut, dictum dolor. Maecenas id euismod purus, ac faucibus nisi. Aenean et maximus neque, eu mollis turpis. In vitae urna libero. ",
+                from: "Robin"
+            }
+        ],
+        quickFacts: ["16ft tall", "Green and brown", "somewhat \"woodsy\""],
+        insights: ["Might actually be a tree. Check out exhibit 1"],
+        exhibits: [{ name: "Exhibit 1", url: "/profile.jpg" }, { name: "Exhibit 2", url: "/profile.jpg" }],
+        opportunityIds: ["1", "2", "3"],
+        experienceMapURL: "/experience.png",
+        momentsInTime: ["A", "B", "C"],
+        story: "Read the entire alphabet"
+    },
+    {
+        id: "i-2",
+        interviewees: [] as Interviewee[],
+        company: null as unknown as string,
+        recordingURL: null as unknown as string,
+        date: null as unknown as Date,
+        interviewers: [] as string[],
+        leadInterviewer: null as unknown as string,
+        interviewQuestions: [] as string[],
+        memorableQuotes: [] as Quote[],
+        quickFacts: [] as string[],
+        insights: [] as string[],
+        exhibits: [] as { name: string, url: string }[],
+        opportunityIds: [] as string[],
+        experienceMapURL: null as unknown as string,
+        momentsInTime: [] as string[],
+        story: null as unknown as string
+    }
+] as SnapshotData[]
+
+export function createSnapshot(): Promise<void> {
+    _snapshots.push(
         {
-            id: "i-1",
-            interviewees: [
-                {
-                    name: "Robin Smith",
-                    profileURL: "/profile.jpg"
-                },
-                {
-                    name: "Jeff Smith",
-                    profileURL: "/profile.jpg"
-                }
-            ],
-            company: "My Company",
-            recordingURL: "#",
-            date: new Date("4/19/25 4:50 PM"),
-            interviewers: ["Jeff", "Jake", "Jane"],
-            leadInterviewer: "Jeff",
-            interviewQuestions: ["Tell us about the last time you something"],
-            memorableQuotes: [
-                {
-                    quote: "You're aren't",
-                    from: "Robin"
-                },
-                {
-                    quote: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pellentesque mi consectetur mauris fermentum, id faucibus neque dapibus. Phasellus vestibulum felis placerat, egestas dui ut, dictum dolor. Maecenas id euismod purus, ac faucibus nisi. Aenean et maximus neque, eu mollis turpis. In vitae urna libero. ",
-                    from: "Robin"
-                }
-            ],
-            quickFacts: ["16ft tall", "Green and brown", "somewhat \"woodsy\""],
-            insights: ["Might actually be a tree. Check out exhibit 1"],
-            exhibits: [{ name: "Exhibit 1", url: "/profile.jpg" }, { name: "Exhibit 2", url: "/profile.jpg" }],
-            opportunityIds: ["1", "2", "3"],
-            experienceMapURL: "/experience.png",
-            momentsInTime: ["A", "B", "C"],
-            story: "Read the entire alphabet"
-        },
-        {
-            id: "i-2",
+            id: `i-${Math.max(..._snapshots.map(s => parseInt(s.id.split("-")[1]))) + 1}`,
             interviewees: [] as Interviewee[],
             company: null as unknown as string,
             recordingURL: null as unknown as string,
             date: null as unknown as Date,
-            interviewers: [] as String[],
-            leadInterviewer: null as unknown as String,
-            interviewQuestions: [] as String[],
+            interviewers: [] as string[],
+            leadInterviewer: null as unknown as string,
+            interviewQuestions: [] as string[],
             memorableQuotes: [] as Quote[],
-            quickFacts: [] as String[],
-            insights: [] as String[],
+            quickFacts: [] as string[],
+            insights: [] as string[],
             exhibits: [] as { name: string, url: string }[],
-            opportunityIds: [] as String[],
-            experienceMapURL: null as unknown as String,
-            momentsInTime: [] as String[],
-            story: null as unknown as String
+            opportunityIds: [] as string[],
+            experienceMapURL: null as unknown as string,
+            momentsInTime: [] as string[],
+            story: null as unknown as string
         }
-    ]);
+    )
+    return Promise.resolve();
+}
+
+export function loadSnapshots(): Promise<SnapshotData[]> {
+    return Promise.resolve(_snapshots);
 }
