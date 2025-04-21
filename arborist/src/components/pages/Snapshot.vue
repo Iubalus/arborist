@@ -1,12 +1,11 @@
 <template>
     <div>
-        <Page :title="title"
-            :super-header="`${internalSnapshot.date.toLocaleDateString()} ${internalSnapshot.date.toLocaleTimeString()}`">
+        <Page :title="title" :super-header="snapshotDate">
             <FlexRow>
                 <Card title="Edit values" min-width="50%">
                     <FlexRow>
                         <LabelText label="Company" v-model:value="internalSnapshot.company" />
-                        <DateTime label="When" v-model:value="internalSnapshot.date" />                        
+                        <DateTime label="When" v-model:value="internalSnapshot.date" />
                     </FlexRow>
                     <LabelText label="Recording URL" v-model:value="internalSnapshot.recordingURL" />
                     <DualEditList label="Interviewees" v-model:value="internalSnapshot.interviewees" key-a="name"
@@ -56,13 +55,13 @@ import LabelText from '../bits/LabelText.vue';
 import EditList from '../bits/EditList.vue';
 import Selct from '../bits/Selct.vue';
 import PresentDisplay from '../bits/PresentDisplay.vue';
-import { dolist } from '../bits/list-util';
 import ProfileImages from '../bits/ProfileImages.vue';
 import DisplayList from '../bits/DisplayList.vue';
 import DisplayTextBlock from '../bits/DisplayTextBlock.vue';
 import Exhibits from '../bits/Exhibits.vue';
 import LabelImage from '../bits/LabelImage.vue';
 import DateTime from '../bits/DateTime.vue';
+import { makeTitle, snapshotDate } from '../bits/snapshot-util';
 
 export default defineComponent({
     components: { Page, QuoteDisplay, DualEditList, Card, FlexRow, LabelText, EditList, Selct, PresentDisplay, ProfileImages, DisplayList, DisplayTextBlock, Exhibits, LabelImage, DateTime },
@@ -88,7 +87,10 @@ export default defineComponent({
     },
     computed: {
         title(): string {
-            return `#${this.internalSnapshot.id} ${dolist(this.internalSnapshot.interviewees.map(v => v.name))} at ${this.internalSnapshot.company}`
+            return makeTitle(this.internalSnapshot);
+        },
+        snapshotDate(): string {
+            return snapshotDate(this.internalSnapshot);
         },
         interviewerOptions(): { label: string, value: string }[] {
             return this.internalSnapshot.interviewers.map(v => { return { label: v, value: v } });

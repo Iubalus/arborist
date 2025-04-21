@@ -1,6 +1,5 @@
 <template>
-  <Home>
-    <Snapshot v-if="snapshots.length > 0" :snapshot="snapshots[0]"></Snapshot>
+  <Home>    
     <Page title="Sample Page" super-header="Hello">
       <Card title="Hello World">
         <Selct label="Hello" v-model:selected="selected" :options="options"></Selct>
@@ -32,23 +31,18 @@ import Page from "./components/bits/Page.vue";
 import DragCanvas from "./components/DragCanvas.vue";
 import DualEditList from "./components/bits/DualEditList.vue";
 import Snapshot from "./components/pages/Snapshot.vue";
-import { loadSnapshots, type SnapshotData } from "./snapshot-api";
 import Selct from "./components/bits/Selct.vue";
 import Home from "./components/pages/Home.vue";
 export default defineComponent({
   components: { LabelText, Card, EditList, Btn, Page, DragCanvas, DualEditList, Snapshot, Selct, Home },
   data() {
-    return {
-      snapshots: [] as SnapshotData[],
+    return {      
       testValue: "Hello",
       editList: ["Foo", "Bar", "Baz"],
       doubleList: [{ a: "hello", b: "World" }],
       options: [{ value: "1", label: "Foo" }, { value: "2", label: "Bar" }],
       selected: "1"
     }
-  },
-  async created() {
-    this.snapshots = await loadSnapshots();
   }
 })
 </script>

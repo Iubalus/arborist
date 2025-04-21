@@ -65,6 +65,24 @@ export function loadSnapshots(): Promise<SnapshotData[]> {
             experienceMapURL: "/experience.png",
             momentsInTime: ["A", "B", "C"],
             story: "Read the entire alphabet"
+        },
+        {
+            id: "i-2",
+            interviewees: [] as Interviewee[],
+            company: null as unknown as string,
+            recordingURL: null as unknown as string,
+            date: null as unknown as Date,
+            interviewers: [] as String[],
+            leadInterviewer: null as unknown as String,
+            interviewQuestions: [] as String[],
+            memorableQuotes: [] as Quote[],
+            quickFacts: [] as String[],
+            insights: [] as String[],
+            exhibits: [] as { name: string, url: string }[],
+            opportunityIds: [] as String[],
+            experienceMapURL: null as unknown as String,
+            momentsInTime: [] as String[],
+            story: null as unknown as String
         }
     ]);
 }

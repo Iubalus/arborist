@@ -40,7 +40,7 @@ export default defineComponent({
     },
     methods: {
         activateTab(index: number) {
-            this.active = this.tabs[index].page;
+            this.active = this.tabs[index].page as any;
         }
     }
 
