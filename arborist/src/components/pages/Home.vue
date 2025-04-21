@@ -1,5 +1,9 @@
 <template>
     <div class="home">
+        <div class="branding">
+            <img src="/arborist.png"></img>
+            <h1>rborist</h1>
+        </div>
         <Tabs :tabs="tabs" @tab-selected="activateTab" />
         <component :is="active"></component>
         <Page title="Playground">
@@ -42,4 +46,15 @@ export default defineComponent({
 
 })
 </script>
-<style scoped></style>
+<style scoped>
+.branding {
+    position: relative;
+    padding-bottom: 20px;
+
+    h1 {
+        top: 122px;
+        left: 95px;
+        position: absolute;
+    }
+}
+</style>
