@@ -27,7 +27,6 @@ body {
   margin: 0;
   padding: 10px;
   display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -47,6 +46,7 @@ body {
 
 #app {
   margin-top: 20px;
+  width: 100%;
 }
 
 @media (prefers-color-scheme: light) {

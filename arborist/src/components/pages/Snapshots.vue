@@ -52,7 +52,7 @@ export default defineComponent({
 ul.selection-list {
     padding: 0;
     margin: 0;
-    text-align: left;
+    text-align: left;    
 
     li {
         padding: 10px 20px;
@@ -81,8 +81,9 @@ ul.selection-list {
 
         .date {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 3px;
+            right: 3px;
+            font-size:0.7em;
         }
     }
 

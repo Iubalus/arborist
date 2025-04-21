@@ -1,8 +1,12 @@
 <template>
     <FlexRow>
-        <Labelled :label="profile.name" v-for="profile in profiles" :key="profile.name" center>
+        <Labelled :label="`${profile.name}${!profile.profileURL ? ' (not pictured below)' : ''}`"
+            v-for="profile in profiles" :key="profile.name" center>
             <div :class="'image-container'">
-                <img :src="profile.profileURL" :alt="profile.name"></img>
+                <div v-if="!profile.profileURL" class="unpictured">
+                    <span>None</span>
+                </div>
+                <img v-else :src="profile.profileURL" :alt="profile.name"></img>
             </div>
         </Labelled>
     </FlexRow>
@@ -42,6 +46,13 @@ export default defineComponent({
         max-height: 100%;
         max-width: 100%;
         filter: contrast(175%) brightness(120%) grayscale(60%);
+    }
+
+    .unpictured {
+        align-content: center;
+        height: 100%;
+        color: white;
+        font-size: 3em;
     }
 }
 </style>

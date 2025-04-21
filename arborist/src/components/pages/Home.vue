@@ -5,10 +5,7 @@
             <h1>rborist</h1>
         </div>
         <Tabs :tabs="tabs" @tab-selected="activateTab" />
-        <component :is="active"></component>
-        <Page title="Playground">
-            <slot></slot>
-        </Page>
+        <component :is="active"></component>        
     </div>
 </template>
 <script lang="ts">
@@ -18,22 +15,28 @@ import FlexRow from '../bits/FlexRow.vue';
 import Snapshots from './Snapshots.vue';
 import OppSolTree from './OppSolTree.vue';
 import Page from '../bits/Page.vue';
+import Playground from './Playground.vue';
 
 export default defineComponent({
     components: { Tabs, FlexRow, Page },
     data() {
         return {
-            active: Snapshots,
+            active: Playground,
             tabs: [
                 {
                     title: "Snapshot",
-                    active: true,
+                    active: false,
                     page: Snapshots
                 },
                 {
                     title: "Opportunity Solution Tree",
                     active: false,
                     page: OppSolTree
+                },
+                {
+                    title:"Playground",
+                    active: true,
+                    page: Playground
                 }
             ]
         }
