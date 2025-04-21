@@ -1,18 +1,16 @@
 <template>
     <div class="home">
-        <FlexRow>
-            <Tab v-for="(tab, i) in tabs" :key="i" :title="tab.title" :active="tab.active" @click="activateTab(i)" />
-        </FlexRow>
+        <Tabs :tabs="tabs" @tab-selected="activateTab" />
         <slot></slot>
     </div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import Tab from '../bits/Tab.vue';
+import Tabs from '../bits/Tabs.vue';
 import FlexRow from '../bits/FlexRow.vue';
 
 export default defineComponent({
-    components: { Tab, FlexRow },
+    components: { Tabs, FlexRow },
     data() {
         return {
             tabs: [
@@ -29,9 +27,7 @@ export default defineComponent({
     },
     methods: {
         activateTab(index: number) {
-            this.tabs.forEach((tab, i) => {
-                tab.active = i === index;
-            })
+            console.log(index);
         }
     }
 
