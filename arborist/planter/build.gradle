@@ -1,0 +1,16 @@
+plugins {
+    id 'java',
+    id 'war'
+}
+
+version 'unspecified'
+
+sourceCompatibility = JavaVersion.VERSION_11
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+}
