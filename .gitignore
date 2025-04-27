@@ -27,3 +27,5 @@ arborist/public/experience.png
 .gradle/
 build
 arborist/.vscode/extensions.json
+
+arborist/planter/gradle/wrapper/*

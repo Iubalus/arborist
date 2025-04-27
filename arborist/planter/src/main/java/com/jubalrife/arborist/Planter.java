@@ -1,4 +1,4 @@
-package planter;
+package com.jubalrife.arborist;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
