@@ -4,4 +4,4 @@ Create a tool to help manage Continuous Discovery synthesis to reduce the manual
 
 An attempt to aid in my personal adoption of Teresa Torres' Continuous Discovery habits.
 
-* [Design Notes](./docs/design-notes.md)
+* [Design Notes](./doc/design-notes.md)
