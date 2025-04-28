@@ -1,0 +1,23 @@
+import type { Question, QuestionLink } from "../components/pages/QuestionsInteractor";
+import type { HistoryType, Identity } from "../components/pages/SessionInteractor";
+import { createAPI } from "./mockapi";
+
+export interface API {
+    loadQuestions: () => Promise<Question[]>;
+    loadQuestionLinks: () => Promise<QuestionLink[]>;
+    saveQuestion: (question: Question) => Promise<String>;
+    archiveQuestion: (questionId: String) => Promise<void>;
+    linkQuestion: (link: QuestionLink) => Promise<void>;
+    unlinkQuestion: (link: QuestionLink) => Promise<void>;
+    listIdentities: () => Promise<Identity[]>;
+    becomeIdentity: (identity: Identity) => Promise<void>;
+    whoAmI: () => Promise<Identity>;
+    addIdentity: (identity: Identity) => Promise<void>;
+    recordChange: (identity: Identity, type: HistoryType, id: String, time: Date) => Promise<void>;
+}
+
+const _api = createAPI();
+
+export function api() {
+    return _api;
+}
