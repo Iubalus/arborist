@@ -8,7 +8,7 @@
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
 import Labelled from './Labelled.vue';
-import type { Quote } from '../../snapshot-api';
+import type { Quote } from '../pages/SnapshotInteractor';
 
 export default defineComponent({
     components: { Labelled },

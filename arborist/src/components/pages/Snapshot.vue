@@ -45,7 +45,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
-import type { SnapshotData } from '../../snapshot-api';
+import type { SnapshotData } from './SnapshotInteractor';
 import Page from '../bits/Page.vue';
 import QuoteDisplay from '../bits/QuoteDisplay.vue';
 import DualEditList from '../bits/DualEditList.vue';

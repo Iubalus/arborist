@@ -1,5 +1,6 @@
 import type { Question, QuestionLink } from "../components/pages/QuestionsInteractor";
 import type { HistoryType, Identity } from "../components/pages/SessionInteractor";
+import type { SnapshotData } from "../components/pages/SnapshotInteractor";
 import { createAPI } from "./mockapi";
 
 export interface API {
@@ -14,6 +15,8 @@ export interface API {
     whoAmI: () => Promise<Identity>;
     addIdentity: (identity: Identity) => Promise<void>;
     recordChange: (identity: Identity, type: HistoryType, id: String, time: Date) => Promise<void>;
+    loadSnapshots: () => Promise<SnapshotData[]>;
+    saveSnapshot: (snapshot: SnapshotData) => Promise<String>;
 }
 
 const _api = createAPI();

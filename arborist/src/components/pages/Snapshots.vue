@@ -16,7 +16,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import Page from '../bits/Page.vue';
-import { createSnapshot, loadSnapshots, type SnapshotData } from '../../snapshot-api';
+import { createSnapshot, loadSnapshots, type SnapshotData } from './SnapshotInteractor';
 import Snapshot from './Snapshot.vue';
 import Tabs from '../bits/Tabs.vue';
 import { makeTitle, snapshotDate } from '../bits/snapshot-util';
