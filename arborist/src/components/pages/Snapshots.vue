@@ -16,11 +16,12 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import Page from '../bits/Page.vue';
-import { createSnapshot, loadSnapshots, type SnapshotData } from './SnapshotInteractor';
+import { createSnapshot, loadSnapshots } from './SnapshotInteractor';
 import Snapshot from './Snapshot.vue';
 import Tabs from '../bits/Tabs.vue';
 import { makeTitle, snapshotDate } from '../bits/snapshot-util';
 import Btn from '../bits/Btn.vue';
+import type { SnapshotData } from '../types/Snapshot';
 
 export default defineComponent({
     components: { Page, Snapshot, Tabs, Btn },
