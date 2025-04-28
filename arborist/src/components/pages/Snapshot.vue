@@ -60,7 +60,7 @@ import PresentDisplay from '../bits/PresentDisplay.vue';
 import ProfileImages from '../bits/ProfileImages.vue';
 import QuoteDisplay from '../bits/QuoteDisplay.vue';
 import Selct from '../bits/Selct.vue';
-import { makeTitle, snapshotDate } from '../bits/snapshot-util';
+import { makeTitle, snapshotDate } from '../util/snapshot-util';
 import type { SnapshotData } from '../types/Snapshot';
 
 export default defineComponent({

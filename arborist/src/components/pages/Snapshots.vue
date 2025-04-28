@@ -19,7 +19,7 @@ import Page from '../bits/Page.vue';
 import { createSnapshot, loadSnapshots } from './SnapshotInteractor';
 import Snapshot from './Snapshot.vue';
 import Tabs from '../bits/Tabs.vue';
-import { makeTitle, snapshotDate } from '../bits/snapshot-util';
+import { makeTitle, snapshotDate } from '../util/snapshot-util';
 import Btn from '../bits/Btn.vue';
 import type { SnapshotData } from '../types/Snapshot';
 
