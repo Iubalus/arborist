@@ -13,7 +13,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import LabelText from './bits/LabelText.vue';
+import LabelText from './LabelText.vue';
 
 export default defineComponent({
     components: { LabelText },

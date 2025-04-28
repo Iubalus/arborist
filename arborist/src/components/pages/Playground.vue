@@ -26,7 +26,7 @@ import LabelText from '../bits/LabelText.vue';
 import Card from '../bits/Card.vue';
 import EditList from '../bits/EditList.vue';
 import Btn from '../bits/Btn.vue';
-import DragCanvas from '../DragCanvas.vue';
+import DragCanvas from '../bits/DragCanvas.vue';
 import DualEditList from '../bits/DualEditList.vue';
 import Snapshot from './Snapshot.vue';
 import Selct from '../bits/Selct.vue';
