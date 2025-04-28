@@ -1,6 +1,6 @@
-import type { Question, QuestionLink } from "../components/pages/QuestionsInteractor";
-import type { HistoryType, Identity } from "../components/pages/SessionInteractor";
-import type { Interviewee, Quote, SnapshotData } from "../components/pages/SnapshotInteractor";
+import type { Question, QuestionLink } from "../components/types/Questions";
+import type { HistoryType, Identity } from "../components/types/Session";
+import type { Interviewee, Quote, SnapshotData } from "../components/types/Snapshot";
 import type { API } from "./api";
 
 let questions = [] as Question[];

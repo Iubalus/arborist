@@ -1,4 +1,4 @@
-import { type SnapshotData } from "../pages/SnapshotInteractor";
+import type { SnapshotData } from "../types/Snapshot";
 import { dolist } from "./list-util";
 
 export function makeTitle(snapshot: SnapshotData) {

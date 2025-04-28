@@ -1,6 +1,6 @@
-import type { Question, QuestionLink } from "../components/pages/QuestionsInteractor";
-import type { HistoryType, Identity } from "../components/pages/SessionInteractor";
-import type { SnapshotData } from "../components/pages/SnapshotInteractor";
+import type { Question, QuestionLink } from "../components/types/Questions";
+import type { HistoryType, Identity } from "../components/types/Session";
+import type { SnapshotData } from "../components/types/Snapshot";
 import { createAPI } from "./mockapi";
 
 export interface API {

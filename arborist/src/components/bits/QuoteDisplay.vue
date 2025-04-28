@@ -6,9 +6,9 @@
     </Labelled>
 </template>
 <script lang="ts">
-import { defineComponent, type PropType } from 'vue'
+import { defineComponent, type PropType } from 'vue';
+import type { Quote } from '../types/Snapshot';
 import Labelled from './Labelled.vue';
-import type { Quote } from '../pages/SnapshotInteractor';
 
 export default defineComponent({
     components: { Labelled },

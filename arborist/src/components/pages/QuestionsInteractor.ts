@@ -1,22 +1,7 @@
 import { api } from "../../api/api";
-import { HistoryType, recordChange } from "./SessionInteractor";
-
-export interface QuestionLink {
-    leftQuestionId: String;
-    rightQuestionId: String;
-}
-
-export enum QuestionType {
-    RESEARCH = "RESEARCH",
-    INTERVIEW = "INTERVIEW"
-}
-
-export interface Question {
-    questionId: String;
-    text: String;
-    type: QuestionType;
-    archived: boolean;
-}
+import type { Question, QuestionLink } from "../types/Questions";
+import { HistoryType } from "../types/Session";
+import { recordChange } from "./SessionInteractor";
 
 export async function loadQuestions(): Promise<Question[]> {
     return await api().loadQuestions();

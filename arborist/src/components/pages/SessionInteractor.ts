@@ -1,12 +1,5 @@
 import { api } from "../../api/api";
-
-export interface Identity {
-    name: String
-}
-
-export enum HistoryType {
-    QUESTION = "QUESTION"
-}
+import type { HistoryType, Identity } from "../types/Session";
 
 export async function whoAmI(): Promise<Identity> {
     return await api().whoAmI();

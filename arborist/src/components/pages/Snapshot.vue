@@ -44,24 +44,24 @@
     </div>
 </template>
 <script lang="ts">
-import { defineComponent, type PropType } from 'vue'
-import type { SnapshotData } from './SnapshotInteractor';
-import Page from '../bits/Page.vue';
-import QuoteDisplay from '../bits/QuoteDisplay.vue';
-import DualEditList from '../bits/DualEditList.vue';
+import { defineComponent, type PropType } from 'vue';
 import Card from '../bits/Card.vue';
-import FlexRow from '../bits/FlexRow.vue';
-import LabelText from '../bits/LabelText.vue';
-import EditList from '../bits/EditList.vue';
-import Selct from '../bits/Selct.vue';
-import PresentDisplay from '../bits/PresentDisplay.vue';
-import ProfileImages from '../bits/ProfileImages.vue';
+import DateTime from '../bits/DateTime.vue';
 import DisplayList from '../bits/DisplayList.vue';
 import DisplayTextBlock from '../bits/DisplayTextBlock.vue';
+import DualEditList from '../bits/DualEditList.vue';
+import EditList from '../bits/EditList.vue';
 import Exhibits from '../bits/Exhibits.vue';
+import FlexRow from '../bits/FlexRow.vue';
 import LabelImage from '../bits/LabelImage.vue';
-import DateTime from '../bits/DateTime.vue';
+import LabelText from '../bits/LabelText.vue';
+import Page from '../bits/Page.vue';
+import PresentDisplay from '../bits/PresentDisplay.vue';
+import ProfileImages from '../bits/ProfileImages.vue';
+import QuoteDisplay from '../bits/QuoteDisplay.vue';
+import Selct from '../bits/Selct.vue';
 import { makeTitle, snapshotDate } from '../bits/snapshot-util';
+import type { SnapshotData } from '../types/Snapshot';
 
 export default defineComponent({
     components: { Page, QuoteDisplay, DualEditList, Card, FlexRow, LabelText, EditList, Selct, PresentDisplay, ProfileImages, DisplayList, DisplayTextBlock, Exhibits, LabelImage, DateTime },
