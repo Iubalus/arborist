@@ -27,16 +27,16 @@ export default defineComponent({
     components: { Tabs, FlexRow, Page },
     data() {
         return {
-            active: Overview,
+            active: Questions,
             tabs: [
                 {
                     title: "Home",
-                    active: true,
+                    active: false,
                     page: Overview
                 },
                 {
                     title: "Questions",
-                    active: false,
+                    active: true,
                     page: Questions
                 },
                 {

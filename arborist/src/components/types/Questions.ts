@@ -3,14 +3,9 @@ export interface QuestionLink {
     rightQuestionId: String;
 }
 
-export enum QuestionType {
-    RESEARCH = "RESEARCH",
-    INTERVIEW = "INTERVIEW"
-}
-
 export interface Question {
     questionId: String;
     text: String;
-    type: QuestionType;
+    type: 'RESEARCH' | 'INTERVIEW';
     archived: boolean;
 }
