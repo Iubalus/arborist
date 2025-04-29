@@ -3,13 +3,16 @@
         <table cellSpacing="0" cellpadding="5" border="1" bordercolor="#cfcfff">
             <tbody>
                 <tr v-for="(row, i) in toRows(content)" :key="i">
-                    <td v-for="(cell, j) in row" :key="j" :colspan="cell.colSpan" :data-before="cell.before"
-                        :data-after="cell.after">
-                        <div class="card-content" :style="`background:${cell.color};`">
-                            <div v-if="cell.author" class="card-author">{{ cell.author }}</div>
-                            <div v-if="cell.last" class="card-last">{{ cell.last }}</div>
-                            <strong v-if="cell.title">{{ cell.title }}</strong>
-                            <div>{{ cell.text }}</div>
+                    <td v-for="(cell, j) in row" :key="j" :colspan="cell.colSpan">
+                        <div class="card-wrap">
+                            <div class="joiner">{{ cell.before }}</div>
+                            <div class="card-content" :style="`background:${cell.color};`">
+                                <div v-if="cell.author" class="card-author">{{ cell.author }}</div>
+                                <div v-if="cell.last" class="card-last">{{ cell.last }}</div>
+                                <strong v-if="cell.title">{{ cell.title }}</strong>
+                                <div>{{ cell.text }}</div>
+                            </div>
+                            <div class="joiner">{{ cell.after }}</div>
                         </div>
                     </td>
                 </tr>
@@ -149,8 +152,9 @@ export default defineComponent({
 </script>
 <style scoped>
 .card-content {
-    width: 120px;
+    width: 140px;
     min-height: 100px;
+    font-size: 15px;
     padding: 20px 10px 10px 10px;
     text-align: center;
     background: rgb(255, 234, 177);
@@ -174,38 +178,37 @@ export default defineComponent({
     }
 }
 
-table {
+table, tr, tr {
     border-color: #cfcfff;
+}
 
-    tr {
-        border-color: #cfcfff;
+table {
+    .card-wrap {
+        display: flex;
+
+        .joiner {
+            text-align: center;
+            font-size: 3em;
+            align-content: center;
+            z-index: 2;
+            font-family: monospace;
+            text-wrap: nowrap;
+
+            &:first-of-type {
+                margin-left: -27px;
+                padding-right: 27px;
+            }
+
+            &:last-of-type {
+                margin-right: -27px;
+                padding-left: 27px;
+            }
+        }
     }
 
     td {
-        border-color: #cfcfff;
-        position: relative;
-        align-content: baseline;
-        padding: 10px;
-
-        &:before {
-            font-family: monospace;
-            content: attr(data-before);
-            position: absolute;
-            font-size: 40px;
-            left: -12px;
-            z-index: 10;
-            top: 45px;
-        }
-
-        &:after {
-            font-family: monospace;
-            content: attr(data-after);
-            position: absolute;
-            font-size: 40px;
-            right: -12px;
-            z-index: 10;
-            top: 45px;
-        }
+        align-content: flex-start;
+        padding: 10px 20px;
     }
 }
 </style>
