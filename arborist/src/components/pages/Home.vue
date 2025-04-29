@@ -27,7 +27,7 @@ export default defineComponent({
     components: { Tabs, FlexRow, Page },
     data() {
         return {
-            active: Questions,
+            active: OpportunitySolutionTree,
             tabs: [
                 {
                     title: "Home",
