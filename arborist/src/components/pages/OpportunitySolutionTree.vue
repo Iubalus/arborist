@@ -23,6 +23,16 @@
 import { defineComponent } from 'vue'
 import Page from '../bits/Page.vue';
 
+export interface Cell {
+    colSpan?: number;
+    title?: string;
+    author?: string;
+    last?: string;
+    color?: string;
+    text?: string;
+    joiner?: string;
+}
+
 export default defineComponent({
     components: { Page },
     data() {
@@ -97,37 +107,21 @@ export default defineComponent({
             }
             return root.children.map((c: any) => this.countLeaves(c)).reduce((l: number, r: number) => l + r, 0);
         },
-        toCell(root: any) {
-            let cell = {
-                colSpan: null as unknown as number,
-                before: null as unknown as string,
-                after: null as unknown as string,
-                title: null as unknown as string,
-                author: null as unknown as string,
-                last: null as unknown as string,
-                color: "#ffeab1",
-                text: null as unknown as string,
-                joiner: null as unknown as string,
-                classes: [] as string[]
-            };
-            let leaves = this.countLeaves(root);
-            if (leaves > 1) {
-                cell.colSpan = leaves;
-            }
-            cell.joiner = root.joiner;
-            cell.text = root.text;
-            cell.author = root.author;
-            cell.last = root.last;
-            cell.title = root.title;
-            cell.color = root.color;
-            cell.before = root.before;
-            cell.after = root.after;
-            return cell;
+        toCell(node: any): Cell {
+            return {
+                colSpan: this.countLeaves(node),
+                joiner: node.joiner,
+                text: node.text,
+                author: node.author,
+                last: node.last,
+                title: node.title,
+                color: node.color
+            } as Cell;
         },
-        toRows(children: any[]): any[] {
+        toRows(children: any[]): Cell[][] {
             let allChildren = [] as any[];
             let hadChildren = false;
-            let row = [] as any[]
+            let row = [] as Cell[]
             children.forEach((child: any) => {
                 row.push(this.toCell(child));
                 if (!!child.children) {
@@ -137,7 +131,7 @@ export default defineComponent({
                     allChildren.push({});//placeholder object for spacing
                 }
             })
-            let rows = [];
+            let rows = [] as Cell[][];
             rows.push(row);
             if (hadChildren) {
                 rows = rows.concat(this.toRows(allChildren));
