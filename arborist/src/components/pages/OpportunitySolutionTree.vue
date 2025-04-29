@@ -33,68 +33,56 @@ export interface Cell {
     joiner?: string;
 }
 
+const BUSINESS_OUTCOME = "#bce1f7";
+const SOLUTION = "#eccefb";
+
 export default defineComponent({
     components: { Page },
     data() {
         return {
             content: [{
-                text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat at nunc et egestas.",
+                text: "Business Outcome",
+                color: BUSINESS_OUTCOME,
                 children: [
                     {
-                        title: "Total",
-                        author: "Robin",
-                        last: "3/31/25 2:54PM",
-                        text: "1.1",
+                        joiner: "("
+                    },
+                    {
+                        text: "# of thing",
+                        color: BUSINESS_OUTCOME,
                         children: [
                             {
-                                joiner: "("
-                            },
-                            {
-                                text: "A",
-                            },
-                            {
-                                joiner: "+"
-                            },
-                            {
-                                text: "B",
+                                text: "Product Outcome 1",
                                 children: [
                                     {
-                                        joiner: "("
+                                        text: "Solution 1",
+                                        color: SOLUTION
                                     },
                                     {
-                                        text: "1.1.2.1 A",
-                                    },
-                                    {
-                                        joiner: "x"
-                                    },
-                                    {
-                                        text: "1.1.2.2 B"
-                                    },
-                                    {
-                                        joiner: ")"
+                                        title: "Status",
+                                        text: "Solution 2",
+                                        color: SOLUTION
                                     }
                                 ]
                             },
                             {
-                                joiner: "+"
-                            },
-                            {
-                                text: "C",
-                                children: [
-                                    {
-                                        text: "1.1.3.1 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat at nunc et egestas.",
-                                        color: 'rgb(177, 224, 255)'
-                                    }
-                                ]
-
-                            },
-                            {
-                                joiner: ")"
+                                text: "Product Outcome 2"
                             }
                         ]
                     },
                     {
-                        text: "1.2 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat at nunc et egestas."
+                        joiner: "x"
+                    },
+                    {
+                        text: "Avg value of thing",
+                        color: BUSINESS_OUTCOME
+                    },
+                    {
+                        joiner: ") -"
+                    },
+                    {
+                        text: "Some Offset",
+                        color: BUSINESS_OUTCOME
                     }
                 ]
             }]
