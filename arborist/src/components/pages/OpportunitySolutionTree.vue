@@ -4,15 +4,14 @@
             <tbody>
                 <tr v-for="(row, i) in toRows(content)" :key="i">
                     <td v-for="(cell, j) in row" :key="j" :colspan="cell.colSpan">
-                        <div class="card-wrap">
-                            <div class="joiner">{{ cell.before }}</div>
-                            <div class="card-content" :style="`background:${cell.color};`">
-                                <div v-if="cell.author" class="card-author">{{ cell.author }}</div>
-                                <div v-if="cell.last" class="card-last">{{ cell.last }}</div>
-                                <strong v-if="cell.title">{{ cell.title }}</strong>
-                                <div>{{ cell.text }}</div>
-                            </div>
-                            <div class="joiner">{{ cell.after }}</div>
+                        <div class="joiner" v-if="!!cell.joiner">
+                            {{ cell.joiner }}
+                        </div>
+                        <div v-if="!!cell.text" class="card-content" :style="`background:${cell.color};`">
+                            <div class="card-author">{{ cell.author }}</div>
+                            <div class="card-last">{{ cell.last }}</div>
+                            <strong>{{ cell.title }}</strong>
+                            <div>{{ cell.text }}</div>
                         </div>
                     </td>
                 </tr>
@@ -38,28 +37,39 @@ export default defineComponent({
                         text: "1.1",
                         children: [
                             {
+                                joiner: "("
+                            },
+                            {
                                 text: "A",
-                                before: "(",
-                                after: "+"
+                            },
+                            {
+                                joiner: "+"
                             },
                             {
                                 text: "B",
-                                after: "+",
                                 children: [
                                     {
-                                        text: "1.1.2.1 A",
-                                        before: "(",
-                                        after: "x"
+                                        joiner: "("
                                     },
                                     {
-                                        text: "1.1.2.2 B",
-                                        after: ")"
+                                        text: "1.1.2.1 A",
+                                    },
+                                    {
+                                        joiner: "x"
+                                    },
+                                    {
+                                        text: "1.1.2.2 B"
+                                    },
+                                    {
+                                        joiner: ")"
                                     }
                                 ]
                             },
                             {
+                                joiner: "+"
+                            },
+                            {
                                 text: "C",
-                                after: ")",
                                 children: [
                                     {
                                         text: "1.1.3.1 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat at nunc et egestas.",
@@ -67,6 +77,9 @@ export default defineComponent({
                                     }
                                 ]
 
+                            },
+                            {
+                                joiner: ")"
                             }
                         ]
                     },
@@ -85,12 +98,6 @@ export default defineComponent({
             return root.children.map((c: any) => this.countLeaves(c)).reduce((l: number, r: number) => l + r, 0);
         },
         toCell(root: any) {
-            if (!root.text) {
-                //placeholder cell for spacing
-                return {
-                    classes: ['empty-cell']
-                };
-            }
             let cell = {
                 colSpan: null as unknown as number,
                 before: null as unknown as string,
@@ -100,31 +107,21 @@ export default defineComponent({
                 last: null as unknown as string,
                 color: "#ffeab1",
                 text: null as unknown as string,
+                joiner: null as unknown as string,
                 classes: [] as string[]
             };
             let leaves = this.countLeaves(root);
             if (leaves > 1) {
                 cell.colSpan = leaves;
             }
+            cell.joiner = root.joiner;
             cell.text = root.text;
-            if (!!root.author) {
-                cell.author = root.author;
-            }
-            if (!!root.last) {
-                cell.last = root.last;
-            }
-            if (!!root.title) {
-                cell.title = root.title;
-            }
-            if (!!root.color) {
-                cell.color = root.color;
-            }
-            if (!!root.before) {
-                cell.before = root.before;
-            }
-            if (!!root.after) {
-                cell.after = root.after;
-            }
+            cell.author = root.author;
+            cell.last = root.last;
+            cell.title = root.title;
+            cell.color = root.color;
+            cell.before = root.before;
+            cell.after = root.after;
             return cell;
         },
         toRows(children: any[]): any[] {
@@ -178,36 +175,21 @@ export default defineComponent({
     }
 }
 
-table, tr, tr {
+table,
+tr,
+tr {
     border-color: #cfcfff;
 }
 
 table {
-    .card-wrap {
-        display: flex;
-
-        .joiner {
-            text-align: center;
-            font-size: 3em;
-            align-content: center;
-            z-index: 2;
-            font-family: monospace;
-            text-wrap: nowrap;
-
-            &:first-of-type {
-                margin-left: -27px;
-                padding-right: 27px;
-            }
-
-            &:last-of-type {
-                margin-right: -27px;
-                padding-left: 27px;
-            }
-        }
+    .joiner {
+        font-size: 3em;
+        font-family: monospace;
+        text-wrap: nowrap;
     }
 
     td {
-        align-content: flex-start;
+        align-content: center;
         padding: 10px 20px;
     }
 }
