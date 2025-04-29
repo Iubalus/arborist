@@ -49,16 +49,14 @@ button {
     background: rgb(209, 240, 255);
     width: 100%;
     border: solid 1px rgb(128, 128, 128);
-    box-shadow: 0 0 1px 1px rgb(44, 44, 44);
+    box-shadow: 0 0 1px 1px rgb(211, 210, 210);
     border-top: 2px solid white;
     border-left: 2px solid white;
     border-right: 2px solid gray;
     border-bottom: 2px solid gray;
-    text-shadow:
-        0 0 1px black,
+    text-shadow:        
         1px 0px 1px white,
         1px 1px 1px white;
-
 
     &.disabled {
         background: rgb(190, 190, 190);
