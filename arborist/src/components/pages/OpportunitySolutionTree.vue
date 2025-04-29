@@ -118,23 +118,15 @@ export default defineComponent({
                 color: node.color
             } as Cell;
         },
-        toRows(children: any[]): Cell[][] {
-            let allChildren = [] as any[];
-            let hadChildren = false;
-            let row = [] as Cell[]
-            children.forEach((child: any) => {
-                row.push(this.toCell(child));
-                if (!!child.children) {
-                    allChildren = allChildren.concat(child.children);
-                    hadChildren = true;
-                } else {
-                    allChildren.push({});//placeholder object for spacing
-                }
-            })
+        toRows(nodes: any[]): Cell[][] {
             let rows = [] as Cell[][];
-            rows.push(row);
-            if (hadChildren) {
-                rows = rows.concat(this.toRows(allChildren));
+            //Add this row
+            rows.push(nodes.map(n => this.toCell(n)));
+            //Add additional rows (recursively) if data is present
+            let EMPTY = {};
+            let nextNodes = nodes.flatMap(n => n.children || [EMPTY]);
+            if (nextNodes.some(n => n !== EMPTY)) {
+                rows = rows.concat(this.toRows(nextNodes));
             }
             return rows;
         }
