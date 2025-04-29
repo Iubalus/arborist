@@ -156,6 +156,8 @@ tr {
 }
 
 table {
+    margin: auto;
+
     .joiner {
         font-size: 3em;
         font-family: monospace;
