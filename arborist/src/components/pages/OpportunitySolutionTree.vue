@@ -1,11 +1,28 @@
 <template>
     <Page title="Opportunity/Solutions Tree">
+
         <table cellSpacing="0" cellpadding="5" border="1" bordercolor="#cfcfff">
             <tbody>
                 <tr v-for="(row, i) in toRows(content)" :key="i">
                     <td v-for="(cell, j) in row" :key="j" :colspan="cell.colSpan">
+
                         <div class="joiner" v-if="!!cell.joiner">
+                            <div class="cell-actions">
+                                <span>[x]</span>
+                                <span>[&#9998;]</span>
+                            </div>
                             {{ cell.joiner }}
+                        </div>
+                        <div v-if="!!cell.text" class="cell-actions">
+                            <span>[Cut]</span>
+                            <span>[Copy]</span>
+                            <span>[Paste]</span>
+                            <span>[x]</span>
+                            <span>[&#8594;]</span>
+                            <span>[&#8592;]</span>
+                            <span>[&#8593;]</span>
+                            <span>[&#8595;]</span>
+                            <span>[&#9998;]</span>
                         </div>
                         <div v-if="!!cell.text" class="card-content" :style="`background:${cell.color};`">
                             <div class="card-author">{{ cell.author }}</div>
@@ -165,8 +182,26 @@ table {
     }
 
     td {
+        position: relative;
         align-content: center;
-        padding: 10px 20px;
+        padding: 30px 20px 10px 20px;
+    }
+}
+
+.cell-actions {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    font-size: 10px;
+    color: blue;
+    display: flex;
+    gap: 5px;
+
+    span {
+        &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
     }
 }
 </style>

@@ -22,6 +22,7 @@ import Questions from './Questions.vue';
 import Snapshots from './Snapshots.vue';
 import SolutionStorymap from './SolutionStorymap.vue';
 import Overview from './Overview.vue';
+import Outcomes from './Outcomes.vue';
 
 export default defineComponent({
     components: { Tabs, FlexRow, Page },
@@ -35,6 +36,11 @@ export default defineComponent({
                     page: Overview
                 },
                 {
+                    title: "Outcomes",
+                    active: false,
+                    page: Outcomes
+                },
+                {
                     title: "Questions",
                     active: true,
                     page: Questions
@@ -46,7 +52,7 @@ export default defineComponent({
                 },
                 {
                     title: "Opportunity Solution Tree",
-                    active: false,
+                    active: true,
                     page: OpportunitySolutionTree
                 },
                 {
