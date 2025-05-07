@@ -6,6 +6,7 @@
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
 import type { ImageFile } from '../types/ImageFile';
+import { createAPI } from '../../api/mockapi';
 
 export default defineComponent({
     props: {
@@ -21,11 +22,11 @@ export default defineComponent({
         }
     },
     methods: {
-        handleImage(e: any) {
+        async handleImage(e: any) {
             const reader = new FileReader();
             reader.onload = () => {
                 if (reader.result) {
-                    this.internalImage.encoded = reader.result.toString();
+                    this.internalImage.encoded = reader.result.toString();                    
                 }
             };
             let file = e.target.files[0]
@@ -45,8 +46,9 @@ export default defineComponent({
             }
         },
         internalImage: {
-            handler: function (v) {
+            handler: async function (v) {
                 if (this.value !== v) {
+                    await createAPI().saveImage(this.internalImage);
                     this.$emit("update:value", v);
                 }
             }

@@ -1,3 +1,4 @@
+import type { ImageFile } from "../components/types/ImageFile";
 import type { Opportunity } from "../components/types/Opportunity";
 import type { Question, QuestionLink } from "../components/types/Questions";
 import type { HistoryType, Identity } from "../components/types/Session";
@@ -8,6 +9,7 @@ let questions = [] as Question[];
 let questionLink = [] as QuestionLink[];
 let identities = [] as Identity[];
 let history = [] as any[];
+let images = [] as ImageFile[];
 let currentIdentity = null as unknown as Identity;
 let opportunities = [
     {
@@ -65,7 +67,7 @@ let snapshots = [
         memorableQuotes: [] as Quote[],
         quickFacts: [] as string[],
         insights: [] as string[],
-        exhibits: [] as { name: string, url: string }[],        
+        exhibits: [] as { name: string, url: string }[],
         experienceMapURL: null as unknown as string,
         momentsInTime: [] as string[],
         story: null as unknown as string
@@ -179,6 +181,24 @@ export function createAPI(): API {
             opportunities = opportunities.filter((o: Opportunity) => o.snapshotIds.length > 0);
             return Promise.resolve(opportunity.opportunityId)
         },
+        saveImage: function (image: ImageFile): Promise<String> {
+            if (!!image.imageId) {
+                for (let i = 0; i < images.length; i++) {
+                    if (images[i].imageId === image.imageId) {
+                        images[i] = image;
+                    }
+                }
+                return Promise.resolve(image.imageId);
+            } else {
+                image.imageId = generateUUID();
+                images.push(image);
+                return Promise.resolve(image.imageId);
+            }
+        },
+        deleteImage: function (imageId: string): Promise<void> {
+            images = images.filter(i => i.imageId !== imageId);
+            return Promise.resolve();
+        },
         export: function (): Promise<any> {
             let toExport = {
                 questions: questions,
@@ -187,13 +207,12 @@ export function createAPI(): API {
                 history: history,
                 currentIdentity: currentIdentity,
                 opportunities: opportunities,
-                snapshots: snapshots
-            };
-            console.log("exporting", toExport);
+                snapshots: snapshots,
+                images: images
+            };            
             return Promise.resolve(toExport);
         },
-        import: function (data: any): Promise<void> {
-            console.log("importing", data)
+        import: function (data: any): Promise<void> {            
             questions = data.questions || questions;
             questionLink = data.questionLink || questionLink;
             identities = data.identities || identities;
@@ -201,6 +220,7 @@ export function createAPI(): API {
             currentIdentity = data.currentIdentity || currentIdentity;
             opportunities = data.opportunities || opportunities
             snapshots = data.snapshots || snapshots;
+            images = data.images || images;
             this.export();
             return Promise.resolve();
         }

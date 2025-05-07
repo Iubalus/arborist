@@ -1,3 +1,4 @@
+import type { ImageFile } from "../components/types/ImageFile";
 import type { Opportunity } from "../components/types/Opportunity";
 import type { Question, QuestionLink } from "../components/types/Questions";
 import type { HistoryType, Identity } from "../components/types/Session";
@@ -20,6 +21,8 @@ export interface API {
     findSnapshotOpportunities: (snapshotId: String) => Promise<Opportunity[]>;
     saveSnapshot: (snapshot: SnapshotData) => Promise<String>;
     saveOpportunity: (opportunity: Opportunity) => Promise<String>;
+    saveImage: (image: ImageFile) => Promise<String>;
+    deleteImage: (imageId: string) => Promise<void>;
     export: () => Promise<any>;
     import: (data: any) => Promise<void>;
 }
