@@ -4,43 +4,50 @@
     </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, type PropType } from 'vue'
+import type { ImageFile } from '../types/ImageFile';
 
 export default defineComponent({
     props: {
         value: {
-            type: String,
+            type: Object as PropType<ImageFile>,
             required: true
         }
     },
     emits: ["update:value"],
     data() {
         return {
-            internalEncodedImage: this.value
+            internalImage: this.value as ImageFile
         }
     },
     methods: {
         handleImage(e: any) {
             const reader = new FileReader();
             reader.onload = () => {
-                // this.encoded = e.target.result;
                 if (reader.result) {
-                    this.internalEncodedImage = reader.result.toString();
+                    this.internalImage.encoded = reader.result.toString();
                 }
             };
-            reader.readAsDataURL(e.target.files[0]);
+            let file = e.target.files[0]
+            this.internalImage = {
+                filename: file.name,
+                size: file.size,
+                type: file.type,
+                encoded: ""
+            };
+            reader.readAsDataURL(file);
         }
     },
     watch: {
         value: {
             handler: function (v) {
-                this.internalEncodedImage = v;
+                this.internalImage = v;
             }
         },
-        internalEncodedImage: {
+        internalImage: {
             handler: function (v) {
-                if(this.value !== v){
-                    this.$emit("update:value", v);                    
+                if (this.value !== v) {
+                    this.$emit("update:value", v);
                 }
             }
         }
