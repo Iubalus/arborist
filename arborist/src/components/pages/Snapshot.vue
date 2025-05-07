@@ -1,8 +1,14 @@
 <template>
     <div>
         <Page :title="title" :super-header="snapshotDate">
-            <FlexRow>
-                <Card title="Edit values" min-width="50%">
+            <Btn
+                v-show="!showEdit"
+                text="&#9998; Edit"
+                width="100px"
+                @click="()=>showEdit = true"
+            />
+            <FlexRow>                
+                <Card v-show="showEdit" title="Edit values" min-width="50%" closable @close="() => showEdit = false">
                     <FlexRow>
                         <LabelText label="Company" v-model:value="internalSnapshot.company" />
                         <DateTime label="When" v-model:value="internalSnapshot.date" />
@@ -66,9 +72,10 @@ import { makeTitle, snapshotDate } from '../util/snapshot-util';
 import type { SnapshotData } from '../types/Snapshot';
 import type { Opportunity } from '../types/Opportunity';
 import { createAPI } from '../../api/mockapi';
+import Btn from '../bits/Btn.vue';
 
 export default defineComponent({
-    components: { Page, QuoteDisplay, DualEditList, Card, FlexRow, LabelText, EditList, Selct, PresentDisplay, ProfileImages, DisplayList, DisplayTextBlock, Exhibits, LabelImage, DateTime },
+    components: { Page, QuoteDisplay, DualEditList, Card, FlexRow, LabelText, EditList, Selct, PresentDisplay, ProfileImages, DisplayList, DisplayTextBlock, Exhibits, LabelImage, DateTime, Btn },
     props: {
         snapshot: {
             type: Object as PropType<SnapshotData>,
@@ -78,6 +85,7 @@ export default defineComponent({
     emits: ['update'],
     data() {
         return {
+            showEdit: false,
             internalSnapshot: this.snapshot,
             rawOpportunities: [] as String[],
             opportunities: [] as Opportunity[]
