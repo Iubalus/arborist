@@ -1,5 +1,15 @@
 <template>
     <Page title="Playground" super-header="Hello">
+        <Card title="Import/Export All Data">
+            <div v-show="!!message" class="message">
+                {{ message }}
+            </div>
+            <FlexRow>
+                <Btn text="Import" @click="importJSON"></Btn>
+                <Btn text="Export" @click="exportJSON"></Btn>
+            </FlexRow>
+            <LabelText label="To Import" big-text v-model:value="toImport" />
+        </Card>
         <Card title="Hello World">
             <Selct label="Hello" v-model:selected="selected" :options="options"></Selct>
             <Btn text="Click Me" @click="() => console.log('hello')"></Btn>
@@ -17,13 +27,6 @@
             <LabelText big-text label="Sample" v-model:value="testValue" read-only />
             <LabelText big-text label="Sample" v-model:value="testValue" />
         </Card>
-
-        <Card title="Data Import/Export">
-            <Btn text="Import" @click="importJSON"></Btn>
-            <LabelText label="To Import" big-text v-model:value="toImport" />
-            <Btn text="Export" @click="exportJSON"></Btn>
-            <pre>{{ exported }}</pre>
-        </Card>
     </Page>
 </template>
 <script lang="ts">
@@ -38,9 +41,10 @@ import DualEditList from '../bits/DualEditList.vue';
 import Snapshot from './Snapshot.vue';
 import Selct from '../bits/Selct.vue';
 import { createAPI } from '../../api/mockapi';
+import FlexRow from '../bits/FlexRow.vue';
 
 export default defineComponent({
-    components: { LabelText, Card, EditList, Btn, Page, DragCanvas, DualEditList, Snapshot, Selct },
+    components: { LabelText, Card, EditList, Btn, Page, DragCanvas, DualEditList, Snapshot, Selct, FlexRow },
     data() {
         return {
             testValue: "Hello",
@@ -49,18 +53,35 @@ export default defineComponent({
             options: [{ value: "1", label: "Foo" }, { value: "2", label: "Bar" }],
             selected: "1",
             toImport: "",
-            exported: ""
+            message: ""
         }
     },
     methods: {
         async importJSON() {
+            this.message = "";
+            if (!this.toImport) {
+                this.message = "Nothing to import";
+                return;
+            }
             await createAPI().import(JSON.parse(this.toImport));
-
+            this.message = "Imported content";
         },
         async exportJSON() {
-            this.exported = await createAPI().export();
+            this.message = "";
+            let exported = await createAPI().export();
+            navigator.clipboard.writeText(JSON.stringify(exported, null, 2));
+            this.message = "Exported content to clipboard";
         }
     }
 })
 </script>
-<style scoped></style>
+<style scoped>
+.message {
+    font-family: monospace;
+    margin-top: 10px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, .6);
+    padding: 10px;
+    background: #e4f6ff;
+}
+</style>
