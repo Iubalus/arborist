@@ -5,6 +5,8 @@ import type { HistoryType, Identity } from "../components/types/Session";
 import type { Interviewee, Quote, SnapshotData } from "../components/types/Snapshot";
 import type { API } from "./api";
 
+const ARBORIST_DATA_KEY = "arborist-data";
+
 let data = {
     questions: [] as Question[],
     questionLink: [] as QuestionLink[],
@@ -76,6 +78,11 @@ let data = {
     ] as SnapshotData[]
 }
 
+let fromLocal = localStorage.getItem(ARBORIST_DATA_KEY);
+if (!!fromLocal) {
+    data = { ...data, ...JSON.parse(fromLocal) };
+}
+
 function generateUUID() {
     let template = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX";
     let hex = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
@@ -92,6 +99,10 @@ function generateUUID() {
 
 function nextSnapshotId() {
     return `i-${Math.max(...data.snapshots.map(s => parseInt(s.id.split("-")[1]))) + 1}`;
+}
+
+function commitStore() {
+    localStorage.setItem(ARBORIST_DATA_KEY, JSON.stringify(data));
 }
 
 export function createAPI(): API {
@@ -113,18 +124,22 @@ export function createAPI(): API {
                 data.questions.push(question);
                 question.questionId = generateUUID();
             }
+            commitStore();
             return Promise.resolve(question.questionId)
         },
         archiveQuestion: function (questionId: String): Promise<void> {
             data.questions.filter(v => v.questionId === questionId).map(q => q.archived = true);
+            commitStore();
             return Promise.resolve();
         },
         linkQuestion: function (link: QuestionLink): Promise<void> {
             data.questionLink.push(link);
+            commitStore();
             return Promise.resolve();
         },
         unlinkQuestion: function (link: QuestionLink): Promise<void> {
             data.questionLink.push(link);
+            commitStore();
             return Promise.resolve();
         },
         listIdentities: function (): Promise<Identity[]> {
@@ -132,10 +147,12 @@ export function createAPI(): API {
         },
         addIdentity: function (identity: Identity): Promise<void> {
             data.identities.push(identity);
+            commitStore();
             return Promise.resolve();
         },
         becomeIdentity: function (identity: Identity): Promise<void> {
             data.currentIdentity = identity;
+            commitStore();
             return Promise.resolve();
         },
         whoAmI: function (): Promise<Identity> {
@@ -147,13 +164,14 @@ export function createAPI(): API {
                 type: type,
                 id: id,
                 time: time
-            })
+            });
+            commitStore();
             return Promise.resolve();
         },
         loadSnapshots: function (): Promise<SnapshotData[]> {
             return Promise.resolve([...data.snapshots]);
         },
-        saveSnapshot: function (snapshot: SnapshotData) {
+        saveSnapshot: function (snapshot: SnapshotData): Promise<String> {
             if (!!snapshot.id) {
                 for (let i = 0; i < data.snapshots.length; i++) {
                     if (data.snapshots[i].id === snapshot.id) {
@@ -164,6 +182,8 @@ export function createAPI(): API {
                 snapshot.id = nextSnapshotId();
                 data.snapshots.push(snapshot);
             }
+            commitStore();
+            return Promise.resolve(snapshot.id);
         },
         findSnapshotOpportunities: function (snapshotId: String): Promise<Opportunity[]> {
             return Promise.resolve(data.opportunities.filter((o: Opportunity) => o.snapshotIds.includes(snapshotId)))
@@ -181,6 +201,7 @@ export function createAPI(): API {
             }
             //remove fully unassociated
             data.opportunities = data.opportunities.filter((o: Opportunity) => o.snapshotIds.length > 0);
+            commitStore();
             return Promise.resolve(opportunity.opportunityId)
         },
         saveImage: function (image: ImageFile): Promise<String> {
@@ -190,22 +211,24 @@ export function createAPI(): API {
                         data.images[i] = image;
                     }
                 }
-                return Promise.resolve(image.imageId);
             } else {
                 image.imageId = generateUUID();
                 data.images.push(image);
-                return Promise.resolve(image.imageId);
             }
+            commitStore();
+            return Promise.resolve(image.imageId);
         },
         deleteImage: function (imageId: string): Promise<void> {
             data.images = data.images.filter(i => i.imageId !== imageId);
+            commitStore();
             return Promise.resolve();
         },
-        export: function (): Promise<any> {                     
+        export: function (): Promise<any> {
             return Promise.resolve(data);
         },
-        import: function (newData: any): Promise<void> { 
-            data = {...data, ...newData};
+        import: function (newData: any): Promise<void> {
+            data = { ...data, ...newData };
+            commitStore();
             return Promise.resolve();
         }
     } as API

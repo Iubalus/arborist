@@ -89,8 +89,9 @@ export default defineComponent({
     },
     watch: {
         internalSnapshot: {
-            handler: function (v) {
+            handler: async function (v) {
                 this.$emit("update", v);
+                await createAPI().saveSnapshot(v);
             },
             deep: true
         },
