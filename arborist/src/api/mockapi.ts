@@ -1,6 +1,7 @@
+import type { Opportunity } from "../components/types/Opportunity";
 import type { Question, QuestionLink } from "../components/types/Questions";
 import type { HistoryType, Identity } from "../components/types/Session";
-import type { Interviewee, Quote, SnapshotData } from "../components/types/Snapshot";
+import type { Interviewee, Quote, SnapshotData} from "../components/types/Snapshot";
 import type { API } from "./api";
 
 let questions = [] as Question[];
@@ -8,6 +9,14 @@ let questionLink = [] as QuestionLink[];
 let identities = [] as Identity[];
 let history = [];
 let currentIdentity = null as unknown as Identity;
+let opportunities = [
+    {
+        opportunityId: "TEMP",
+        parentOpportunityId: null as unknown as String,
+        text: "Improve the experience",
+        snapshotIds: ["i-1"]
+    }
+] as Opportunity[];
 let snapshots = [
     {
         id: "i-1",
@@ -40,7 +49,6 @@ let snapshots = [
         quickFacts: ["16ft tall", "Green and brown", "somewhat \"woodsy\""],
         insights: ["Might actually be a tree. Check out exhibit 1"],
         exhibits: [{ name: "Exhibit 1", url: "/profile.jpg" }, { name: "Exhibit 2", url: "/profile.jpg" }],
-        opportunityIds: ["1", "2", "3"],
         experienceMapURL: "/experience.png",
         momentsInTime: ["A", "B", "C"],
         story: "Read the entire alphabet"
@@ -153,6 +161,24 @@ export function createAPI(): API {
                 snapshot.id = nextSnapshotId();
                 snapshots.push(snapshot);
             }
+        },
+        findSnapshotOpportunities: function (snapshotId: String): Promise<Opportunity[]> {
+            return Promise.resolve(opportunities.filter((o: Opportunity) => o.snapshotIds.includes(snapshotId)))
+        },
+        saveOpportunity: function (opportunity: Opportunity): Promise<String> {
+            if (!!opportunity.opportunityId) {
+                for (let i = 0; i < opportunities.length; i++) {
+                    if (opportunities[i].opportunityId === opportunity.opportunityId) {
+                        opportunities[i] = opportunity;
+                    }
+                }
+            } else {
+                opportunity.opportunityId = generateUUID();
+                opportunities.push(opportunity);
+            }
+            //remove fully unassociated
+            opportunities = opportunities.filter((o: Opportunity) => o.snapshotIds.length > 0);
+            return Promise.resolve(opportunity.opportunityId)
         }
     } as API
 }

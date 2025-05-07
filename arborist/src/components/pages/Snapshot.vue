@@ -17,6 +17,7 @@
                         key-a="quote" key-b="from" width-b="30%" />
                     <EditList label="Quick Facts" v-model:value="internalSnapshot.quickFacts" />
                     <EditList label="Insights" v-model:value="internalSnapshot.insights" />
+                    <EditList :key="rawOpportunities.length" label="Opportunities" v-model:value="rawOpportunities" />
                     <DualEditList label="Exhibits" v-model:value="internalSnapshot.exhibits" key-a="name" key-b="url"
                         width-a="20%" />
                     <LabelText label="Experience Map URL" v-model:value="internalSnapshot.experienceMapURL" />
@@ -34,6 +35,7 @@
                         <DisplayList label="Quick Facts" :values="internalSnapshot.quickFacts" />
                     </FlexRow>
                     <DisplayList label="Insights" :values="internalSnapshot.insights" />
+                    {{ opportunities }}
                     <Exhibits :exhibits="internalSnapshot.exhibits" />
                     <LabelImage :url="internalSnapshot.experienceMapURL" label="Experience Map" />
                     <DisplayList label="Moments in Time" :values="internalSnapshot.momentsInTime" />
@@ -62,6 +64,8 @@ import QuoteDisplay from '../bits/QuoteDisplay.vue';
 import Selct from '../bits/Selct.vue';
 import { makeTitle, snapshotDate } from '../util/snapshot-util';
 import type { SnapshotData } from '../types/Snapshot';
+import type { Opportunity } from '../types/Opportunity';
+import { createAPI } from '../../api/mockapi';
 
 export default defineComponent({
     components: { Page, QuoteDisplay, DualEditList, Card, FlexRow, LabelText, EditList, Selct, PresentDisplay, ProfileImages, DisplayList, DisplayTextBlock, Exhibits, LabelImage, DateTime },
@@ -74,13 +78,53 @@ export default defineComponent({
     emits: ['update'],
     data() {
         return {
-            internalSnapshot: this.snapshot
+            internalSnapshot: this.snapshot,
+            rawOpportunities: [] as String[],
+            opportunities: [] as Opportunity[]
         }
+    },
+    async created() {
+        this.opportunities = await createAPI().findSnapshotOpportunities(this.snapshot.id)
+        this.rawOpportunities = this.opportunities.map(v => v.text);
     },
     watch: {
         internalSnapshot: {
             handler: function (v) {
                 this.$emit("update", v);
+            },
+            deep: true
+        },
+        rawOpportunities: {
+            handler: async function (v) {
+                if (this.opportunities.length < this.rawOpportunities.length) {
+                    //insertion
+                    let opportunity = {
+                        opportunityId: null as unknown as String,
+                        parentOpportunityId: null as unknown as String,
+                        text: this.rawOpportunities[this.rawOpportunities.length - 1],
+                        snapshotIds: [this.snapshot.id]
+                    } as Opportunity
+                    let newId = await createAPI().saveOpportunity(opportunity);
+                    opportunity.opportunityId = newId;
+                    this.opportunities.push(opportunity);
+                } else if (this.opportunities.length > this.rawOpportunities.length) {
+                    //deletion
+                    let toRemove = this.opportunities.find(v => !this.rawOpportunities.includes(v.text))
+                    if (!toRemove) {
+                        return;
+                    }
+                    toRemove.snapshotIds = toRemove.snapshotIds.filter(v => v !== this.snapshot.id);
+                    await createAPI().saveOpportunity(toRemove);
+                    this.opportunities = this.opportunities.filter(v => v.opportunityId !== toRemove.opportunityId);
+                } else {
+                    //modification
+                    for (let i = 0; i < this.rawOpportunities.length; i++) {
+                        if (this.rawOpportunities[i] !== this.opportunities[i].text) {
+                            this.opportunities[i].text = this.rawOpportunities[i];
+                            await createAPI().saveOpportunity(this.opportunities[i]);
+                        }
+                    }
+                }
             },
             deep: true
         }

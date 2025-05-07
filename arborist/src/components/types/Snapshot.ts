@@ -20,8 +20,7 @@ export interface SnapshotData {
     memorableQuotes: Quote[];
     quickFacts: string[];
     insights: string[];
-    exhibits: { name: string, url: string }[];
-    opportunityIds: string[];
+    exhibits: { name: string, url: string }[];    
     experienceMapURL: string;
     momentsInTime: string[];
     story: string;

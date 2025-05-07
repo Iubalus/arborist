@@ -28,11 +28,11 @@ export default defineComponent({
     components: { Tabs, FlexRow, Page },
     data() {
         return {
-            active: OpportunitySolutionTree,
+            active: Snapshots,
             tabs: [
                 {
                     title: "Home",
-                    active: false,
+                    active: true,
                     page: Overview
                 },
                 {
@@ -42,7 +42,7 @@ export default defineComponent({
                 },
                 {
                     title: "Questions",
-                    active: true,
+                    active: false,
                     page: Questions
                 },
                 {
@@ -52,7 +52,7 @@ export default defineComponent({
                 },
                 {
                     title: "Opportunity Solution Tree",
-                    active: true,
+                    active: false,
                     page: OpportunitySolutionTree
                 },
                 {
