@@ -1,5 +1,9 @@
 <template>
     <Page title="Playground" super-header="Hello">
+        <ImageUpload 
+            v-model:value="imageTest"
+        />
+        <img :src="imageTest" />        
         <Card title="Import/Export All Data">
             <div v-show="!!message" class="message">
                 {{ message }}
@@ -42,9 +46,10 @@ import Snapshot from './Snapshot.vue';
 import Selct from '../bits/Selct.vue';
 import { createAPI } from '../../api/mockapi';
 import FlexRow from '../bits/FlexRow.vue';
+import ImageUpload from '../bits/ImageUpload.vue';
 
 export default defineComponent({
-    components: { LabelText, Card, EditList, Btn, Page, DragCanvas, DualEditList, Snapshot, Selct, FlexRow },
+    components: { LabelText, Card, EditList, Btn, Page, DragCanvas, DualEditList, Snapshot, Selct, FlexRow, ImageUpload},
     data() {
         return {
             testValue: "Hello",
@@ -53,7 +58,8 @@ export default defineComponent({
             options: [{ value: "1", label: "Foo" }, { value: "2", label: "Bar" }],
             selected: "1",
             toImport: "",
-            message: ""
+            message: "",
+            imageTest: ""
         }
     },
     methods: {

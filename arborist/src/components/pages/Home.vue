@@ -28,7 +28,7 @@ export default defineComponent({
     components: { Tabs, FlexRow, Page },
     data() {
         return {
-            active: Snapshots,
+            active: Playground,
             tabs: [
                 {
                     title: "Home",
