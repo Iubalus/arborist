@@ -1,6 +1,7 @@
 <template>
-    <div>
+    <div class="image-select">
         <input @change="handleImage" type="file" accept="image/*">
+        <span :title="`${internalImage?.size} bytes, ${internalImage?.type}`">{{ (internalImage || {}).filename }}</span>
     </div>
 </template>
 <script lang="ts">
@@ -26,7 +27,7 @@ export default defineComponent({
             const reader = new FileReader();
             reader.onload = () => {
                 if (reader.result) {
-                    this.internalImage.encoded = reader.result.toString();                    
+                    this.internalImage.encoded = reader.result.toString();
                 }
             };
             let file = e.target.files[0]
@@ -57,4 +58,41 @@ export default defineComponent({
 })
 
 </script>
-<style scoped></style>
+<style scoped>
+.image-select {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+
+    input {
+        box-shadow: 0 0 1px 1px rgb(211, 210, 210);
+
+        &::file-selector-button {
+            font-family: monospace;
+            width: 100%;
+            text-align: center;
+            padding: 3px 10px;
+            box-sizing: border-box;
+            background: rgb(209, 240, 255);
+            border: solid 1px rgb(128, 128, 128);
+            box-shadow: 0 0 1px 1px rgb(211, 210, 210);
+            border-top: 2px solid white;
+            border-left: 2px solid white;
+            border-right: 2px solid gray;
+            border-bottom: 2px solid gray;
+            text-shadow:
+                1px 0px 1px white,
+                1px 1px 1px white;
+        }
+
+        &:hover::file-selector-button {
+            cursor: pointer;
+            border-top: 2px solid darkgray;
+            border-left: 2px solid darkgray;
+            border-right: 2px solid transparent;
+            border-bottom: 2px solid transparent;
+            background: rgb(175, 201, 214);
+        }
+    }
+}
+</style>

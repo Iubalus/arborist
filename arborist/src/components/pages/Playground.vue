@@ -1,17 +1,18 @@
 <template>
-    <Page title="Playground" super-header="Hello">
+    <Page title="Playground" super-header="Hello">        
         <ImageUpload v-model:value="imageTest" />
         {{ imageTest?.filename }}
         {{ imageTest?.size }}
         {{ imageTest?.type }}
         <img :src="imageTest?.encoded" />
-        <Card title="Import/Export All Data">
+        <Card title="Import/Export All Data">            
             <div v-show="!!message" class="message">
                 {{ message }}
             </div>
             <FlexRow>
                 <Btn text="Import" @click="importJSON"></Btn>
                 <Btn text="Export" @click="exportJSON"></Btn>
+                <Btn text="Clear Cached Data" @click="clearCached" />
             </FlexRow>
             <LabelText label="To Import" big-text v-model:value="toImport" />
         </Card>
@@ -45,7 +46,7 @@ import DragCanvas from '../bits/DragCanvas.vue';
 import DualEditList from '../bits/DualEditList.vue';
 import Snapshot from './Snapshot.vue';
 import Selct from '../bits/Selct.vue';
-import { createAPI } from '../../api/mockapi';
+import { clearCachedData, createAPI } from '../../api/mockapi';
 import FlexRow from '../bits/FlexRow.vue';
 import ImageUpload from '../bits/ImageUpload.vue';
 import type { ImageFile } from '../types/ImageFile';
@@ -79,6 +80,11 @@ export default defineComponent({
             let exported = await createAPI().export();
             navigator.clipboard.writeText(JSON.stringify(exported, null, 2));
             this.message = "Exported content to clipboard";
+        },
+        clearCached() {
+            this.message = "";
+            clearCachedData();
+            this.message = "Cache has been cleared. Refresh to complete the process.";
         }
     }
 })

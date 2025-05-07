@@ -105,6 +105,10 @@ function commitStore() {
     localStorage.setItem(ARBORIST_DATA_KEY, JSON.stringify(data));
 }
 
+export function clearCachedData() {
+    localStorage.setItem(ARBORIST_DATA_KEY, "");
+}
+
 export function createAPI(): API {
     return {
         loadQuestions: function (): Promise<Question[]> {
