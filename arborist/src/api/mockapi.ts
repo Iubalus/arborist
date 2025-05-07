@@ -5,74 +5,76 @@ import type { HistoryType, Identity } from "../components/types/Session";
 import type { Interviewee, Quote, SnapshotData } from "../components/types/Snapshot";
 import type { API } from "./api";
 
-let questions = [] as Question[];
-let questionLink = [] as QuestionLink[];
-let identities = [] as Identity[];
-let history = [] as any[];
-let images = [] as ImageFile[];
-let currentIdentity = null as unknown as Identity;
-let opportunities = [
-    {
-        opportunityId: "TEMP",
-        parentOpportunityId: null as unknown as String,
-        text: "Improve the experience",
-        snapshotIds: ["i-1"]
-    }
-] as Opportunity[];
-let snapshots = [
-    {
-        id: "i-1",
-        interviewees: [
-            {
-                name: "Robin Smith",
-                profileURL: "/profile.jpg"
-            },
-            {
-                name: "Jeff Smith",
-                profileURL: "/profile.jpg"
-            }
-        ],
-        company: "My Company",
-        recordingURL: "#",
-        date: "2025-04-19T22:50:00.000Z",
-        interviewers: ["Jeff", "Jake", "Jane"],
-        leadInterviewer: "Jeff",
-        interviewQuestions: ["Tell us about the last time you something"],
-        memorableQuotes: [
-            {
-                quote: "You're aren't",
-                from: "Robin"
-            },
-            {
-                quote: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pellentesque mi consectetur mauris fermentum, id faucibus neque dapibus. Phasellus vestibulum felis placerat, egestas dui ut, dictum dolor. Maecenas id euismod purus, ac faucibus nisi. Aenean et maximus neque, eu mollis turpis. In vitae urna libero. ",
-                from: "Robin"
-            }
-        ],
-        quickFacts: ["16ft tall", "Green and brown", "somewhat \"woodsy\""],
-        insights: ["Might actually be a tree. Check out exhibit 1"],
-        exhibits: [{ name: "Exhibit 1", url: "/profile.jpg" }, { name: "Exhibit 2", url: "/profile.jpg" }],
-        experienceMapURL: "/experience.png",
-        momentsInTime: ["A", "B", "C"],
-        story: "Read the entire alphabet"
-    },
-    {
-        id: "i-2",
-        interviewees: [] as Interviewee[],
-        company: null as unknown as string,
-        recordingURL: null as unknown as string,
-        date: null as unknown as Date,
-        interviewers: [] as string[],
-        leadInterviewer: null as unknown as string,
-        interviewQuestions: [] as string[],
-        memorableQuotes: [] as Quote[],
-        quickFacts: [] as string[],
-        insights: [] as string[],
-        exhibits: [] as { name: string, url: string }[],
-        experienceMapURL: null as unknown as string,
-        momentsInTime: [] as string[],
-        story: null as unknown as string
-    }
-] as SnapshotData[];
+let data = {
+    questions: [] as Question[],
+    questionLink: [] as QuestionLink[],
+    identities: [] as Identity[],
+    history: [] as any[],
+    images: [] as ImageFile[],
+    currentIdentity: null as unknown as Identity,
+    opportunities: [
+        {
+            opportunityId: "TEMP",
+            parentOpportunityId: null as unknown as String,
+            text: "Improve the experience",
+            snapshotIds: ["i-1"]
+        }
+    ] as Opportunity[],
+    snapshots: [
+        {
+            id: "i-1",
+            interviewees: [
+                {
+                    name: "Robin Smith",
+                    profileURL: "/profile.jpg"
+                },
+                {
+                    name: "Jeff Smith",
+                    profileURL: "/profile.jpg"
+                }
+            ],
+            company: "My Company",
+            recordingURL: "#",
+            date: "2025-04-19T22:50:00.000Z",
+            interviewers: ["Jeff", "Jake", "Jane"],
+            leadInterviewer: "Jeff",
+            interviewQuestions: ["Tell us about the last time you something"],
+            memorableQuotes: [
+                {
+                    quote: "You're aren't",
+                    from: "Robin"
+                },
+                {
+                    quote: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pellentesque mi consectetur mauris fermentum, id faucibus neque dapibus. Phasellus vestibulum felis placerat, egestas dui ut, dictum dolor. Maecenas id euismod purus, ac faucibus nisi. Aenean et maximus neque, eu mollis turpis. In vitae urna libero. ",
+                    from: "Robin"
+                }
+            ],
+            quickFacts: ["16ft tall", "Green and brown", "somewhat \"woodsy\""],
+            insights: ["Might actually be a tree. Check out exhibit 1"],
+            exhibits: [{ name: "Exhibit 1", url: "/profile.jpg" }, { name: "Exhibit 2", url: "/profile.jpg" }],
+            experienceMapURL: "/experience.png",
+            momentsInTime: ["A", "B", "C"],
+            story: "Read the entire alphabet"
+        },
+        {
+            id: "i-2",
+            interviewees: [] as Interviewee[],
+            company: null as unknown as string,
+            recordingURL: null as unknown as string,
+            date: null as unknown as Date,
+            interviewers: [] as string[],
+            leadInterviewer: null as unknown as string,
+            interviewQuestions: [] as string[],
+            memorableQuotes: [] as Quote[],
+            quickFacts: [] as string[],
+            insights: [] as string[],
+            exhibits: [] as { name: string, url: string }[],
+            experienceMapURL: null as unknown as string,
+            momentsInTime: [] as string[],
+            story: null as unknown as string
+        }
+    ] as SnapshotData[]
+}
 
 function generateUUID() {
     let template = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX";
@@ -89,58 +91,58 @@ function generateUUID() {
 }
 
 function nextSnapshotId() {
-    return `i-${Math.max(...snapshots.map(s => parseInt(s.id.split("-")[1]))) + 1}`;
+    return `i-${Math.max(...data.snapshots.map(s => parseInt(s.id.split("-")[1]))) + 1}`;
 }
 
 export function createAPI(): API {
     return {
         loadQuestions: function (): Promise<Question[]> {
-            return Promise.resolve([...questions]);
+            return Promise.resolve([...data.questions]);
         },
         loadQuestionLinks: function (): Promise<QuestionLink[]> {
-            return Promise.resolve([...questionLink]);
+            return Promise.resolve([...data.questionLink]);
         },
         saveQuestion: function (question: Question): Promise<String> {
             if (!!question.questionId) {
-                for (let i = 0; i < questions.length; i++) {
-                    if (questions[i].questionId === question.questionId) {
-                        questions[i] = question;
+                for (let i = 0; i < data.questions.length; i++) {
+                    if (data.questions[i].questionId === question.questionId) {
+                        data.questions[i] = question;
                     }
                 }
             } else {
-                questions.push(question);
+                data.questions.push(question);
                 question.questionId = generateUUID();
             }
             return Promise.resolve(question.questionId)
         },
         archiveQuestion: function (questionId: String): Promise<void> {
-            questions.filter(v => v.questionId === questionId).map(q => q.archived = true);
+            data.questions.filter(v => v.questionId === questionId).map(q => q.archived = true);
             return Promise.resolve();
         },
         linkQuestion: function (link: QuestionLink): Promise<void> {
-            questionLink.push(link);
+            data.questionLink.push(link);
             return Promise.resolve();
         },
         unlinkQuestion: function (link: QuestionLink): Promise<void> {
-            questionLink.push(link);
+            data.questionLink.push(link);
             return Promise.resolve();
         },
         listIdentities: function (): Promise<Identity[]> {
-            return Promise.resolve([...identities])
+            return Promise.resolve([...data.identities])
         },
         addIdentity: function (identity: Identity): Promise<void> {
-            identities.push(identity);
+            data.identities.push(identity);
             return Promise.resolve();
         },
         becomeIdentity: function (identity: Identity): Promise<void> {
-            currentIdentity = identity;
+            data.currentIdentity = identity;
             return Promise.resolve();
         },
         whoAmI: function (): Promise<Identity> {
-            return Promise.resolve(currentIdentity);
+            return Promise.resolve(data.currentIdentity);
         },
         recordChange: function (identity: Identity, type: HistoryType, id: String, time: Date): Promise<void> {
-            history.push({
+            data.history.push({
                 name: identity.name,
                 type: type,
                 id: id,
@@ -149,79 +151,61 @@ export function createAPI(): API {
             return Promise.resolve();
         },
         loadSnapshots: function (): Promise<SnapshotData[]> {
-            return Promise.resolve([...snapshots]);
+            return Promise.resolve([...data.snapshots]);
         },
         saveSnapshot: function (snapshot: SnapshotData) {
             if (!!snapshot.id) {
-                for (let i = 0; i < snapshots.length; i++) {
-                    if (snapshots[i].id === snapshot.id) {
-                        snapshots[i] = snapshot;
+                for (let i = 0; i < data.snapshots.length; i++) {
+                    if (data.snapshots[i].id === snapshot.id) {
+                        data.snapshots[i] = snapshot;
                     }
                 }
             } else {
                 snapshot.id = nextSnapshotId();
-                snapshots.push(snapshot);
+                data.snapshots.push(snapshot);
             }
         },
         findSnapshotOpportunities: function (snapshotId: String): Promise<Opportunity[]> {
-            return Promise.resolve(opportunities.filter((o: Opportunity) => o.snapshotIds.includes(snapshotId)))
+            return Promise.resolve(data.opportunities.filter((o: Opportunity) => o.snapshotIds.includes(snapshotId)))
         },
         saveOpportunity: function (opportunity: Opportunity): Promise<String> {
             if (!!opportunity.opportunityId) {
-                for (let i = 0; i < opportunities.length; i++) {
-                    if (opportunities[i].opportunityId === opportunity.opportunityId) {
-                        opportunities[i] = opportunity;
+                for (let i = 0; i < data.opportunities.length; i++) {
+                    if (data.opportunities[i].opportunityId === opportunity.opportunityId) {
+                        data.opportunities[i] = opportunity;
                     }
                 }
             } else {
                 opportunity.opportunityId = generateUUID();
-                opportunities.push(opportunity);
+                data.opportunities.push(opportunity);
             }
             //remove fully unassociated
-            opportunities = opportunities.filter((o: Opportunity) => o.snapshotIds.length > 0);
+            data.opportunities = data.opportunities.filter((o: Opportunity) => o.snapshotIds.length > 0);
             return Promise.resolve(opportunity.opportunityId)
         },
         saveImage: function (image: ImageFile): Promise<String> {
             if (!!image.imageId) {
-                for (let i = 0; i < images.length; i++) {
-                    if (images[i].imageId === image.imageId) {
-                        images[i] = image;
+                for (let i = 0; i < data.images.length; i++) {
+                    if (data.images[i].imageId === image.imageId) {
+                        data.images[i] = image;
                     }
                 }
                 return Promise.resolve(image.imageId);
             } else {
                 image.imageId = generateUUID();
-                images.push(image);
+                data.images.push(image);
                 return Promise.resolve(image.imageId);
             }
         },
         deleteImage: function (imageId: string): Promise<void> {
-            images = images.filter(i => i.imageId !== imageId);
+            data.images = data.images.filter(i => i.imageId !== imageId);
             return Promise.resolve();
         },
-        export: function (): Promise<any> {
-            let toExport = {
-                questions: questions,
-                questionLink: questionLink,
-                identities: identities,
-                history: history,
-                currentIdentity: currentIdentity,
-                opportunities: opportunities,
-                snapshots: snapshots,
-                images: images
-            };            
-            return Promise.resolve(toExport);
+        export: function (): Promise<any> {                     
+            return Promise.resolve(data);
         },
-        import: function (data: any): Promise<void> {            
-            questions = data.questions || questions;
-            questionLink = data.questionLink || questionLink;
-            identities = data.identities || identities;
-            history = data.history || history;
-            currentIdentity = data.currentIdentity || currentIdentity;
-            opportunities = data.opportunities || opportunities
-            snapshots = data.snapshots || snapshots;
-            images = data.images || images;
-            this.export();
+        import: function (newData: any): Promise<void> { 
+            data = {...data, ...newData};
             return Promise.resolve();
         }
     } as API
