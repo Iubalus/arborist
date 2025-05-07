@@ -20,6 +20,8 @@ export interface API {
     findSnapshotOpportunities: (snapshotId: String) => Promise<Opportunity[]>;
     saveSnapshot: (snapshot: SnapshotData) => Promise<String>;
     saveOpportunity: (opportunity: Opportunity) => Promise<String>;
+    export: () => Promise<any>;
+    import: (data: any) => Promise<void>;
 }
 
 const _api = createAPI();

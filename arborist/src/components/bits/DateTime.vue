@@ -15,7 +15,7 @@ export default defineComponent({
             default: () => null
         },
         value: {
-            type: Date,
+            type: String,
             required: true
         },
         readOnly: {
@@ -26,7 +26,7 @@ export default defineComponent({
     emits: ['update:value'],
     data() {
         return {
-            internalValue: this.value ? new Date(this.value.getTime() - (6 * 60 * 60 * 1000)).toISOString().slice(0, 16) : null
+            internalValue: this.value ? new Date(new Date(this.value).getTime() - (6 * 60 * 60 * 1000)).toISOString().slice(0, 16) : null
         }
     },
     watch: {

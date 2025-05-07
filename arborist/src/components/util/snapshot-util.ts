@@ -12,5 +12,5 @@ export function snapshotDate(snapshot: SnapshotData) {
     if (!snapshot.date) {
         return "[not set]";
     }
-    return `${snapshot.date.toLocaleDateString()} ${snapshot.date.toLocaleTimeString()}`;
+    return `${new Date(snapshot.date).toLocaleDateString()} ${new Date(snapshot.date).toLocaleTimeString()}`;
 }

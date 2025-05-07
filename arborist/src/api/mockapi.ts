@@ -1,13 +1,13 @@
 import type { Opportunity } from "../components/types/Opportunity";
 import type { Question, QuestionLink } from "../components/types/Questions";
 import type { HistoryType, Identity } from "../components/types/Session";
-import type { Interviewee, Quote, SnapshotData} from "../components/types/Snapshot";
+import type { Interviewee, Quote, SnapshotData } from "../components/types/Snapshot";
 import type { API } from "./api";
 
 let questions = [] as Question[];
 let questionLink = [] as QuestionLink[];
 let identities = [] as Identity[];
-let history = [];
+let history = [] as any[];
 let currentIdentity = null as unknown as Identity;
 let opportunities = [
     {
@@ -32,7 +32,7 @@ let snapshots = [
         ],
         company: "My Company",
         recordingURL: "#",
-        date: new Date("4/19/25 4:50 PM"),
+        date: "2025-04-19T22:50:00.000Z",
         interviewers: ["Jeff", "Jake", "Jane"],
         leadInterviewer: "Jeff",
         interviewQuestions: ["Tell us about the last time you something"],
@@ -65,8 +65,7 @@ let snapshots = [
         memorableQuotes: [] as Quote[],
         quickFacts: [] as string[],
         insights: [] as string[],
-        exhibits: [] as { name: string, url: string }[],
-        opportunityIds: [] as string[],
+        exhibits: [] as { name: string, url: string }[],        
         experienceMapURL: null as unknown as string,
         momentsInTime: [] as string[],
         story: null as unknown as string
@@ -179,6 +178,31 @@ export function createAPI(): API {
             //remove fully unassociated
             opportunities = opportunities.filter((o: Opportunity) => o.snapshotIds.length > 0);
             return Promise.resolve(opportunity.opportunityId)
+        },
+        export: function (): Promise<any> {
+            let toExport = {
+                questions: questions,
+                questionLink: questionLink,
+                identities: identities,
+                history: history,
+                currentIdentity: currentIdentity,
+                opportunities: opportunities,
+                snapshots: snapshots
+            };
+            console.log("exporting", toExport);
+            return Promise.resolve(toExport);
+        },
+        import: function (data: any): Promise<void> {
+            console.log("importing", data)
+            questions = data.questions || questions;
+            questionLink = data.questionLink || questionLink;
+            identities = data.identities || identities;
+            history = data.history || history;
+            currentIdentity = data.currentIdentity || currentIdentity;
+            opportunities = data.opportunities || opportunities
+            snapshots = data.snapshots || snapshots;
+            this.export();
+            return Promise.resolve();
         }
     } as API
 }
