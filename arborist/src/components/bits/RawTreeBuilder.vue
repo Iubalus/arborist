@@ -1,5 +1,5 @@
 <template>
-    <div :class="[root || internalTree.length === 0 ? '' : 'tree-node']">
+    <div :class="[root || internalTree.length === 0 ? 'root' : 'tree-node']">
         <div
             v-for="(c, i) in internalTree"
             :key="i"
@@ -88,6 +88,11 @@ export default defineComponent({
 
 </script>
 <style scoped>
+.root {
+    .label-stick {        
+        align-content:center;
+    }
+}
 .tree-node {
     position: relative;
     border-left: 1px solid black;
@@ -115,6 +120,15 @@ export default defineComponent({
             position: absolute;
             top: 50%;
             left: -10px;
+            content: ' '
+        }
+        &:after {
+            width: 10px;
+            height: 5px;
+            border-bottom: 1px solid black;            
+            position: absolute;
+            top: 50%;
+            right: -10px;
             content: ' '
         }
     }
