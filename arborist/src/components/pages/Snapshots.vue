@@ -5,7 +5,8 @@
             :key="reRender"
         >
             <Btn
-                text="New"
+                text="New"                
+                width="80px"
                 @click="createNew"
             />
             <ul class="selection-list">
