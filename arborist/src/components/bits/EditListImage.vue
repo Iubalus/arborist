@@ -1,11 +1,11 @@
 <template>
     <Labelled :label="label">
-        <div v-for="(v, i) in internalValue" :key="`${i} ${v.name}`" class="image-line">
+        <div v-for="(v, i) in internalValue" :key="i" class="image-line">
             <div class="item-row">
-                <LabelText v-model:value="internalValue[i].name" :read-only="readOnly"></LabelText>
+                <LabelText v-model:value="v.name" :read-only="readOnly"></LabelText>
                 <Btn v-if="!readOnly" text="-" width="30px" @click="() => deleteItem(i)"></Btn>
             </div>
-            <ImageUpload v-model:value="internalValue[i].image" :read-only="readOnly"></ImageUpload>
+            <ImageUpload v-model:value="v.image" :read-only="readOnly"></ImageUpload>
         </div>
         <Btn v-if="!readOnly" text="+ Add" @click="addItem"></Btn>
     </Labelled>
