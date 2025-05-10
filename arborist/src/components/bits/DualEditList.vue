@@ -32,13 +32,14 @@
                     ></Btn>
                 </div>
             </li>
-            <li v-show="!readOnly">
-                <Btn
-                    text="+ Add"
-                    @click="addItem"
-                ></Btn>
-            </li>
         </ul>
+        <Btn
+            v-show="!readOnly"
+            width="70px"
+            right
+            text="+ Add"
+            @click="addItem"
+        ></Btn>
     </Labelled>
 </template>
 <script lang="ts">

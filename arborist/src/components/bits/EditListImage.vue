@@ -24,6 +24,8 @@
         </div>
         <Btn
             v-if="!readOnly"
+            right
+            width="70px"
             text="+ Add"
             @click="addItem"
         ></Btn>

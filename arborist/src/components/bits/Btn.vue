@@ -1,6 +1,7 @@
 <template>
     <Labelled
         :label="label"
+        :class="[right ? 'button-right' : '']"
         :style="`width:${width}`"
     >
         <button
@@ -31,6 +32,10 @@ export default defineComponent({
         width: {
             type: String,
             default: () => null
+        },
+        right: {
+            type: Boolean,
+            default: false
         },
         readOnly: {
             type: Boolean,
@@ -86,6 +91,10 @@ button.fun {
         border-bottom: 2px solid transparent;
         background: rgb(175, 201, 214);
     }
+}
+
+.button-right {
+    margin-left: auto;
 }
 
 button:not(.fun) {
