@@ -1,6 +1,10 @@
 <template>
     <Labelled :label="label">
-        <input v-model="internalValue" type="datetime-local" :disabled="readOnly" />
+        <input
+            v-model="internalValue"
+            type="datetime-local"
+            :disabled="readOnly"
+        />
     </Labelled>
 </template>
 <script lang="ts">

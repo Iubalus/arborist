@@ -1,9 +1,11 @@
 <template>
-    <Labelled
-        :label="label"
-    >
+    <Labelled :label="label">
         <div class="image-select">
-            <input @change="handleImage" type="file" accept="image/*" >
+            <input
+                @change="handleImage"
+                type="file"
+                accept="image/*"
+            >
             <span :title="`${internalImage?.filename}, ${internalImage?.size} bytes, ${internalImage?.type}`">
                 {{ (internalImage || {}).filename }}
             </span>

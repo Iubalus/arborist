@@ -1,19 +1,37 @@
 <template>
     <Page title="Opportunity/Solutions Tree">
 
-        <table cellSpacing="0" cellpadding="5" border="1" bordercolor="#cfcfff">
+        <table
+            cellSpacing="0"
+            cellpadding="5"
+            border="1"
+            bordercolor="#cfcfff"
+        >
             <tbody>
-                <tr v-for="(row, i) in toRows(content)" :key="i">
-                    <td v-for="(cell, j) in row" :key="j" :colspan="cell.colSpan">
+                <tr
+                    v-for="(row, i) in toRows(content)"
+                    :key="i"
+                >
+                    <td
+                        v-for="(cell, j) in row"
+                        :key="j"
+                        :colspan="cell.colSpan"
+                    >
 
-                        <div class="joiner" v-if="!!cell.joiner">
+                        <div
+                            class="joiner"
+                            v-if="!!cell.joiner"
+                        >
                             <div class="cell-actions">
                                 <span>[x]</span>
                                 <span>[&#9998;]</span>
                             </div>
                             {{ cell.joiner }}
                         </div>
-                        <div v-if="!!cell.text" class="cell-actions">
+                        <div
+                            v-if="!!cell.text"
+                            class="cell-actions"
+                        >
                             <span>[Cut]</span>
                             <span>[Copy]</span>
                             <span>[Paste]</span>
@@ -24,7 +42,11 @@
                             <span>[&#8595;]</span>
                             <span>[&#9998;]</span>
                         </div>
-                        <div v-if="!!cell.text" class="card-content" :style="`background:${cell.color};`">
+                        <div
+                            v-if="!!cell.text"
+                            class="card-content"
+                            :style="`background:${cell.color};`"
+                        >
                             <div class="card-author">{{ cell.author }}</div>
                             <div class="card-last">{{ cell.last }}</div>
                             <strong>{{ cell.title }}</strong>
@@ -37,7 +59,7 @@
     </Page>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from 'vue';
 import Page from '../bits/Page.vue';
 
 export interface Cell {

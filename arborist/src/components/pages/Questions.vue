@@ -1,8 +1,15 @@
 <template>
     <Page title="Questions">
         <FlexRow>
-            <LabelText v-model:value="newQuestion" label="Question" />
-            <Selct label="Type" v-model:selected="newType" :options="typeOptions" />
+            <LabelText
+                v-model:value="newQuestion"
+                label="Question"
+            />
+            <Selct
+                label="Type"
+                v-model:selected="newType"
+                :options="typeOptions"
+            />
         </FlexRow>
         <Btn text="Add" />
     </Page>

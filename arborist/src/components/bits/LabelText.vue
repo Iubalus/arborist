@@ -1,7 +1,17 @@
 <template>
     <Labelled :label="label">
-        <textarea v-if="bigText" v-model="internalValue" type="text" :disabled="readOnly"></textarea>
-        <input v-else v-model="internalValue" type="text" :disabled="readOnly" />
+        <textarea
+            v-if="bigText"
+            v-model="internalValue"
+            type="text"
+            :disabled="readOnly"
+        ></textarea>
+        <input
+            v-else
+            v-model="internalValue"
+            type="text"
+            :disabled="readOnly"
+        />
     </Labelled>
 </template>
 <script lang="ts">
@@ -60,7 +70,7 @@ textarea {
     box-sizing: border-box;
     background: transparent;
     border-radius: 5px;
-    margin: 0;    
+    margin: 0;
     padding: 10px;
 }
 </style>

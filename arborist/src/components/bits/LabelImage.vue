@@ -1,7 +1,10 @@
 <template>
-    <Labelled :label="label">        
+    <Labelled :label="label">
         <div class="image-container">
-            <img :src="url" :alt="altText"></img>
+            <img
+                :src="url"
+                :alt="altText"
+            ></img>
         </div>
     </Labelled>
 </template>

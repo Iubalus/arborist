@@ -1,15 +1,36 @@
 <template>
     <Labelled :label="label">
         <ul :class="[readOnly ? '' : 'draggable', asRow ? 'as-row' : '']">
-            <li v-for="(v, i) in internalValue" :key="keys[i]" :draggable="!readOnly" :ondragover="dragOver"
-                :ondragstart="dragStart" :ondragend="dragEnd" :data-index="i">
-                <div class="item-row" :data-use="v">
-                    <LabelText v-model:value="internalValue[i]" :read-only="readOnly"></LabelText>
-                    <Btn v-if="!readOnly" text="-" width="30px" @click="() => deleteItem(i)"></Btn>
+            <li
+                v-for="(v, i) in internalValue"
+                :key="keys[i]"
+                :draggable="!readOnly"
+                :ondragover="dragOver"
+                :ondragstart="dragStart"
+                :ondragend="dragEnd"
+                :data-index="i"
+            >
+                <div
+                    class="item-row"
+                    :data-use="v"
+                >
+                    <LabelText
+                        v-model:value="internalValue[i]"
+                        :read-only="readOnly"
+                    ></LabelText>
+                    <Btn
+                        v-if="!readOnly"
+                        text="-"
+                        width="30px"
+                        @click="() => deleteItem(i)"
+                    ></Btn>
                 </div>
             </li>
             <li v-show="!readOnly">
-                <Btn text="+ Add" @click="addItem"></Btn>
+                <Btn
+                    text="+ Add"
+                    @click="addItem"
+                ></Btn>
             </li>
         </ul>
     </Labelled>
@@ -71,12 +92,12 @@ export default defineComponent({
             this.internalValue.splice(this.dragEndIndex, 0, elt);
             this.keys = this.makeKeys(this.internalValue);
             //@ts-ignore
-            this.$emit('update:value', this.internalValue);            
+            this.$emit('update:value', this.internalValue);
         },
         dragOver(e: any) {
             this.dragEndIndex = e.target.dataset.index;
         },
-        dragStart(e: any) {            
+        dragStart(e: any) {
             this.dragStartIndex = e.target.dataset.index;
         },
         addItem() {

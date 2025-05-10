@@ -1,12 +1,23 @@
 <template>
     <FlexRow>
-        <Labelled :label="`${profile.name}${!profile.image ? ' (not pictured below)' : ''}`"
-            v-for="profile in profiles" :key="profile.name" center>
+        <Labelled
+            :label="`${profile.name}${!profile.image ? ' (not pictured below)' : ''}`"
+            v-for="profile in profiles"
+            :key="profile.name"
+            center
+        >
             <div :class="'image-container'">
-                <div v-if="!profile.image" class="unpictured">
+                <div
+                    v-if="!profile.image"
+                    class="unpictured"
+                >
                     <span>None</span>
                 </div>
-                <img v-else :src="profile.image.encoded" :alt="profile.name"></img>
+                <img
+                    v-else
+                    :src="profile.image.encoded"
+                    :alt="profile.name"
+                ></img>
             </div>
         </Labelled>
     </FlexRow>

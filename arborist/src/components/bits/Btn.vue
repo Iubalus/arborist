@@ -1,13 +1,20 @@
 <template>
-    <Labelled :label="label" :style="`width:${width}`">
-        <button type="button" :class="[readOnly ? 'disabled' : '', fun ? 'fun' : '', icon ? 'icon' : '']" :disabled="readOnly"
-            @click="doClick">
+    <Labelled
+        :label="label"
+        :style="`width:${width}`"
+    >
+        <button
+            type="button"
+            :class="[readOnly ? 'disabled' : '', fun ? 'fun' : '', icon ? 'icon' : '']"
+            :disabled="readOnly"
+            @click="doClick"
+        >
             {{ text }}
         </button>
     </Labelled>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from 'vue';
 import Labelled from './Labelled.vue';
 
 export default defineComponent({

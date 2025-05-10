@@ -4,7 +4,10 @@
             <img src="/arborist.png"></img>
             <h1>rborist</h1>
         </div>
-        <Tabs :tabs="tabs" @tab-selected="activateTab" />
+        <Tabs
+            :tabs="tabs"
+            @tab-selected="activateTab"
+        />
         <component :is="active"></component>
     </div>
 </template>
@@ -17,12 +20,12 @@ import AssumptionMapping from './AssumptionMapping.vue';
 import AssumptionTests from './AssumptionTests.vue';
 import OpportunitySizing from './OpportunitySizing.vue';
 import OpportunitySolutionTree from './OpportunitySolutionTree.vue';
+import Outcomes from './Outcomes.vue';
+import Overview from './Overview.vue';
 import Playground from './Playground.vue';
 import Questions from './Questions.vue';
 import Snapshots from './Snapshots.vue';
 import SolutionStorymap from './SolutionStorymap.vue';
-import Overview from './Overview.vue';
-import Outcomes from './Outcomes.vue';
 
 export default defineComponent({
     components: { Tabs, FlexRow, Page },

@@ -1,6 +1,9 @@
 <template>
     <Labelled :label="label">
-        <div v-for="quote in quotes" class="quote">
+        <div
+            v-for="quote in quotes"
+            class="quote"
+        >
             <span>&quot;{{ quote.quote }}&quot;</span><span>- {{ quote.from }}</span>
         </div>
     </Labelled>
@@ -26,16 +29,16 @@ export default defineComponent({
 
 </script>
 <style scoped>
-.quote {    
+.quote {
     padding: 15px;
     margin-top: 10px;
     background: #e4f6ff;
     border-radius: 5px;
     box-shadow: 3px 3px 5px rgba(0, 0, 0, .6);
-  
+
     span:last-of-type {
         font-style: italic;
-        padding-left:10px;
+        padding-left: 10px;
     }
 }
 </style>

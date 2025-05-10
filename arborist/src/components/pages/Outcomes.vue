@@ -1,13 +1,16 @@
 <template>
     <Page title="Coming Soon">
-        <LabelText v-model:value="equation" label="Equation" />
+        <LabelText
+            v-model:value="equation"
+            label="Equation"
+        />
         <pre>{{ equation }}</pre>
     </Page>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
-import Page from '../bits/Page.vue';
+import { defineComponent } from 'vue';
 import LabelText from '../bits/LabelText.vue';
+import Page from '../bits/Page.vue';
 
 export default defineComponent({
     components: { Page, LabelText },

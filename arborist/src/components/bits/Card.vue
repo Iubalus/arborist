@@ -1,6 +1,13 @@
 <template>
-    <div class="card" :style="`min-width:${minWidth};`">
-        <h2 v-show="!!title">{{ title }} <span v-if="closable" class="close" @click="close">x</span></h2>
+    <div
+        class="card"
+        :style="`min-width:${minWidth};`"
+    >
+        <h2 v-show="!!title">{{ title }} <span
+                v-if="closable"
+                class="close"
+                @click="close"
+            >x</span></h2>
         <slot></slot>
     </div>
 </template>

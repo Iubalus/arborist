@@ -2,7 +2,11 @@
     <Labelled :label="label">
         <select v-model="internalSelected">
             <option v-if="allowBlank"></option>
-            <option v-for="option in options" :key="option[valueKey]" :value="option[valueKey]">{{ option[labelKey] }}
+            <option
+                v-for="option in options"
+                :key="option[valueKey]"
+                :value="option[valueKey]"
+            >{{ option[labelKey] }}
             </option>
         </select>
     </Labelled>

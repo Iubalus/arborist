@@ -1,9 +1,19 @@
 <template>
     <div>
-        <Labelled :label="exhibit.name" v-for="exhibit in exhibits" :key="exhibit.name">
+        <Labelled
+            v-for="exhibit in exhibits"
+            :label="exhibit.name"
+            :key="exhibit.name"
+        >
             <div :class="'image-container'">
-                <a :href="(exhibit.image || {}).encoded" target="_blank">
-                    <img :src="(exhibit.image || {}).encoded" :alt="exhibit.name"></img>
+                <a
+                    :href="(exhibit.image || {}).encoded"
+                    target="_blank"
+                >
+                    <img
+                        :src="(exhibit.image || {}).encoded"
+                        :alt="exhibit.name"
+                    ></img>
                 </a>
             </div>
         </Labelled>

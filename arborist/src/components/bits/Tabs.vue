@@ -1,7 +1,10 @@
 <template>
     <div class="tab-container">
-        <span v-for="(tab, i) in internalTabs" :class="['tab', tab.active ? 'active' : '']"
-            @click="() => activateTab(i)">
+        <span
+            v-for="(tab, i) in internalTabs"
+            :class="['tab', tab.active ? 'active' : '']"
+            @click="() => activateTab(i)"
+        >
             {{ tab.title }}
         </span>
     </div>

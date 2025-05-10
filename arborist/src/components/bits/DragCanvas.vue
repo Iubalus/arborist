@@ -1,13 +1,27 @@
 <template>
     <div class="canvas">
-        <div v-for="(card, i) in cards" :key="i" class="card"
-            :style="`top:${card.y}px;left:${card.x}px;z-index:${card.z};`">
-            <div class="grab-arrow" draggable="true" v-on:dragstart="(e) => dragStart(e, i)"
-                v-on:drag="(e) => drag(e, i)">
+        <div
+            v-for="(card, i) in cards"
+            :key="i"
+            class="card"
+            :style="`top:${card.y}px;left:${card.x}px;z-index:${card.z};`"
+        >
+            <div
+                class="grab-arrow"
+                draggable="true"
+                v-on:dragstart="(e) => dragStart(e, i)"
+                v-on:drag="(e) => drag(e, i)"
+            >
                 &#10021;
             </div>
-            <LabelText :label="'From ' + card.sources?.join(',')" v-model:value="card.title" />
-            <LabelText big-text v-model:value="card.text" />
+            <LabelText
+                :label="'From ' + card.sources?.join(',')"
+                v-model:value="card.title"
+            />
+            <LabelText
+                big-text
+                v-model:value="card.text"
+            />
         </div>
     </div>
 </template>

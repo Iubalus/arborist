@@ -1,13 +1,32 @@
 <template>
     <Labelled :label="label">
-        <div v-for="(v, i) in internalValue" :key="i" class="image-line">
+        <div
+            v-for="(v, i) in internalValue"
+            :key="i"
+            class="image-line"
+        >
             <div class="item-row">
-                <LabelText v-model:value="v.name" :read-only="readOnly"></LabelText>
-                <Btn v-if="!readOnly" text="-" width="30px" @click="() => deleteItem(i)"></Btn>
+                <LabelText
+                    v-model:value="v.name"
+                    :read-only="readOnly"
+                ></LabelText>
+                <Btn
+                    v-if="!readOnly"
+                    text="-"
+                    width="30px"
+                    @click="() => deleteItem(i)"
+                ></Btn>
             </div>
-            <ImageUpload v-model:value="v.image" :read-only="readOnly"></ImageUpload>
+            <ImageUpload
+                v-model:value="v.image"
+                :read-only="readOnly"
+            ></ImageUpload>
         </div>
-        <Btn v-if="!readOnly" text="+ Add" @click="addItem"></Btn>
+        <Btn
+            v-if="!readOnly"
+            text="+ Add"
+            @click="addItem"
+        ></Btn>
     </Labelled>
 </template>
 <script lang="ts">

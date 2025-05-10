@@ -1,27 +1,41 @@
 <template>
     <div>
-        <Page title="Snapshots" :key="reRender">
-            <Btn text="New" @click="createNew" />
-            <ul class="selection-list">                
-                <li v-for="(snapshot, i) in snapshots" @click="() => selectSnapshot(i)" :key="i"
-                    :class="[i === selectedInd ? 'active' : '']">
+        <Page
+            title="Snapshots"
+            :key="reRender"
+        >
+            <Btn
+                text="New"
+                @click="createNew"
+            />
+            <ul class="selection-list">
+                <li
+                    v-for="(snapshot, i) in snapshots"
+                    @click="() => selectSnapshot(i)"
+                    :key="i"
+                    :class="[i === selectedInd ? 'active' : '']"
+                >
                     {{ makeTitle(snapshot) }}
                     <span class="date"> {{ makeDate(snapshot) }}</span>
                 </li>
             </ul>
         </Page>
-        <Snapshot :key="selectedInd" v-if="snapshots[selectedInd]" :snapshot="snapshots[selectedInd]" />
+        <Snapshot
+            :key="selectedInd"
+            v-if="snapshots[selectedInd]"
+            :snapshot="snapshots[selectedInd]"
+        />
     </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
-import Page from '../bits/Page.vue';
-import { createSnapshot, loadSnapshots } from './SnapshotInteractor';
-import Snapshot from './Snapshot.vue';
-import Tabs from '../bits/Tabs.vue';
-import { makeTitle, snapshotDate } from '../util/snapshot-util';
+import { defineComponent } from 'vue';
 import Btn from '../bits/Btn.vue';
+import Page from '../bits/Page.vue';
+import Tabs from '../bits/Tabs.vue';
 import type { SnapshotData } from '../types/Snapshot';
+import { makeTitle, snapshotDate } from '../util/snapshot-util';
+import Snapshot from './Snapshot.vue';
+import { createSnapshot, loadSnapshots } from './SnapshotInteractor';
 
 export default defineComponent({
     components: { Page, Snapshot, Tabs, Btn },

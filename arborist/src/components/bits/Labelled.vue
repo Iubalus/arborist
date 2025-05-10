@@ -1,6 +1,9 @@
 <template>
     <div class="label-container">
-        <label v-show="!!label" :class="[center ? 'center' : '']">{{ label }}</label>
+        <label
+            v-show="!!label"
+            :class="[center ? 'center' : '']"
+        >{{ label }}</label>
         <slot></slot>
     </div>
 </template>

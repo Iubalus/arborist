@@ -1,51 +1,134 @@
 <template>
     <div>
-        <Page :title="title" :super-header="snapshotDate">
+        <Page
+            :title="title"
+            :super-header="snapshotDate"
+        >
             <Btn
                 v-show="!showEdit"
                 text="&#9998; Edit"
                 width="100px"
-                @click="()=>showEdit = true"
+                @click="() => showEdit = true"
             />
-            <FlexRow>                
-                <Card v-show="showEdit" title="Edit values" min-width="50%" closable @close="() => showEdit = false">
+            <FlexRow>
+                <Card
+                    v-show="showEdit"
+                    title="Edit values"
+                    min-width="50%"
+                    closable
+                    @close="() => showEdit = false"
+                >
                     <FlexRow>
-                        <LabelText label="Company" v-model:value="internalSnapshot.company" />
-                        <DateTime label="When" v-model:value="internalSnapshot.date" />
+                        <LabelText
+                            label="Company"
+                            v-model:value="internalSnapshot.company"
+                        />
+                        <DateTime
+                            label="When"
+                            v-model:value="internalSnapshot.date"
+                        />
                     </FlexRow>
-                    <LabelText label="Recording URL" v-model:value="internalSnapshot.recordingURL" />
-                    <EditListImage label="Interviewees" v-model:value="internalSnapshot.interviewees" key-a="name"
-                        width-a="50%" key-b="profileURL" />
-                    <EditList label="Interviewers" v-model:value="internalSnapshot.interviewers" />
-                    <Selct label="Lead Interviewer" v-model:selected="internalSnapshot.leadInterviewer"
-                        :options="interviewerOptions" />
-                    <DualEditList label="Memorable Quotes" v-model:value="internalSnapshot.memorableQuotes"
-                        key-a="quote" key-b="from" width-b="30%" />
-                    <EditList label="Quick Facts" v-model:value="internalSnapshot.quickFacts" />
-                    <EditList label="Insights" v-model:value="internalSnapshot.insights" />
-                    <EditList :key="rawOpportunities.length" label="Opportunities" v-model:value="rawOpportunities" />
-                    <EditListImage label="Exhibits" v-model:value="internalSnapshot.exhibits" key-a="name" key-b="url"
-                        width-a="20%" />
-                    <ImageUpload label="Experience Map URL" v-model:value="internalSnapshot.experienceMap" />
-                    <EditList label="Moments in Time" v-model:value="internalSnapshot.momentsInTime" />
-                    <LabelText label="Story" big-text v-model:value="internalSnapshot.story" />
+                    <LabelText
+                        label="Recording URL"
+                        v-model:value="internalSnapshot.recordingURL"
+                    />
+                    <EditListImage
+                        label="Interviewees"
+                        v-model:value="internalSnapshot.interviewees"
+                        key-a="name"
+                        width-a="50%"
+                        key-b="profileURL"
+                    />
+                    <EditList
+                        label="Interviewers"
+                        v-model:value="internalSnapshot.interviewers"
+                    />
+                    <Selct
+                        label="Lead Interviewer"
+                        v-model:selected="internalSnapshot.leadInterviewer"
+                        :options="interviewerOptions"
+                    />
+                    <DualEditList
+                        label="Memorable Quotes"
+                        v-model:value="internalSnapshot.memorableQuotes"
+                        key-a="quote"
+                        key-b="from"
+                        width-b="30%"
+                    />
+                    <EditList
+                        label="Quick Facts"
+                        v-model:value="internalSnapshot.quickFacts"
+                    />
+                    <EditList
+                        label="Insights"
+                        v-model:value="internalSnapshot.insights"
+                    />
+                    <EditList
+                        :key="rawOpportunities.length"
+                        label="Opportunities"
+                        v-model:value="rawOpportunities"
+                    />
+                    <EditListImage
+                        label="Exhibits"
+                        v-model:value="internalSnapshot.exhibits"
+                        key-a="name"
+                        key-b="url"
+                        width-a="20%"
+                    />
+                    <ImageUpload
+                        label="Experience Map URL"
+                        v-model:value="internalSnapshot.experienceMap"
+                    />
+                    <EditList
+                        label="Moments in Time"
+                        v-model:value="internalSnapshot.momentsInTime"
+                    />
+                    <LabelText
+                        label="Story"
+                        big-text
+                        v-model:value="internalSnapshot.story"
+                    />
                 </Card>
                 <div class="preview-pane">
-                    <a v-if="!!internalSnapshot.recordingURL" :href="internalSnapshot.recordingURL">Recording [link] &#8617;</a>                    
+                    <a
+                        v-if="!!internalSnapshot.recordingURL"
+                        :href="internalSnapshot.recordingURL"
+                    >
+                        Recording [link] &#8617;
+                    </a>
                     <ProfileImages :profiles="internalSnapshot.interviewees" />
                     <QuoteDisplay :quotes="internalSnapshot.memorableQuotes" />
                     <FlexRow>
-                        <PresentDisplay label="Present" :lead-interviewer="internalSnapshot.leadInterviewer"
+                        <PresentDisplay
+                            label="Present"
+                            :lead-interviewer="internalSnapshot.leadInterviewer"
                             :interviewees="internalSnapshot.interviewees.map(v => v.name)"
-                            :interviewers="internalSnapshot.interviewers" />
-                        <DisplayList label="Quick Facts" :values="internalSnapshot.quickFacts" />
+                            :interviewers="internalSnapshot.interviewers"
+                        />
+                        <DisplayList
+                            label="Quick Facts"
+                            :values="internalSnapshot.quickFacts"
+                        />
                     </FlexRow>
-                    <DisplayList label="Insights" :values="internalSnapshot.insights" />
+                    <DisplayList
+                        label="Insights"
+                        :values="internalSnapshot.insights"
+                    />
                     {{ opportunities }}
                     <Exhibits :exhibits="internalSnapshot.exhibits" />
-                    <LabelImage v-if="!!internalSnapshot.experienceMap" :url="internalSnapshot.experienceMap.encoded" label="Experience Map" />
-                    <DisplayList label="Moments in Time" :values="internalSnapshot.momentsInTime" />
-                    <DisplayTextBlock label="Story" :text="internalSnapshot.story" />
+                    <LabelImage
+                        v-if="!!internalSnapshot.experienceMap"
+                        :url="internalSnapshot.experienceMap.encoded"
+                        label="Experience Map"
+                    />
+                    <DisplayList
+                        label="Moments in Time"
+                        :values="internalSnapshot.momentsInTime"
+                    />
+                    <DisplayTextBlock
+                        label="Story"
+                        :text="internalSnapshot.story"
+                    />
                 </div>
             </FlexRow>
         </Page>
@@ -156,6 +239,6 @@ export default defineComponent({
 </script>
 <style scoped>
 .preview-pane {
-    padding:10px;
+    padding: 10px;
 }
 </style>
