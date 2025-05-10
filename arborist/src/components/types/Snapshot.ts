@@ -1,6 +1,8 @@
-export interface Interviewee {
-    name: string;
-    profileURL: string;
+import type { ImageFile } from "./ImageFile";
+import type { NamedImage } from "./NamedImage";
+
+export interface Interviewee extends NamedImage {
+    
 }
 
 export interface Quote {
@@ -20,8 +22,8 @@ export interface SnapshotData {
     memorableQuotes: Quote[];
     quickFacts: string[];
     insights: string[];
-    exhibits: { name: string, url: string }[];    
-    experienceMapURL: string;
+    exhibits: NamedImage[];    
+    experienceMap: ImageFile;
     momentsInTime: string[];
     story: string;
 }

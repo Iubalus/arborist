@@ -9,7 +9,7 @@
                 </div>
             </li>
             <li v-show="!readOnly">
-                <Btn text="+" @click="addItem"></Btn>
+                <Btn text="+ Add" @click="addItem"></Btn>
             </li>
         </ul>
     </Labelled>

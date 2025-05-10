@@ -1,4 +1,5 @@
 import type { ImageFile } from "../components/types/ImageFile";
+import type { NamedImage } from "../components/types/NamedImage";
 import type { Opportunity } from "../components/types/Opportunity";
 import type { Question, QuestionLink } from "../components/types/Questions";
 import type { HistoryType, Identity } from "../components/types/Session";
@@ -28,13 +29,13 @@ let data = {
             interviewees: [
                 {
                     name: "Robin Smith",
-                    profileURL: "/profile.jpg"
+                    image: null as unknown as ImageFile
                 },
                 {
                     name: "Jeff Smith",
-                    profileURL: "/profile.jpg"
+                    image: null as unknown as ImageFile
                 }
-            ],
+            ] as Interviewee[],
             company: "My Company",
             recordingURL: "#",
             date: "2025-04-19T22:50:00.000Z",
@@ -53,8 +54,8 @@ let data = {
             ],
             quickFacts: ["16ft tall", "Green and brown", "somewhat \"woodsy\""],
             insights: ["Might actually be a tree. Check out exhibit 1"],
-            exhibits: [{ name: "Exhibit 1", url: "/profile.jpg" }, { name: "Exhibit 2", url: "/profile.jpg" }],
-            experienceMapURL: "/experience.png",
+            exhibits: [{ name: "Exhibit 1", image: null as unknown as ImageFile }, { name: "Exhibit 2", image: null as unknown as ImageFile }] as NamedImage[],
+            experienceMap: null as unknown as ImageFile,
             momentsInTime: ["A", "B", "C"],
             story: "Read the entire alphabet"
         },
@@ -70,8 +71,8 @@ let data = {
             memorableQuotes: [] as Quote[],
             quickFacts: [] as string[],
             insights: [] as string[],
-            exhibits: [] as { name: string, url: string }[],
-            experienceMapURL: null as unknown as string,
+            exhibits: [] as NamedImage[],
+            experienceMap: null as unknown as ImageFile,
             momentsInTime: [] as string[],
             story: null as unknown as string
         }
@@ -102,7 +103,8 @@ function nextSnapshotId() {
 }
 
 function commitStore() {
-    localStorage.setItem(ARBORIST_DATA_KEY, JSON.stringify(data));
+    //disabling this since the images are too large
+    //localStorage.setItem(ARBORIST_DATA_KEY, JSON.stringify(data));
 }
 
 export function clearCachedData() {

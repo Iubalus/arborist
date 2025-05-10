@@ -1,16 +1,28 @@
 <template>
-    <div class="image-select">
-        <input @change="handleImage" type="file" accept="image/*">
-        <span :title="`${internalImage?.size} bytes, ${internalImage?.type}`">{{ (internalImage || {}).filename }}</span>
-    </div>
+    <Labelled
+        :label="label"
+    >
+        <div class="image-select">
+            <input @change="handleImage" type="file" accept="image/*" >
+            <span :title="`${internalImage?.filename}, ${internalImage?.size} bytes, ${internalImage?.type}`">
+                {{ (internalImage || {}).filename }}
+            </span>
+        </div>
+    </Labelled>
 </template>
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
 import type { ImageFile } from '../types/ImageFile';
 import { createAPI } from '../../api/mockapi';
+import Labelled from './Labelled.vue';
 
 export default defineComponent({
+    components: { Labelled },
     props: {
+        label: {
+            type: String,
+            default: () => null
+        },
         value: {
             type: Object as PropType<ImageFile>,
             required: true
@@ -60,11 +72,12 @@ export default defineComponent({
 </script>
 <style scoped>
 .image-select {
+    margin-top: 12px;
     display: flex;
     gap: 10px;
     width: 100%;
 
-    input {
+    input.fun {
         box-shadow: 0 0 1px 1px rgb(211, 210, 210);
 
         &::file-selector-button {
@@ -93,6 +106,35 @@ export default defineComponent({
             border-bottom: 2px solid transparent;
             background: rgb(175, 201, 214);
         }
+    }
+
+    input:not(.fun) {
+
+        box-shadow: 0 0 1px 1px rgb(211, 210, 210);
+        border-radius: 25px;
+
+        &::file-selector-button {
+            font-family: monospace;
+            width: 100%;
+            text-align: center;
+            padding: 3px 10px;
+            box-sizing: border-box;
+            background: rgb(209, 240, 255);
+            border-radius: 25px;
+            line-height: 20px;
+            border: none;
+        }
+
+        &:hover::file-selector-button {
+            cursor: pointer;
+            background: rgb(175, 201, 214);
+        }
+    }
+
+    >span {
+        text-wrap: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
     }
 }
 </style>

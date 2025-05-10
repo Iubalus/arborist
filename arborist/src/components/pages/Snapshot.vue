@@ -14,7 +14,7 @@
                         <DateTime label="When" v-model:value="internalSnapshot.date" />
                     </FlexRow>
                     <LabelText label="Recording URL" v-model:value="internalSnapshot.recordingURL" />
-                    <DualEditList label="Interviewees" v-model:value="internalSnapshot.interviewees" key-a="name"
+                    <EditListImage label="Interviewees" v-model:value="internalSnapshot.interviewees" key-a="name"
                         width-a="50%" key-b="profileURL" />
                     <EditList label="Interviewers" v-model:value="internalSnapshot.interviewers" />
                     <Selct label="Lead Interviewer" v-model:selected="internalSnapshot.leadInterviewer"
@@ -24,9 +24,9 @@
                     <EditList label="Quick Facts" v-model:value="internalSnapshot.quickFacts" />
                     <EditList label="Insights" v-model:value="internalSnapshot.insights" />
                     <EditList :key="rawOpportunities.length" label="Opportunities" v-model:value="rawOpportunities" />
-                    <DualEditList label="Exhibits" v-model:value="internalSnapshot.exhibits" key-a="name" key-b="url"
+                    <EditListImage label="Exhibits" v-model:value="internalSnapshot.exhibits" key-a="name" key-b="url"
                         width-a="20%" />
-                    <LabelText label="Experience Map URL" v-model:value="internalSnapshot.experienceMapURL" />
+                    <ImageUpload label="Experience Map URL" v-model:value="internalSnapshot.experienceMap" />
                     <EditList label="Moments in Time" v-model:value="internalSnapshot.momentsInTime" />
                     <LabelText label="Story" big-text v-model:value="internalSnapshot.story" />
                 </Card>
@@ -43,7 +43,7 @@
                     <DisplayList label="Insights" :values="internalSnapshot.insights" />
                     {{ opportunities }}
                     <Exhibits :exhibits="internalSnapshot.exhibits" />
-                    <LabelImage :url="internalSnapshot.experienceMapURL" label="Experience Map" />
+                    <LabelImage v-if="!!internalSnapshot.experienceMap" :url="internalSnapshot.experienceMap.encoded" label="Experience Map" />
                     <DisplayList label="Moments in Time" :values="internalSnapshot.momentsInTime" />
                     <DisplayTextBlock label="Story" :text="internalSnapshot.story" />
                 </div>
@@ -73,9 +73,11 @@ import type { SnapshotData } from '../types/Snapshot';
 import type { Opportunity } from '../types/Opportunity';
 import { createAPI } from '../../api/mockapi';
 import Btn from '../bits/Btn.vue';
+import EditListImage from '../bits/EditListImage.vue';
+import ImageUpload from '../bits/ImageUpload.vue';
 
 export default defineComponent({
-    components: { Page, QuoteDisplay, DualEditList, Card, FlexRow, LabelText, EditList, Selct, PresentDisplay, ProfileImages, DisplayList, DisplayTextBlock, Exhibits, LabelImage, DateTime, Btn },
+    components: { Page, QuoteDisplay, EditListImage, DualEditList, Card, FlexRow, LabelText, EditList, Selct, PresentDisplay, ProfileImages, DisplayList, DisplayTextBlock, Exhibits, LabelImage, DateTime, Btn, ImageUpload },
     props: {
         snapshot: {
             type: Object as PropType<SnapshotData>,

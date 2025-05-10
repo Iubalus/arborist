@@ -1,12 +1,12 @@
 <template>
     <FlexRow>
-        <Labelled :label="`${profile.name}${!profile.profileURL ? ' (not pictured below)' : ''}`"
+        <Labelled :label="`${profile.name}${!profile.image ? ' (not pictured below)' : ''}`"
             v-for="profile in profiles" :key="profile.name" center>
             <div :class="'image-container'">
-                <div v-if="!profile.profileURL" class="unpictured">
+                <div v-if="!profile.image" class="unpictured">
                     <span>None</span>
                 </div>
-                <img v-else :src="profile.profileURL" :alt="profile.name"></img>
+                <img v-else :src="profile.image.encoded" :alt="profile.name"></img>
             </div>
         </Labelled>
     </FlexRow>
@@ -16,6 +16,7 @@ import { defineComponent, type PropType } from 'vue'
 import Labelled from './Labelled.vue';
 import LabelText from './LabelText.vue';
 import FlexRow from './FlexRow.vue';
+import type { ImageFile } from '../types/ImageFile';
 
 export default defineComponent({
     components: { Labelled, LabelText, FlexRow },
@@ -25,7 +26,7 @@ export default defineComponent({
             default: () => null
         },
         profiles: {
-            type: Array as PropType<{ name: string, profileURL: string }[]>,
+            type: Array as PropType<{ name: string, image: ImageFile }[]>,
             required: true
         }
     }

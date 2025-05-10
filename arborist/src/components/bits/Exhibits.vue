@@ -2,8 +2,8 @@
     <div>
         <Labelled :label="exhibit.name" v-for="exhibit in exhibits" :key="exhibit.name">
             <div :class="'image-container'">
-                <a :href="exhibit.url" target="_blank">
-                    <img :src="exhibit.url" :alt="exhibit.name"></img>
+                <a :href="(exhibit.image || {}).encoded" target="_blank">
+                    <img :src="(exhibit.image || {}).encoded" :alt="exhibit.name"></img>
                 </a>
             </div>
         </Labelled>
@@ -13,6 +13,7 @@
 import { defineComponent, type PropType } from 'vue'
 import Labelled from './Labelled.vue';
 import LabelText from './LabelText.vue';
+import type { ImageFile } from '../types/ImageFile';
 
 export default defineComponent({
     components: { Labelled, LabelText },
@@ -22,7 +23,7 @@ export default defineComponent({
             default: () => null
         },
         exhibits: {
-            type: Array as PropType<{ name: string, url: string }[]>,
+            type: Array as PropType<{ name: string, image: ImageFile }[]>,
             required: true
         }
     }

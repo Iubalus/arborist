@@ -93,14 +93,6 @@ button:not(.fun) {
     border: none;
     box-shadow: 0 0 1px 1px rgb(211, 210, 210);
 
-    &.icon {
-        width: 25px;
-        height: 25px;
-        text-align:center;
-        padding:0;
-        line-height:25px;
-    }
-
     &.disabled {
         background: rgb(190, 190, 190);
     }
