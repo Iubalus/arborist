@@ -20,7 +20,7 @@ export default defineComponent({
         },
         value: {
             type: String,
-            required: true
+            default: () => null
         },
         readOnly: {
             type: Boolean,
@@ -35,9 +35,9 @@ export default defineComponent({
     },
     watch: {
         internalValue: {
-            handler: function (v: Date) {
+            handler: function (v: string) {
                 //@ts-ignore
-                this.$emit('update:value', new Date(v));
+                this.$emit('update:value', v);
             }
         }
     }

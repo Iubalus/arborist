@@ -12,7 +12,7 @@
     </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, markRaw } from 'vue';
 import FlexRow from '../bits/FlexRow.vue';
 import Page from '../bits/Page.vue';
 import Tabs from '../bits/Tabs.vue';
@@ -31,57 +31,57 @@ export default defineComponent({
     components: { Tabs, FlexRow, Page },
     data() {
         return {
-            active: Playground,
+            active: markRaw(Playground),
             tabs: [
                 {
                     title: "Home",
                     active: true,
-                    page: Overview
+                    page: markRaw(Overview)
                 },
                 {
                     title: "Outcomes",
                     active: false,
-                    page: Outcomes
+                    page: markRaw(Outcomes)
                 },
                 {
                     title: "Questions",
                     active: false,
-                    page: Questions
+                    page: markRaw(Questions)
                 },
                 {
                     title: "Snapshots",
                     active: false,
-                    page: Snapshots
+                    page: markRaw(Snapshots)
                 },
                 {
                     title: "Opportunity Solution Tree",
                     active: false,
-                    page: OpportunitySolutionTree
+                    page: markRaw(OpportunitySolutionTree)
                 },
                 {
                     title: "Opportunity Sizing",
                     active: false,
-                    page: OpportunitySizing
+                    page: markRaw(OpportunitySizing)
                 },
                 {
                     title: "Story Mapping",
                     active: false,
-                    page: SolutionStorymap
+                    page: markRaw(SolutionStorymap)
                 },
                 {
                     title: "Assumption Mapping",
                     active: false,
-                    page: AssumptionMapping
+                    page: markRaw(AssumptionMapping)
                 },
                 {
                     title: "Assumption Tests",
                     active: false,
-                    page: AssumptionTests
+                    page: markRaw(AssumptionTests)
                 },
                 {
                     title: "Playground",
                     active: false,
-                    page: Playground
+                    page: markRaw(Playground)
                 }
             ]
         }

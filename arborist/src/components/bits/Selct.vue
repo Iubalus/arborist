@@ -28,7 +28,7 @@ export default defineComponent({
         },
         selected: {
             type: String,
-            required: true
+            default: () => null
         },
         options: {
             type: Array as PropType<{ [key: string]: string }[]>,

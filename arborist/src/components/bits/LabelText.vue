@@ -27,7 +27,7 @@ export default defineComponent({
         },
         value: {
             type: String,
-            required: true
+            default: () => null
         },
         readOnly: {
             type: Boolean,

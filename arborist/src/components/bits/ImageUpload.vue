@@ -27,7 +27,7 @@ export default defineComponent({
         },
         value: {
             type: Object as PropType<ImageFile>,
-            required: true
+            default: () => null
         }
     },
     emits: ["update:value"],
