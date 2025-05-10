@@ -6,8 +6,7 @@
         >
             <FlexRow>
                 <div :class="['label-stick', i === 0 ? 'first-label-stick' : '']">
-                    <LabelText
-                        :no-margin="i === 0"
+                    <LabelText                        
                         style="width:200px;"
                         v-model:value="c.text"
                     />
@@ -89,26 +88,39 @@ export default defineComponent({
 </script>
 <style scoped>
 .root {
-    .label-stick {        
-        align-content:center;
+    .label-stick {
+        position: relative;
+        align-content: center;
+
+        &:after {
+            width: 10px;
+            height: 5px;
+            border-bottom: 1px solid #52bafa;
+            position: absolute;
+            top: 50%;
+            right: -10px;
+            content: ' '
+        }
+
     }
+
 }
+
 .tree-node {
     position: relative;
-    border-left: 1px solid black;
-    padding: 10px 10px;
-    margin-top:1px;
+    border-left: 1px solid #52bafa;
+    padding: 0 10px;    
 
     .label-stick {
         position: relative;
-        align-content:center;
+        align-content: center;
 
         &.first-label-stick {
             &:before {
-                top: -50%;
+                top: 0;
                 left: -11px;
-                width: 11px;
-                height: 100%;
+                width: 10px;
+                height: 50%;
                 border-left: 1px solid white;
             }
         }
@@ -116,16 +128,17 @@ export default defineComponent({
         &:before {
             width: 10px;
             height: 5px;
-            border-bottom: 1px solid black;            
+            border-bottom: 1px solid #52bafa;
             position: absolute;
             top: 50%;
             left: -10px;
             content: ' '
         }
+
         &:after {
             width: 10px;
             height: 5px;
-            border-bottom: 1px solid black;            
+            border-bottom: 1px solid #52bafa;
             position: absolute;
             top: 50%;
             right: -10px;
@@ -136,8 +149,8 @@ export default defineComponent({
 
     &:after {
         width: 10px;
-        height: 20px;
-        border-top: 1px solid black;
+        height: 13px;
+        border-top: 1px solid #52bafa;
         background: white;
         position: absolute;
         bottom: 0;

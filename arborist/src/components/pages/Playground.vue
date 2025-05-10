@@ -3,8 +3,7 @@
         title="Playground"
         super-header="Hello"
     >
-        <div style="overflow-x:scroll;">
-            <pre>{{ JSON.stringify(tree) }}</pre>
+        <div style="overflow-x: scroll;padding:30px;">            
             <RawTreeBuilder v-model:value="tree" />
         </div>
 
