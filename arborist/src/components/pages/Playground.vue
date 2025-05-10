@@ -18,7 +18,7 @@
         </Card>
         <Card title="Hello World">
             <Selct label="Hello" v-model:selected="selected" :options="options"></Selct>
-            <Btn text="Click Me" @click="() => console.log('hello')"></Btn>
+            <Btn fun text="Click Me" @click="() => console.log('hello')"></Btn>
             <Btn label="Nice" text="Click Me" read-only @click="() => console.log('hello')"></Btn>
             <DualEditList v-model:value="doubleList" key-a="a" key-b="b" width-b="30%"></DualEditList>
             <EditList v-model:value="editList" as-row></EditList>
