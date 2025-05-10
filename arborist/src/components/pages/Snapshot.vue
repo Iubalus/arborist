@@ -170,7 +170,7 @@ export default defineComponent({
     emits: ['update'],
     data() {
         return {
-            showEdit: false,
+            showEdit: !this.snapshot.company,
             internalSnapshot: this.snapshot,
             rawOpportunities: [] as String[],
             opportunities: [] as Opportunity[]
