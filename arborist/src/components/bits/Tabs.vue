@@ -1,11 +1,9 @@
 <template>
     <div class="tab-container">
-        <FlexRow>
-            <span v-for="(tab, i) in internalTabs" :class="['tab', tab.active ? 'active' : '']"
-                @click="() => activateTab(i)">
-                {{ tab.title }}
-            </span>
-        </FlexRow>
+        <span v-for="(tab, i) in internalTabs" :class="['tab', tab.active ? 'active' : '']"
+            @click="() => activateTab(i)">
+            {{ tab.title }}
+        </span>
     </div>
 </template>
 <script lang="ts">
@@ -38,16 +36,21 @@ export default defineComponent({
 
 </script>
 <style scoped>
+.tab-container {
+    display: flex;
+}
+
 .tab {
     padding: 10px 10px 10px 10px;
     background: white;
-    border-radius: 5px 5px 0 0;
+    border-radius: 25px 0 25px 0;
     box-sizing: border-box;
     margin-bottom: -13px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, .6);
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    text-wrap: nowrap;
 
     &.active {
         font-weight: bold;
