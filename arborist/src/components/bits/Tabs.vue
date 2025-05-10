@@ -45,7 +45,7 @@ export default defineComponent({
 
 .tab {
     padding: 10px 10px 10px 10px;
-    background: white;
+    background: rgb(245, 245, 245);
     border-radius: 25px 0 25px 0;
     box-sizing: border-box;
     margin-bottom: -13px;
@@ -57,6 +57,7 @@ export default defineComponent({
 
     &.active {
         font-weight: bold;
+        background:white;
     }
 
     &:hover {
