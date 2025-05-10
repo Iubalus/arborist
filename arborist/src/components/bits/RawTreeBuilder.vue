@@ -6,7 +6,7 @@
         >
             <FlexRow>
                 <div :class="['label-stick', i === 0 ? 'first-label-stick' : '']">
-                    <LabelText                        
+                    <LabelText
                         style="width:200px;"
                         v-model:value="c.text"
                     />
@@ -109,7 +109,7 @@ export default defineComponent({
 .tree-node {
     position: relative;
     border-left: 1px solid #52bafa;
-    padding: 0 10px;    
+    padding: 0 10px;
 
     .label-stick {
         position: relative;
@@ -117,10 +117,11 @@ export default defineComponent({
 
         &.first-label-stick {
             &:before {
-                top: 0;
+                top: 0px;
                 left: -11px;
                 width: 10px;
                 height: 50%;
+                padding-bottom: 5px;
                 border-left: 1px solid white;
             }
         }
