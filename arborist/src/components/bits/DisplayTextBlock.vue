@@ -1,7 +1,7 @@
 <template>
     <Labelled :label="label">
         <div class="text-block">
-            {{ text }}
+            {{ text || 'none' }}
         </div>
     </Labelled>
 </template>

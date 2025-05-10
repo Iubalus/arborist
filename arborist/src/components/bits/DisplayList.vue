@@ -4,6 +4,7 @@
             <li v-for="(v, i) in values" :key="i">
                 {{ v }}
             </li>
+            <li v-if="values.length == 0">none</li>
         </ul>
     </Labelled>
 </template>

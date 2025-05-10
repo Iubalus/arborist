@@ -30,8 +30,8 @@
                     <EditList label="Moments in Time" v-model:value="internalSnapshot.momentsInTime" />
                     <LabelText label="Story" big-text v-model:value="internalSnapshot.story" />
                 </Card>
-                <div>
-                    <a :href="internalSnapshot.recordingURL">Recording [link] &#8617;</a>
+                <div class="preview-pane">
+                    <a v-if="!!internalSnapshot.recordingURL" :href="internalSnapshot.recordingURL">Recording [link] &#8617;</a>                    
                     <ProfileImages :profiles="internalSnapshot.interviewees" />
                     <QuoteDisplay :quotes="internalSnapshot.memorableQuotes" />
                     <FlexRow>
@@ -152,4 +152,8 @@ export default defineComponent({
 })
 
 </script>
-<style scoped></style>
+<style scoped>
+.preview-pane {
+    padding:10px;
+}
+</style>

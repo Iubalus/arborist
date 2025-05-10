@@ -2,10 +2,10 @@
     <Labelled :label="label">
         <div class="present-display">
             <div>
-                <strong>Interviewers:</strong> {{ interviewerDisplay }}
+                <strong>Interviewers:</strong> {{ interviewerDisplay || 'none' }}
             </div>
             <div>
-                <strong>Interviewing:</strong> {{ interviewing }}
+                <strong>Interviewing:</strong> {{ interviewing || 'none' }}
             </div>
         </div>
     </Labelled>
