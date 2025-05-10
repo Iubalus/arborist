@@ -1,5 +1,5 @@
 <template>
-    <div class="label-container">
+    <div :class="['label-container', noMargin ? 'no-margin' : '']">
         <label
             v-show="!!label"
             :class="[center ? 'center' : '']"
@@ -19,6 +19,10 @@ export default defineComponent({
         center: {
             type: Boolean,
             default: () => false
+        },
+        noMargin: {
+            type: Boolean,
+            default: () => false
         }
     }
 })
@@ -29,6 +33,11 @@ export default defineComponent({
     margin-top: 10px;
     width: 100%;
     box-sizing: border-box;
+    align-content: center;
+
+    &.no-margin {
+        margin-top: 0;
+    }
 
     label {
         font-size: 0.8em;

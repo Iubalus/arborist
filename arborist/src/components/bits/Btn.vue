@@ -99,6 +99,7 @@ button.fun {
 
 button:not(.fun) {
     text-align: center;
+    text-wrap:nowrap;
     padding: 3px 10px;
     font-family: monospace;
     box-sizing: border-box;

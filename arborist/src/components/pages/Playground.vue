@@ -3,6 +3,11 @@
         title="Playground"
         super-header="Hello"
     >
+        <div style="overflow-x:scroll;">
+            <pre>{{ JSON.stringify(tree) }}</pre>
+            <RawTreeBuilder v-model:value="tree" />
+        </div>
+
         <ImageUpload v-model:value="imageTest" />
         {{ imageTest?.filename }}
         {{ imageTest?.size }}
@@ -110,9 +115,10 @@ import Page from '../bits/Page.vue';
 import Selct from '../bits/Selct.vue';
 import type { ImageFile } from '../types/ImageFile';
 import Snapshot from './Snapshot.vue';
+import RawTreeBuilder from '../bits/RawTreeBuilder.vue';
 
 export default defineComponent({
-    components: { LabelText, Card, EditList, Btn, Page, DragCanvas, DualEditList, Snapshot, Selct, FlexRow, ImageUpload },
+    components: { LabelText, Card, EditList, Btn, Page, DragCanvas, DualEditList, Snapshot, Selct, FlexRow, ImageUpload, RawTreeBuilder },
     data() {
         return {
             testValue: "Hello",
@@ -122,7 +128,8 @@ export default defineComponent({
             selected: "1",
             toImport: "",
             message: "",
-            imageTest: null as unknown as ImageFile
+            imageTest: null as unknown as ImageFile,
+            tree: []
         }
     },
     methods: {
