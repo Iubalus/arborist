@@ -15,7 +15,7 @@ export interface SnapshotData {
     interviewees: Interviewee[];
     company: string;
     recordingURL: string;
-    date: Date;
+    date: string;
     interviewers: string[];
     leadInterviewer: string;
     interviewQuestions: string[];
