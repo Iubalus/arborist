@@ -99,7 +99,7 @@ button.fun {
 
 button:not(.fun) {
     text-align: center;
-    text-wrap:nowrap;
+    text-wrap: nowrap;
     padding: 3px 10px;
     font-family: monospace;
     box-sizing: border-box;
@@ -109,6 +109,9 @@ button:not(.fun) {
     border-radius: 25px;
     border: none;
     box-shadow: 0 0 1px 1px rgb(211, 210, 210);
+    -webkit-user-select: none;    
+    -ms-user-select: none;    
+    user-select: none;    
 
     &.disabled {
         background: rgb(190, 190, 190);
