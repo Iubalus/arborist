@@ -25,8 +25,7 @@ export default defineComponent({
                 //@ts-ignore
                 this.$emit('update:value', v);
             },
-            deep: true,
-            immediate: true
+            deep: true
         }
     }
 })

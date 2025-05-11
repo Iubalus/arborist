@@ -21,7 +21,7 @@
                     @click="() => addChild(i)"
                 />
                 <RawTreeBuilder
-                    v-model:value="c.children"
+                    v-model:tree="c.children"
                     :root="false"
                 />
             </FlexRow>
@@ -66,20 +66,21 @@ export default defineComponent({
             default: true
         }
     },
-    emits: ['update:value'],
+    emits: ['update:tree'],
     data() {
         return {
             isCut: false,
             isCopied: false,
             copied: null as unknown as Node,
             cut: null as unknown as Node,
-            internalTree: this.tree
+            internalTree: this.tree,
+            disableInnerWatch: false
         }
     },
-    watch: {
+    watch: {        
         internalTree: {
             handler: function (v) {
-                this.$emit("update:value", v);
+                this.$emit("update:tree", v);            
             },
             deep: true,
             immediate: true
@@ -125,8 +126,9 @@ export default defineComponent({
             let value = getStore(States.CLIPBOARD);
             if (!!value) {
                 node.children.push(this.reId(JSON.parse(value)));
+                let parsed = JSON.parse(value);
                 if (getStore(States.IS_CUT)) {
-                    putStore(States.DELETED, value.uuid);
+                    putStore(States.DELETED, parsed.uuid);
                     putStore(States.IS_CUT, false);
                 }
                 putStore(States.CLIPBOARD, null);
