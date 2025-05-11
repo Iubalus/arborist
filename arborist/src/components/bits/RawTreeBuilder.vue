@@ -19,7 +19,7 @@
                 <Btn
                     v-if="c.children.length == 0"
                     text="Add Child"
-                    width="200px"
+                    width="120px"
                     @click="() => addChild(i)"
                 />
                 <RawTreeBuilder
@@ -30,14 +30,14 @@
             <Btn
                 v-if="i == internalTree.length - 1 && !root"
                 text="Add Sibling"
-                width="200px"
+                width="120px"
                 @click="addSibling"
             />
         </div>
         <Btn
             v-if="root && internalTree.length === 0"
             text="Create"
-            width="200px"
+            width="120px"
             @click="addSibling"
         />
     </div>
