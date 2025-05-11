@@ -1,26 +1,25 @@
 <template>
     <Page title="Coming Soon">
-        <LabelText
-            v-model:value="equation"
-            label="Equation"
+        <RawTreeBuilder
+            v-model:tree="outcomesTree" 
+            :node-type="nodeType"           
         />
-        <pre>{{ equation }}</pre>
+        <pre>{{ outcomesTree }}</pre>
     </Page>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
-import LabelText from '../bits/LabelText.vue';
+import { defineComponent, markRaw } from 'vue';
 import Page from '../bits/Page.vue';
+import RawTreeBuilder from '../bits/RawTreeBuilder.vue';
+import Outcome from '../bits/Outcome.vue';
 
 export default defineComponent({
-    components: { Page, LabelText },
+    components: { Page, RawTreeBuilder },
     data() {
         return {
-            equation: "",
+            outcomesTree:[],
+            nodeType: markRaw(Outcome)
         }
-    },
-    computed: {
-
     }
 })
 </script>

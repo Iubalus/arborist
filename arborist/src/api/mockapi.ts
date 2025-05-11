@@ -91,7 +91,7 @@ function nextSnapshotId() {
 
 function commitStore() {
     //disabling this since the images are too large
-    //localStorage.setItem(ARBORIST_DATA_KEY, JSON.stringify(data));
+    localStorage.setItem(ARBORIST_DATA_KEY, JSON.stringify(data));
 }
 
 export function clearCachedData() {

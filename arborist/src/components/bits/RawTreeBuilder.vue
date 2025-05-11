@@ -10,6 +10,7 @@
                         v-model:value="c.content"
                         :is-cut="isCut(c, cut)"
                         :is-copy="isCopy(c, copied)"
+                        :node="nodeType"
                         @delete="() => deleteListener(c)"
                         @copy="() => copyListener(c)"
                         @paste="() => pasteListener(c)"
@@ -27,6 +28,7 @@
                 <RawTreeBuilder
                     v-model:tree="c.children"
                     :root="false"
+                    :node-type="nodeType"
                 />
             </FlexRow>
             <Btn
@@ -45,12 +47,13 @@
     </div>
 </template>
 <script lang="ts">
-import { defineComponent, type PropType } from 'vue'
+import { defineComponent, markRaw, type PropType } from 'vue'
 import Btn from './Btn.vue';
 import FlexRow from './FlexRow.vue';
 import RawTreeNode from './RawTreeNode.vue';
 import { addListener, getStore, putStore, removeListener, States } from './RawTreeBuilderStateStore';
 import { generateUUID } from '../util/uuid-util';
+import RawTreeTextNode from './RawTreeTextNode.vue';
 
 interface Node {
     uuid: string;
@@ -68,7 +71,11 @@ export default defineComponent({
         root: {
             type: Boolean,
             default: true
-        }
+        },
+        nodeType: {
+            type: Object as PropType<any>,
+            default: () => markRaw(RawTreeTextNode)
+        },
     },
     emits: ['update:tree'],
     data() {
