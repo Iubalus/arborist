@@ -6,8 +6,7 @@
         >
             <FlexRow>
                 <div :class="['label-stick', i === 0 ? 'first-label-stick' : '']">
-                    <LabelText
-                        style="width:200px;"
+                    <RawTreeNode                        
                         v-model:value="c.text"
                     />
                 </div>
@@ -40,8 +39,8 @@
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
 import Btn from './Btn.vue';
-import LabelText from './LabelText.vue';
 import FlexRow from './FlexRow.vue';
+import RawTreeNode from './RawTreeNode.vue';
 
 interface Node {
     text: string;
@@ -49,7 +48,7 @@ interface Node {
 }
 
 export default defineComponent({
-    components: { Btn, LabelText, FlexRow },
+    components: { Btn, RawTreeNode, FlexRow },
     props: {
         tree: {
             type: Array as PropType<Node[]>,
