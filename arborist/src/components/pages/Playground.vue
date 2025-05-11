@@ -4,9 +4,7 @@
         super-header="Hello"
     >
         <div style="overflow-x: scroll;padding:30px;">
-            <RawTreeBuilder v-model:tree="tree" />
-            <pre>{{ tree }}</pre>               
-            <pre>{{ myStore }}</pre>               
+            <RawTreeBuilder v-model:tree="tree" />                      
         </div>
 
         <ImageUpload v-model:value="imageTest" />

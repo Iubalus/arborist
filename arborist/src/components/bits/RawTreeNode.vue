@@ -4,8 +4,6 @@
             :is="node"
             v-model:value="internalValue"
         ></component>
-        {{ isCopy }}
-        {{ isCut }}
         <FlexRow>
             <Btn
                 text="&#9986; Cut"
