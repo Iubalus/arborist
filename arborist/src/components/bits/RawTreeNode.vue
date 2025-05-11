@@ -83,18 +83,20 @@ export default defineComponent({
 </script>
 <style scoped>
 .tree-card {
+    display: block;
     min-width: 200px;
     margin: 5px 0;
     padding: 10px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, .6);
-    background: white;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, .6);    
 
     &.is-copy {
         border: dashed 1px blue;
+        margin: 4px -1px;
     }
 
     &.is-cut {
         border: dashed 1px red;
+        margin: 4px -1px;
     }
 }
 </style>
