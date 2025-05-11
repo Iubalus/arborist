@@ -6,6 +6,14 @@
         ></component>
         <FlexRow>
             <Btn
+                text="&#11205;"
+                @click="up"
+            />
+            <Btn
+                text="&#11206;"
+                @click="down"
+            />
+            <Btn
                 text="&#9986; Cut"
                 @click="cut"
             />
@@ -50,7 +58,7 @@ export default defineComponent({
             default: false
         }
     },
-    emits: ["update:value", "cut", "copy", "paste", "delete"],
+    emits: ["update:value", "cut", "copy", "paste", "delete", "up", "down"],
     data() {
         return {
             internalValue: this.value
@@ -75,6 +83,12 @@ export default defineComponent({
         },
         doDelete() {
             this.$emit('delete')
+        },
+        up() {
+            this.$emit("up");
+        },
+        down() {
+            this.$emit("down")
         }
     }
 
@@ -87,7 +101,7 @@ export default defineComponent({
     min-width: 200px;
     margin: 5px 0;
     padding: 10px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, .6);    
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, .6);
 
     &.is-copy {
         border: dashed 1px blue;

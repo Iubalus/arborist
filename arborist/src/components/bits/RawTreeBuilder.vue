@@ -14,6 +14,8 @@
                         @copy="() => copyListener(c)"
                         @paste="() => pasteListener(c)"
                         @cut="() => cutListener(c)"
+                        @up="() => upListener(c)"
+                        @down="() => downListener(c)"
                     />
                 </div>
                 <Btn
@@ -143,6 +145,30 @@ export default defineComponent({
         cutListener(node: Node) {
             putStore(States.CLIPBOARD, JSON.stringify(node));
             putStore(States.IS_CUT, true);
+        },
+        upListener(node: Node) {
+            for (let i = 0; i < this.internalTree.length; i++) {
+                if (this.internalTree[i].uuid === node.uuid) {
+                    if (i - 1 >= 0) {
+                        let swap = this.internalTree[i - 1];
+                        this.internalTree[i - 1] = node;
+                        this.internalTree[i] = swap;
+                    }
+                    break;
+                }
+            }
+        },
+        downListener(node: Node) {
+            for (let i = 0; i < this.internalTree.length; i++) {
+                if (this.internalTree[i].uuid === node.uuid) {
+                    if (i + 1 < this.internalTree.length) {
+                        let swap = this.internalTree[i + 1];
+                        this.internalTree[i + 1] = node;
+                        this.internalTree[i] = swap;
+                    }
+                    break;
+                }
+            }
         },
         reId(node: Node) {
             node.uuid = generateUUID();
