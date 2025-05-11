@@ -199,10 +199,10 @@ export default defineComponent({
             &:before {
                 top: 0px;
                 left: -11px;
-                width: 10px;
+                width: 9px;
                 height: 50%;
                 padding-bottom: 5px;
-                border-left: 1px solid white;
+                border-left: 2px solid white;
             }
         }
 
