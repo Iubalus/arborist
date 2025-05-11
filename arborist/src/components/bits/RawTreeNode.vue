@@ -1,9 +1,11 @@
 <template>
-    <div class="tree-card">
+    <div :class="['tree-card', isCopy ? 'is-copy' : '', isCut ? 'is-cut' : '']">
         <component
             :is="node"
             v-model:value="internalValue"
         ></component>
+        {{ isCopy }}
+        {{ isCut }}
         <FlexRow>
             <Btn
                 text="&#9986; Cut"
@@ -40,6 +42,14 @@ export default defineComponent({
         node: {
             type: Object as PropType<any>,
             default: () => markRaw(RawTreeTextNode)
+        },
+        isCopy: {
+            type: Boolean,
+            default: false
+        },
+        isCut: {
+            type: Boolean,
+            default: false
         }
     },
     emits: ["update:value", "cut", "copy", "paste", "delete"],
@@ -80,5 +90,13 @@ export default defineComponent({
     padding: 10px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, .6);
     background: white;
+
+    &.is-copy {
+        border: dashed 1px blue;
+    }
+
+    &.is-cut {
+        border: dashed 1px red;
+    }
 }
 </style>

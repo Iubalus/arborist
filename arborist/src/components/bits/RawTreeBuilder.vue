@@ -8,6 +8,8 @@
                 <div :class="['label-stick', i === 0 ? 'first-label-stick' : '']">
                     <RawTreeNode
                         v-model:value="c.content"
+                        :is-cut="isCut(c, cut)"
+                        :is-copy="isCopy(c, copied)"
                         @delete="() => deleteListener(c)"
                         @copy="() => copyListener(c)"
                         @paste="() => pasteListener(c)"
@@ -69,18 +71,16 @@ export default defineComponent({
     emits: ['update:tree'],
     data() {
         return {
-            isCut: false,
-            isCopied: false,
-            copied: null as unknown as Node,
             cut: null as unknown as Node,
+            copied: null as unknown as Node,
             internalTree: this.tree,
             disableInnerWatch: false
         }
     },
-    watch: {        
+    watch: {
         internalTree: {
             handler: function (v) {
-                this.$emit("update:tree", v);            
+                this.$emit("update:tree", v);
             },
             deep: true,
             immediate: true
@@ -95,17 +95,22 @@ export default defineComponent({
     methods: {
         updateFromStore() {
             let node = getStore(States.CLIPBOARD)
-            let isCut = getStore(States.IS_CUT);
-            if (isCut) {
-                //@ts-ignore
-                this.copied = null as unknown as Node;
-                //@ts-ignore
-                this.cut = this.internalTree.find(v => v === node)
+            if (!!node) {
+                let isCut = getStore(States.IS_CUT);
+                if (isCut) {
+                    this.copied = null as unknown as Node;
+                    this.cut = JSON.parse(node);
+                } else {
+                    this.cut = null as unknown as Node;
+                    this.copied = JSON.parse(node);
+                }
             } else {
-                //@ts-ignore
-                this.cut = null as unknown as Node;
-                //@ts-ignore
-                this.copied = this.internalTree.find(v => v === node);
+                if (!!this.cut) {
+                    this.cut = null as unknown as Node;
+                }
+                if (!!this.copied) {
+                    this.copied = null as unknown as Node;
+                }
             }
             let deleted = getStore(States.DELETED);
             this.internalTree = this.internalTree.filter(v => v.uuid !== deleted)
@@ -121,6 +126,7 @@ export default defineComponent({
         },
         copyListener(node: Node) {
             putStore(States.CLIPBOARD, JSON.stringify(node));
+            putStore(States.IS_CUT, false);
         },
         pasteListener(node: Node) {
             let value = getStore(States.CLIPBOARD);
@@ -142,6 +148,19 @@ export default defineComponent({
             node.uuid = generateUUID();
             node.children.forEach(c => this.reId(c));
             return node;
+        },
+        isCut(node: Node, cut: Node) {
+            if (!cut) {
+                return false;
+            }
+            return cut.uuid === node.uuid || cut.children.some((c: Node): boolean => this.isCut(node, c))
+        },
+        isCopy(node: Node, copied: Node) {
+            console.log(node, copied);
+            if (!copied) {
+                return false;
+            }
+            return copied.uuid === node.uuid || copied.children.some((c: Node): boolean => this.isCopy(node, c))
         }
     }
 })
