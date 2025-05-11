@@ -7,7 +7,7 @@
             <FlexRow>
                 <div :class="['label-stick', i === 0 ? 'first-label-stick' : '']">
                     <RawTreeNode                        
-                        v-model:value="c.text"
+                        v-model:value="c.content"
                     />
                 </div>
                 <Btn
@@ -43,7 +43,7 @@ import FlexRow from './FlexRow.vue';
 import RawTreeNode from './RawTreeNode.vue';
 
 interface Node {
-    text: string;
+    content: any;
     children: Node[]
 }
 
@@ -76,10 +76,10 @@ export default defineComponent({
     },
     methods: {
         addChild(index: number) {
-            this.internalTree[index].children.push({ text: null as unknown as string, children: [] });
+            this.internalTree[index].children.push({ content: null as unknown as any, children: [] });
         },
         addSibling() {
-            this.internalTree.push({ text: null as unknown as string, children: [] });
+            this.internalTree.push({ content: null as unknown as any, children: [] });
         }
     }
 })

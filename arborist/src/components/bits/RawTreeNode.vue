@@ -25,7 +25,7 @@
     </div>
 </template>
 <script lang="ts">
-import { defineComponent, markRaw } from 'vue';
+import { defineComponent, markRaw, type PropType } from 'vue';
 import LabelText from './LabelText.vue';
 import FlexRow from './FlexRow.vue';
 import Btn from './Btn.vue';
@@ -34,11 +34,11 @@ export default defineComponent({
     components: { LabelText, FlexRow, Btn },
     props: {
         value: {
-            type: Object,
+            type: Object as PropType<any>,
             default: () => null
         },
         node: {
-            type: Object,
+            type: Object as PropType<any>,
             default: () => markRaw(LabelText)
         }
     },

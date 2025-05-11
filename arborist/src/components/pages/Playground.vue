@@ -3,7 +3,8 @@
         title="Playground"
         super-header="Hello"
     >
-        <div style="overflow-x: scroll;padding:30px;">            
+        <div style="overflow-x: scroll;padding:30px;">
+            <pre>{{ tree }}</pre>            
             <RawTreeBuilder v-model:value="tree" />
         </div>
 
