@@ -26,12 +26,12 @@
 </template>
 <script lang="ts">
 import { defineComponent, markRaw, type PropType } from 'vue';
-import LabelText from './LabelText.vue';
-import FlexRow from './FlexRow.vue';
 import Btn from './Btn.vue';
+import FlexRow from './FlexRow.vue';
+import RawTreeTextNode from './RawTreeTextNode.vue';
 
 export default defineComponent({
-    components: { LabelText, FlexRow, Btn },
+    components: { RawTreeTextNode, FlexRow, Btn },
     props: {
         value: {
             type: Object as PropType<any>,
@@ -39,7 +39,7 @@ export default defineComponent({
         },
         node: {
             type: Object as PropType<any>,
-            default: () => markRaw(LabelText)
+            default: () => markRaw(RawTreeTextNode)
         }
     },
     emits: ["update:value", "cut", "copy", "paste", "delete"],

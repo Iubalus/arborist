@@ -2,12 +2,16 @@
     <div :class="[root || internalTree.length === 0 ? 'root' : 'tree-node']">
         <div
             v-for="(c, i) in internalTree"
-            :key="i"
+            :key="c.uuid"
         >
             <FlexRow>
                 <div :class="['label-stick', i === 0 ? 'first-label-stick' : '']">
-                    <RawTreeNode                        
+                    <RawTreeNode
                         v-model:value="c.content"
+                        @delete="() => deleteListener(c)"
+                        @copy="() => copyListener(c)"
+                        @paste="() => pasteListener(c)"
+                        @cut="() => cutListener(c)"
                     />
                 </div>
                 <Btn
@@ -41,8 +45,11 @@ import { defineComponent, type PropType } from 'vue'
 import Btn from './Btn.vue';
 import FlexRow from './FlexRow.vue';
 import RawTreeNode from './RawTreeNode.vue';
+import { addListener, getStore, putStore, removeListener, States } from './RawTreeBuilderStateStore';
+import { generateUUID } from '../util/uuid-util';
 
 interface Node {
+    uuid: string;
     content: any;
     children: Node[]
 }
@@ -62,7 +69,11 @@ export default defineComponent({
     emits: ['update:value'],
     data() {
         return {
-            internalTree: [] as Node[]
+            isCut: false,
+            isCopied: false,
+            copied: null as unknown as Node,
+            cut: null as unknown as Node,
+            internalTree: this.tree
         }
     },
     watch: {
@@ -74,12 +85,61 @@ export default defineComponent({
             immediate: true
         }
     },
+    mounted() {
+        addListener(this.updateFromStore);
+    },
+    unmounted() {
+        removeListener(this.updateFromStore);
+    },
     methods: {
+        updateFromStore() {
+            let node = getStore(States.CLIPBOARD)
+            let isCut = getStore(States.IS_CUT);
+            if (isCut) {
+                //@ts-ignore
+                this.copied = null as unknown as Node;
+                //@ts-ignore
+                this.cut = this.internalTree.find(v => v === node)
+            } else {
+                //@ts-ignore
+                this.cut = null as unknown as Node;
+                //@ts-ignore
+                this.copied = this.internalTree.find(v => v === node);
+            }
+            let deleted = getStore(States.DELETED);
+            this.internalTree = this.internalTree.filter(v => v.uuid !== deleted)
+        },
         addChild(index: number) {
-            this.internalTree[index].children.push({ content: null as unknown as any, children: [] });
+            this.internalTree[index].children.push({ uuid: generateUUID(), content: {} as unknown as any, children: [] });
         },
         addSibling() {
-            this.internalTree.push({ content: null as unknown as any, children: [] });
+            this.internalTree.push({ uuid: generateUUID(), content: {} as unknown as any, children: [] });
+        },
+        deleteListener(node: Node) {
+            putStore(States.DELETED, node.uuid);
+        },
+        copyListener(node: Node) {
+            putStore(States.CLIPBOARD, JSON.stringify(node));
+        },
+        pasteListener(node: Node) {
+            let value = getStore(States.CLIPBOARD);
+            if (!!value) {
+                node.children.push(this.reId(JSON.parse(value)));
+                if (getStore(States.IS_CUT)) {
+                    putStore(States.DELETED, value.uuid);
+                    putStore(States.IS_CUT, false);
+                }
+                putStore(States.CLIPBOARD, null);
+            }
+        },
+        cutListener(node: Node) {
+            putStore(States.CLIPBOARD, JSON.stringify(node));
+            putStore(States.IS_CUT, true);
+        },
+        reId(node: Node) {
+            node.uuid = generateUUID();
+            node.children.forEach(c => this.reId(c));
+            return node;
         }
     }
 })

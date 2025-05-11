@@ -4,8 +4,9 @@
         super-header="Hello"
     >
         <div style="overflow-x: scroll;padding:30px;">
-            <pre>{{ tree }}</pre>            
             <RawTreeBuilder v-model:value="tree" />
+            <pre>{{ tree }}</pre>               
+            <pre>{{ myStore }}</pre>               
         </div>
 
         <ImageUpload v-model:value="imageTest" />
@@ -116,6 +117,7 @@ import Selct from '../bits/Selct.vue';
 import type { ImageFile } from '../types/ImageFile';
 import Snapshot from './Snapshot.vue';
 import RawTreeBuilder from '../bits/RawTreeBuilder.vue';
+import { store } from '../bits/RawTreeBuilderStateStore';
 
 export default defineComponent({
     components: { LabelText, Card, EditList, Btn, Page, DragCanvas, DualEditList, Snapshot, Selct, FlexRow, ImageUpload, RawTreeBuilder },
@@ -129,7 +131,8 @@ export default defineComponent({
             toImport: "",
             message: "",
             imageTest: null as unknown as ImageFile,
-            tree: []
+            tree: [],
+            myStore: store
         }
     },
     methods: {

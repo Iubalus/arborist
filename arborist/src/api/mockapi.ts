@@ -4,6 +4,7 @@ import type { Opportunity } from "../components/types/Opportunity";
 import type { Question, QuestionLink } from "../components/types/Questions";
 import type { HistoryType, Identity } from "../components/types/Session";
 import type { Interviewee, Quote, SnapshotData } from "../components/types/Snapshot";
+import { generateUUID } from "../components/util/uuid-util";
 import type { API } from "./api";
 
 const ARBORIST_DATA_KEY = "arborist-data";
@@ -82,20 +83,6 @@ let data = {
 let fromLocal = localStorage.getItem(ARBORIST_DATA_KEY);
 if (!!fromLocal) {
     data = { ...data, ...JSON.parse(fromLocal) };
-}
-
-function generateUUID() {
-    let template = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX";
-    let hex = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
-    let uuid = "";
-    for (let i = 0; i < template.length; i++) {
-        if (template.charAt(i) == 'X') {
-            uuid += hex[Math.floor(Math.random() * hex.length)];
-        } else {
-            uuid += template.charAt(i);
-        }
-    }
-    return uuid;
 }
 
 function nextSnapshotId() {
