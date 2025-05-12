@@ -64,5 +64,6 @@ select {
     width: 100%;
     padding: 5px 10px;
     border-radius: 5px;
+    background: transparent;
 }
 </style>

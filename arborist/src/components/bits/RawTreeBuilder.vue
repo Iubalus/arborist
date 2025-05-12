@@ -188,8 +188,7 @@ export default defineComponent({
             }
             return cut.uuid === node.uuid || cut.children.some((c: Node): boolean => this.isCut(node, c))
         },
-        isCopy(node: Node, copied: Node) {
-            console.log(node, copied);
+        isCopy(node: Node, copied: Node) {            
             if (!copied) {
                 return false;
             }

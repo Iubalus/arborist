@@ -31,7 +31,7 @@ export default defineComponent({
     components: { Tabs, FlexRow, Page },
     data() {
         return {
-            active: markRaw(Playground),
+            active: markRaw(Outcomes),
             tabs: [
                 {
                     title: "Home",

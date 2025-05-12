@@ -1,5 +1,5 @@
 <template>
-    <Page title="Coming Soon">
+    <Page title="Outcomes">
         <RawTreeBuilder
             v-model:tree="outcomesTree" 
             :node-type="nodeType"           
