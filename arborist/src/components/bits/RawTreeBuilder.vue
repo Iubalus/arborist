@@ -200,6 +200,9 @@ export default defineComponent({
 </script>
 <style scoped>
 .root {
+    margin-top:10px;
+    padding:20px;
+    border: dashed 1px blue;
     .label-stick {
         position: relative;
         align-content: center;
