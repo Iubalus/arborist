@@ -1,13 +1,7 @@
 <template>
     <Page title="Outcomes">
-        <RawTreeBuilder
-            v-model:tree="outcomesTree"
-            :node-type="nodeType"
-        />
-        <RawTreeBuilder
-            v-model:tree="outcomesTree"
-            :node-type="nodeType"
-        />
+        <Tree></Tree>   
+        <Tree horizontal></Tree>        
     </Page>
 </template>
 <script lang="ts">
@@ -15,9 +9,10 @@ import { defineComponent, markRaw } from 'vue';
 import Page from '../bits/Page.vue';
 import RawTreeBuilder from '../bits/RawTreeBuilder.vue';
 import Outcome from '../bits/Outcome.vue';
+import Tree from '../bits/Tree.vue';
 
 export default defineComponent({
-    components: { Page, RawTreeBuilder },
+    components: { Page, RawTreeBuilder, Tree },
     data() {
         return {
             outcomesTree: [
