@@ -13,8 +13,7 @@
         </FlexRow>
         <LabelText
             v-model:value="internalValue.text"
-            label="Outcome"
-            big-text
+            label="Outcome"            
         />
     </div>
 </template>
