@@ -1,5 +1,6 @@
 import type { ImageFile } from "../components/types/ImageFile";
 import type { Opportunity } from "../components/types/Opportunity";
+import type { OutcomeNode } from "../components/types/Outcome";
 import type { Question, QuestionLink } from "../components/types/Questions";
 import type { HistoryType, Identity } from "../components/types/Session";
 import type { SnapshotData } from "../components/types/Snapshot";
@@ -25,6 +26,8 @@ export interface API {
     deleteImage: (imageId: string) => Promise<void>;
     export: () => Promise<any>;
     import: (data: any) => Promise<void>;
+    saveOutcomes: (nodes: OutcomeNode[]) => Promise<void>;
+    loadOutcomes: () => Promise<OutcomeNode[]>;
 }
 
 const _api = createAPI();

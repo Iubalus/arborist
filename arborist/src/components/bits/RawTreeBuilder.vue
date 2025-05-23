@@ -65,7 +65,7 @@ export default defineComponent({
     components: { Btn, RawTreeNode, FlexRow },
     props: {
         tree: {
-            type: Array as PropType<Node[]>,
+            type: Array as PropType<any[]>,
             default: () => []
         },
         root: {
@@ -202,7 +202,7 @@ export default defineComponent({
 .root {
     margin-top:10px;
     padding:20px;
-    border: dashed 1px blue;
+    
     .label-stick {
         position: relative;
         align-content: center;

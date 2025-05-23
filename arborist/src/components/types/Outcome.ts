@@ -1,12 +1,5 @@
 export interface Outcome {
-    outcomeId: string;
-    parentOutcomeId: string;
+    type: "PRODUCT" | "BUSINESS";
     text: string;
-    type: "PRODUCT" | "BUSINESS"
-}
-
-export interface OutcomeJoin {
-    outcomeIdLeft: string;
-    outcomeIdRight: string;
-    joining: string;
+    leading: string;
 }

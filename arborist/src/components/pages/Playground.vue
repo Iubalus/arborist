@@ -7,6 +7,9 @@
             <RawTreeBuilder v-model:tree="tree" />                      
         </div>
 
+        <Tree></Tree>   
+        <Tree horizontal></Tree>   
+
         <ImageUpload v-model:value="imageTest" />
         {{ imageTest?.filename }}
         {{ imageTest?.size }}
@@ -116,9 +119,10 @@ import type { ImageFile } from '../types/ImageFile';
 import Snapshot from './Snapshot.vue';
 import RawTreeBuilder from '../bits/RawTreeBuilder.vue';
 import { store } from '../bits/RawTreeBuilderStateStore';
+import Tree from '../bits/Tree.vue';
 
 export default defineComponent({
-    components: { LabelText, Card, EditList, Btn, Page, DragCanvas, DualEditList, Snapshot, Selct, FlexRow, ImageUpload, RawTreeBuilder },
+    components: { LabelText, Card, EditList, Btn, Page, DragCanvas, DualEditList, Snapshot, Selct, FlexRow, ImageUpload, RawTreeBuilder, Tree },
     data() {
         return {
             testValue: "Hello",

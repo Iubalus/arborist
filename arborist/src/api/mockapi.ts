@@ -1,6 +1,7 @@
 import type { ImageFile } from "../components/types/ImageFile";
 import type { NamedImage } from "../components/types/NamedImage";
 import type { Opportunity } from "../components/types/Opportunity";
+import type { OutcomeNode } from "../components/types/Outcome";
 import type { Question, QuestionLink } from "../components/types/Questions";
 import type { HistoryType, Identity } from "../components/types/Session";
 import type { Interviewee, Quote, SnapshotData } from "../components/types/Snapshot";
@@ -77,7 +78,8 @@ let data = {
             momentsInTime: [] as string[],
             story: null as unknown as string
         }
-    ] as SnapshotData[]
+    ] as SnapshotData[],
+    outcomes: [] as OutcomeNode[]
 }
 
 let fromLocal = localStorage.getItem(ARBORIST_DATA_KEY);
@@ -223,6 +225,14 @@ export function createAPI(): API {
             data = { ...data, ...newData };
             commitStore();
             return Promise.resolve();
+        },
+        saveOutcomes: function(nodes: OutcomeNode[]): Promise<void> {
+            data.outcomes = nodes;
+            commitStore();
+            return Promise.resolve();
+        },
+        loadOutcomes: function(): Promise<OutcomeNode[]> {
+            return Promise.resolve(data.outcomes as OutcomeNode[])
         }
     } as API
 }

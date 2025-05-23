@@ -1,10 +1,16 @@
 <template>
     <div :class="['outcome', styleClass]">
-        <Selct
-            v-model:selected="internalValue.type"
-            label="Type"
-            :options="typeOptions"
-        ></Selct>
+        <FlexRow>
+            <LabelText
+                v-model:value="internalValue.leading"
+                label="Joiner"
+            />
+            <Selct
+                v-model:selected="internalValue.type"
+                label="Type"
+                :options="typeOptions"
+            ></Selct>
+        </FlexRow>
         <LabelText
             v-model:value="internalValue.text"
             label="Outcome"
@@ -17,9 +23,10 @@ import { defineComponent, type PropType } from 'vue'
 import type { Outcome } from '../types/Outcome';
 import Selct from './Selct.vue';
 import LabelText from './LabelText.vue';
+import FlexRow from './FlexRow.vue';
 
 export default defineComponent({
-    components: { LabelText, Selct },
+    components: { LabelText, Selct, FlexRow },
     props: {
         value: {
             type: Object as PropType<Outcome>,

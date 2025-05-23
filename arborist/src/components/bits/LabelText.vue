@@ -8,6 +8,7 @@
         ></textarea>
         <input
             v-else
+            :class="[transparent ? 'transparent-back' : '']"
             v-model="internalValue"
             type="text"
             :disabled="readOnly"
@@ -36,6 +37,10 @@ export default defineComponent({
         bigText: {
             type: Boolean,
             default: false
+        },
+        transparent: {
+            type: Boolean,
+            default: true
         }
     },
     emits: ['update:value'],
@@ -62,6 +67,10 @@ input {
     box-sizing: border-box;
     border-radius: 5px;
     border: solid 1px black;
+
+    &.transparent-back {
+        background: transparent;
+    }
 }
 
 textarea {
