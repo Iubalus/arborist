@@ -16,6 +16,36 @@ dependencies {
     testImplementation group: 'junit', name: 'junit', version: '4.13.1'
 }
 
+tasks.register('copyWeb') {
+    doFirst {
+        delete fileTree('./src/main/resources/web'){
+            include 'index*'
+        }
+    }
+
+    doLast {
+        copy {
+            from "../dist"
+            into "./src/main/resources/web/dist"
+            include "**/*.css"
+            include "**/*.html"
+            include "**/*.js"
+            filter {
+                String line -> line
+                        .replaceAll("/assets", "/planter/main/resources/web/dist/assets")
+                        .replaceAll("/image/", "/planter/main/resources/web/dist/image/")
+            }
+        }
+        copy {
+            from "../dist"
+            into "./src/main/resources/web/dist"
+            include "**/*.png"
+        }
+    }
+}
+
+war.dependsOn('copyWeb')
+
 war {
     webAppDirectory = file('src')
     webXml = file('src/main/WEB-INF/web.xml')

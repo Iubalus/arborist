@@ -1,7 +1,7 @@
 <template>
     <div class="home">
         <div class="branding">
-            <img src="/arborist.png"></img>
+            <img src="/image/arborist.png"></img>
             <h1>rborist</h1>
         </div>
         <Tabs

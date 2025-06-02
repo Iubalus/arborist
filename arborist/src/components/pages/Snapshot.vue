@@ -189,7 +189,7 @@ export default defineComponent({
             deep: true
         },
         rawOpportunities: {
-            handler: async function (v) {
+            handler: async function () {
                 if (this.opportunities.length < this.rawOpportunities.length) {
                     //insertion
                     let opportunity = {

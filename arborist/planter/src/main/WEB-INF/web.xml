@@ -8,6 +8,6 @@
 
     <servlet-mapping>
         <servlet-name>planter</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>/arborist/</url-pattern>
     </servlet-mapping>
 </web-app>
