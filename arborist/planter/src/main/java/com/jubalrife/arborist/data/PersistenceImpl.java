@@ -24,20 +24,22 @@ public class PersistenceImpl {
     }
 
     public static void inTransaction(Consumer<Persistence> wrap) {
-        try (Persistence p = create()) {
-            wrap.accept(p);
-        }
+        inTransaction(wrap, e -> {});
+    }
+
+    public static void inTransaction(Consumer<Persistence> wrap, Persistence.ErrorHandler errors) {
+        Persistence.inTransaction(FACTORY, wrap::accept, errors);
     }
 
     @SuppressWarnings("unchecked")
-    public static <DesiredType> List<DesiredType> findFromTransaction(Function<Persistence, List<Object>> operation) {
+    public static <DesiredType> List<DesiredType> find(Function<Persistence, List<Object>> operation) {
         try (Persistence p = create()) {
             return (List<DesiredType>) operation.apply(p);
         }
     }
 
     @SuppressWarnings("unchecked")
-    public static <DesiredType> DesiredType findSingleFromTransaction(Function<Persistence, Object> operation) {
+    public static <DesiredType> DesiredType findSingle(Function<Persistence, Object> operation) {
         try (Persistence p = create()) {
             return (DesiredType) operation.apply(p);
         }

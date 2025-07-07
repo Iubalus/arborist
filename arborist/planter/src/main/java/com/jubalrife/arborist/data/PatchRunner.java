@@ -1,5 +1,7 @@
 package com.jubalrife.arborist.data;
 
+import com.jubalrife.knucklebones.v1.Persistence;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,7 +15,7 @@ public class PatchRunner {
         patchDatabase();
     }
 
-    public static void patchDatabase(){
+    public static void patchDatabase() {
         runPatches(
                 "000_Patches.sql",
                 "001_Author.sql"
@@ -26,23 +28,29 @@ public class PatchRunner {
         Stream.of(toRun)
               .filter(patchName -> !alreadyRun.contains(patchName))
               .forEach(patchName -> {
-                  PersistenceImpl.inTransaction(p -> {
-                      p.createNativeQuery(getPatchSQL(patchName)).executeUpdate();
-                      p.createNativeQuery("INSERT INTO Patches (PatchName) VALUES ( :patchName )")
-                       .setParameter("patchName", patchName)
-                       .executeUpdate();
-                  });
+                  PersistenceImpl.inTransaction(
+                          p -> {
+                              p.createNativeQuery(getPatchSQL(patchName)).executeUpdate();
+                              p
+                                      .createNativeQuery("INSERT INTO Patches (PatchName) VALUES ( :patchName )")
+                                      .setParameter("patchName", patchName)
+                                      .executeUpdate();
+                          },
+                          e -> {
+                              throw new RuntimeException("Failed to apply patch " + patchName, e);
+                          }
+                  );
               });
     }
 
     private static List<String> findAlreadyRun() {
-        Long count = PersistenceImpl.findSingleFromTransaction(p -> p.createNativeQuery(
+        Long count = PersistenceImpl.findSingle(p -> p.createNativeQuery(
                 "SELECT COUNT(*) FROM information_schema.tables WHERE table_name = 'Patches'"
         ).findSingleResult());
         if (count == 0) {
             return Collections.emptyList();
         }
-        return PersistenceImpl.findFromTransaction(p -> p.createNativeQuery(
+        return PersistenceImpl.find(p -> p.createNativeQuery(
                 "SELECT PatchName from Patches").findResults()
         );
     }
