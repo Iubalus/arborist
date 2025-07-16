@@ -36,6 +36,7 @@ export default defineComponent({
     position: relative;
     text-align: center;
     min-width: 900px;
+    min-height: 100vh;
 
     >h1 {
         margin: var(--page-pad) 0 30px;

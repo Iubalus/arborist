@@ -40,7 +40,9 @@ export default defineComponent({
 </script>
 <style scoped>
 .tab-container {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 7px 0;
 }
 
 .tab {
@@ -54,10 +56,12 @@ export default defineComponent({
     -ms-user-select: none;
     user-select: none;
     text-wrap: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     &.active {
         font-weight: bold;
-        background:white;
+        background: white;
     }
 
     &:hover {

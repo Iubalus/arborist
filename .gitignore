@@ -30,3 +30,4 @@ arborist/.vscode/extensions.json
 
 arborist/planter/gradle/wrapper/*
 arborist/planter/src/main/static
+arborist/planter/bin/*

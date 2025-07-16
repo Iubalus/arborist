@@ -102,7 +102,7 @@ export default defineComponent({
     h1 {
         top: 122px;
         left: 95px;
-        position: absolute;
+        position: absolute;       
     }
 }
 </style>
