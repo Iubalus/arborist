@@ -26,21 +26,22 @@ import Playground from './Playground.vue';
 import Questions from './Questions.vue';
 import Snapshots from './Snapshots.vue';
 import SolutionStorymap from './SolutionStorymap.vue';
+import GrandTree from './GrandTree.vue';
 
 export default defineComponent({
     components: { Tabs, FlexRow, Page },
     data() {
         return {
-            active: markRaw(Questions),
+            active: markRaw(GrandTree),
             tabs: [
                 {
                     title: "Home",
-                    active: true,
+                    active: false,
                     page: markRaw(Overview)
                 },
                 {
-                    title: "Outcomes",
-                    active: false,
+                    title: "The Grand Tree",
+                    active: true,
                     page: markRaw(Outcomes)
                 },
                 {
