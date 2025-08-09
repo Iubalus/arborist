@@ -17,7 +17,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
-import FlexRow from '../bits/FlexRow.vue';
+import { FlexRow } from '../bits';
 
 export default defineComponent({
     components: { FlexRow },

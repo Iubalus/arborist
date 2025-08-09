@@ -9,11 +9,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import Btn from '../bits/Btn.vue';
-import FlexRow from '../bits/FlexRow.vue';
-import LabelText from '../bits/LabelText.vue';
-import Page from '../bits/Page.vue';
-import Selct from '../bits/Selct.vue';
+import { Page, Btn, FlexRow, LabelText, Selct } from '../bits';
 import { api } from '../../api/api';
 import type { OutcomeNode } from '../types/Outcome';
 

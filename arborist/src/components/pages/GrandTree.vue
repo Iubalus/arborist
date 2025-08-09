@@ -18,7 +18,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import Page from '../bits/Page.vue';
+import { Page } from '../bits';
 
 interface Node {
     contentType: "OUTCOME" | "JOINER" | "FILLER";

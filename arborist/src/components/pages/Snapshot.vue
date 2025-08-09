@@ -136,28 +136,31 @@
 </template>
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue';
-import Card from '../bits/Card.vue';
-import DateTime from '../bits/DateTime.vue';
-import DisplayList from '../bits/DisplayList.vue';
-import DisplayTextBlock from '../bits/DisplayTextBlock.vue';
-import DualEditList from '../bits/DualEditList.vue';
-import EditList from '../bits/EditList.vue';
-import Exhibits from '../bits/Exhibits.vue';
-import FlexRow from '../bits/FlexRow.vue';
-import LabelImage from '../bits/LabelImage.vue';
-import LabelText from '../bits/LabelText.vue';
-import Page from '../bits/Page.vue';
-import PresentDisplay from '../bits/PresentDisplay.vue';
-import ProfileImages from '../bits/ProfileImages.vue';
-import QuoteDisplay from '../bits/QuoteDisplay.vue';
-import Selct from '../bits/Selct.vue';
+import { 
+    Page,
+    Card,
+    DateTime,
+    DisplayList,
+    DisplayTextBlock,
+    DualEditList,
+    EditList,
+    Exhibits,
+    FlexRow,
+    LabelImage,
+    LabelText,
+    PresentDisplay,
+    ProfileImages,
+    QuoteDisplay,
+    Selct,
+    Btn,
+    EditListImage,
+    ImageUpload
+ } from '../bits';
+
 import { makeTitle, snapshotDate } from '../util/snapshot-util';
 import type { SnapshotData } from '../types/Snapshot';
 import type { Opportunity } from '../types/Opportunity';
 import { createAPI } from '../../api/mockapi';
-import Btn from '../bits/Btn.vue';
-import EditListImage from '../bits/EditListImage.vue';
-import ImageUpload from '../bits/ImageUpload.vue';
 
 export default defineComponent({
     components: { Page, QuoteDisplay, EditListImage, DualEditList, Card, FlexRow, LabelText, EditList, Selct, PresentDisplay, ProfileImages, DisplayList, DisplayTextBlock, Exhibits, LabelImage, DateTime, Btn, ImageUpload },

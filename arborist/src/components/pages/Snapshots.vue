@@ -30,8 +30,10 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import Btn from '../bits/Btn.vue';
-import Page from '../bits/Page.vue';
+import { 
+    Page,
+    Btn,    
+ } from '../bits';
 import type { SnapshotData } from '../types/Snapshot';
 import { makeTitle, snapshotDate } from '../util/snapshot-util';
 import Snapshot from './Snapshot.vue';

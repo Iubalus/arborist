@@ -9,8 +9,10 @@
 </template>
 <script lang="ts">
 import { defineComponent, markRaw } from 'vue';
-import FlexRow from './bits/FlexRow.vue';
-import Page from './bits/Page.vue';
+import { 
+    Page,
+    FlexRow
+ } from './bits';
 import {
     AssumptionMapping,
     AssumptionTests,

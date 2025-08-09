@@ -4,11 +4,11 @@
         super-header="Hello"
     >
         <div style="overflow-x: scroll;padding:30px;">
-            <RawTreeBuilder v-model:tree="tree" />                      
+            <RawTreeBuilder v-model:tree="tree" />
         </div>
 
-        <Tree></Tree>   
-        <Tree horizontal></Tree>   
+        <Tree></Tree>
+        <Tree horizontal></Tree>
 
         <ImageUpload v-model:value="imageTest" />
         {{ imageTest?.filename }}
@@ -105,21 +105,24 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { clearCachedData, createAPI } from '../../api/mockapi';
-import Btn from '../bits/Btn.vue';
-import Card from '../bits/Card.vue';
-import DragCanvas from '../bits/DragCanvas.vue';
-import DualEditList from '../bits/DualEditList.vue';
-import EditList from '../bits/EditList.vue';
-import FlexRow from '../bits/FlexRow.vue';
-import ImageUpload from '../bits/ImageUpload.vue';
-import LabelText from '../bits/LabelText.vue';
-import Page from '../bits/Page.vue';
-import Selct from '../bits/Selct.vue';
+import {
+    Page,
+    Btn,
+    Card,
+    DragCanvas,
+    DualEditList,
+    EditList,
+    FlexRow,
+    ImageUpload,
+    LabelText,
+    Selct,
+    RawTreeBuilder,
+    Tree    
+} from '../bits';
+
 import type { ImageFile } from '../types/ImageFile';
 import Snapshot from './Snapshot.vue';
-import RawTreeBuilder from '../bits/RawTreeBuilder.vue';
 import { store } from '../bits/RawTreeBuilderStateStore';
-import Tree from '../bits/Tree.vue';
 
 export default defineComponent({
     components: { LabelText, Card, EditList, Btn, Page, DragCanvas, DualEditList, Snapshot, Selct, FlexRow, ImageUpload, RawTreeBuilder, Tree },
