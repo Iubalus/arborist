@@ -34,8 +34,8 @@ import {
     Page,
     Btn,    
  } from '@/components/bits';
-import type { SnapshotData } from '../types/Snapshot';
-import { makeTitle, snapshotDate } from '../util/snapshot-util';
+import type { SnapshotData } from '../../types/Snapshot';
+import { makeTitle, snapshotDate } from './snapshot-util';
 import Snapshot from './Snapshot.vue';
 import { createSnapshot, loadSnapshots } from './SnapshotInteractor';
 

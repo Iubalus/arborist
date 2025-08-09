@@ -1,7 +1,7 @@
-import { api } from "../../api/api";
-import type { ImageFile } from "../bits/image/ImageFile";
-import type { NamedImage } from "../types/NamedImage";
-import type { Interviewee, Quote, SnapshotData } from "../types/Snapshot";
+import { api } from "../../../api/api";
+import type { ImageFile } from "@/components/bits";
+import type { NamedImage } from "@/components/types/NamedImage";
+import type { Interviewee, Quote, SnapshotData } from "@/components/types/Snapshot";
 
 export async function createSnapshot(): Promise<String> {
     return await api().saveSnapshot({

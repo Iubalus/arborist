@@ -1,5 +1,5 @@
-import type { SnapshotData } from "../types/Snapshot";
-import { dolist } from "./list-util";
+import type { SnapshotData } from "../../types/Snapshot";
+import { dolist } from "@/components/util/list-util";
 
 export function makeTitle(snapshot: SnapshotData) {
     if (snapshot.interviewees.length == 0 || !snapshot.company) {

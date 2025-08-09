@@ -51,7 +51,7 @@ import { defineComponent, markRaw, type PropType } from 'vue'
 import Btn from '@/components/bits/button/Btn.vue';
 import RawTreeNode from './RawTreeNode.vue';
 import { addListener, getStore, putStore, removeListener, States } from './RawTreeBuilderStateStore';
-import { generateUUID } from '../../util/uuid-util';
+import { generateUUID } from '@/components/util';
 import RawTreeTextNode from './RawTreeTextNode.vue';
 
 interface Node {

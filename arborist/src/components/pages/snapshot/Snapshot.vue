@@ -156,10 +156,10 @@ import {
     ImageUpload
 } from '@/components/bits';
 
-import { makeTitle, snapshotDate } from '../util/snapshot-util';
-import type { SnapshotData } from '../types/Snapshot';
-import type { Opportunity } from '../types/Opportunity';
-import { createAPI } from '../../api/mockapi';
+import { makeTitle, snapshotDate } from './snapshot-util';
+import type { SnapshotData } from '../../types/Snapshot';
+import type { Opportunity } from '../../types/Opportunity';
+import { createAPI } from '../../../api/mockapi';
 
 export default defineComponent({
     components: { Page, QuoteDisplay, EditListImage, DualEditList, Card, LabelText, EditList, Selct, PresentDisplay, ProfileImages, DisplayList, DisplayTextBlock, Exhibits, LabelImage, DateTime, Btn, ImageUpload },

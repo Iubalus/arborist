@@ -5,7 +5,7 @@ import type { OutcomeNode } from "../components/types/Outcome";
 import type { Question, QuestionLink } from "../components/types/Questions";
 import type { HistoryType, Identity } from "../components/types/Session";
 import type { Interviewee, Quote, SnapshotData } from "../components/types/Snapshot";
-import { generateUUID } from "../components/util/uuid-util";
+import { generateUUID } from "@/components/util";
 import type { API } from "./api";
 
 const ARBORIST_DATA_KEY = "arborist-data";

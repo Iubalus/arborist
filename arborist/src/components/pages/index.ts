@@ -3,7 +3,7 @@ import OpportunitySolutionTree from "./OpportunitySolutionTree.vue";
 import Outcomes from "./Outcomes.vue";
 import Playground from "./Playground.vue";
 import Questions from "./Questions.vue";
-import Snapshots from "./Snapshots.vue";
+import Snapshots from "./snapshot/Snapshots.vue";
 import SystemMenu from "./SystemMenu.vue";
 
 export {
