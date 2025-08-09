@@ -1,12 +1,10 @@
 <template>
     <div class="home">
-        <div class="tab-to-content-wrap">
-            <SystemMenu
-                :tabs="tabs"
-                @tab-selected="activateTab"
-            />
-            <component :is="active"></component>
-        </div>
+        <SystemMenu
+            :tabs="tabs"
+            @tab-selected="activateTab"
+        />
+        <component :is="active"></component>
     </div>
 </template>
 <script lang="ts">
@@ -40,6 +38,11 @@ export default defineComponent({
                 {
                     title: "The Grand Tree",
                     active: true,
+                    page: markRaw(GrandTree)
+                },
+                {
+                    title: "Outcomes",
+                    active: false,
                     page: markRaw(Outcomes)
                 },
                 {
@@ -94,7 +97,7 @@ export default defineComponent({
 })
 </script>
 <style scoped>
-.tab-to-content-wrap {
+.home {
     margin-left: 230px;
 }
 </style>
