@@ -10,7 +10,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue';
-import type { Quote } from '../../types/Snapshot';
+import { type Quote } from '@/components/types';
 import Labelled from '@/components/bits/container/Labelled.vue';
 
 export default defineComponent({

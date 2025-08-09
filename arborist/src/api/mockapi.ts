@@ -1,10 +1,17 @@
-import type { ImageFile } from "../components/bits/image/ImageFile";
-import type { NamedImage } from "../components/types/NamedImage";
-import type { Opportunity } from "../components/types/Opportunity";
-import type { OutcomeNode } from "../components/types/Outcome";
-import type { Question, QuestionLink } from "../components/types/Questions";
-import type { HistoryType, Identity } from "../components/types/Session";
-import type { Interviewee, Quote, SnapshotData } from "../components/types/Snapshot";
+import { type ImageFile } from "@/components/bits";
+import {
+    type HistoryType,
+    type Identity,
+    type Interviewee,
+    type NamedImage,
+    type Opportunity,
+    type Outcome,
+    type Question,
+    type QuestionLink,
+    type Quote,
+    type SnapshotData
+} from "@/components/types";
+
 import { generateUUID } from "@/components/util";
 import type { API } from "./api";
 
@@ -79,7 +86,7 @@ let data = {
             story: null as unknown as string
         }
     ] as SnapshotData[],
-    outcomes: [] as OutcomeNode[]
+    outcomes: [] as Outcome[]
 }
 
 let fromLocal = localStorage.getItem(ARBORIST_DATA_KEY);
@@ -226,13 +233,13 @@ export function createAPI(): API {
             commitStore();
             return Promise.resolve();
         },
-        saveOutcomes: function(nodes: OutcomeNode[]): Promise<void> {
+        saveOutcomes: function (nodes: Outcome[]): Promise<void> {
             data.outcomes = nodes;
             commitStore();
             return Promise.resolve();
         },
-        loadOutcomes: function(): Promise<OutcomeNode[]> {
-            return Promise.resolve(data.outcomes as OutcomeNode[])
+        loadOutcomes: function (): Promise<Outcome[]> {
+            return Promise.resolve(data.outcomes as Outcome[])
         }
     } as API
 }

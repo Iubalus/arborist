@@ -104,7 +104,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { clearCachedData, createAPI } from '../../api/mockapi';
+import { clearCachedData, createAPI } from '@/api/mockapi';
 import {
     Page,
     Btn,
@@ -117,9 +117,9 @@ import {
     Selct,
     RawTreeBuilder,
     Tree
-} from '../bits';
+} from '@/components/bits';
 
-import type { ImageFile } from '../bits/image/ImageFile';
+import type { ImageFile } from '@/components/bits/image/ImageFile';
 import Snapshot from './snapshot/Snapshot.vue';
 import { store } from '@/components/bits/tree/RawTreeBuilderStateStore';
 

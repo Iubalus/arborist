@@ -1,9 +1,14 @@
-import type { ImageFile } from "../components/bits/image/ImageFile";
-import type { Opportunity } from "../components/types/Opportunity";
-import type { OutcomeNode } from "../components/types/Outcome";
-import type { Question, QuestionLink } from "../components/types/Questions";
-import type { HistoryType, Identity } from "../components/types/Session";
-import type { SnapshotData } from "../components/types/Snapshot";
+import { type ImageFile } from "@/components/bits";
+import {
+    type Opportunity,
+    type Outcome,
+    type Question,
+    type QuestionLink,
+    type HistoryType,
+    type Identity,
+    type SnapshotData
+} from "@/components/types";
+
 import { createAPI } from "./mockapi";
 
 export interface API {
@@ -26,8 +31,8 @@ export interface API {
     deleteImage: (imageId: string) => Promise<void>;
     export: () => Promise<any>;
     import: (data: any) => Promise<void>;
-    saveOutcomes: (nodes: OutcomeNode[]) => Promise<void>;
-    loadOutcomes: () => Promise<OutcomeNode[]>;
+    saveOutcomes: (nodes: Outcome[]) => Promise<void>;
+    loadOutcomes: () => Promise<Outcome[]>;
 }
 
 const _api = createAPI();

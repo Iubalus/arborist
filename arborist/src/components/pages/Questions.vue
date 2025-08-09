@@ -9,16 +9,16 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { Page, Btn, LabelText, Selct } from '../bits';
-import { api } from '../../api/api';
-import type { OutcomeNode } from '../types/Outcome';
+import { Page, Btn, LabelText, Selct } from '@/components/bits';
+import { api } from '@/api/api';
+import { type Outcome } from '@/components/types';
 
 export default defineComponent({
     components: { Page, Btn, LabelText, Selct },
     data() {
         return {
             selectedOutcome: null as unknown as string,
-            rawOutcomes: [] as OutcomeNode[],
+            rawOutcomes: [] as Outcome[],
             researchQuestions: []
         }
     },

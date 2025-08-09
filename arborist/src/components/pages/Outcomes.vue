@@ -10,7 +10,7 @@
 <script lang="ts">
 import { defineComponent, markRaw } from 'vue';
 import { Page, RawTreeBuilder, Outcome } from '@/components/bits';
-import { api } from '../../api/api';
+import { api } from '@/api/api';
 
 export default defineComponent({
     components: { Page, RawTreeBuilder },

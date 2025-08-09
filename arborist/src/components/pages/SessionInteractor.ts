@@ -1,5 +1,5 @@
-import { api } from "../../api/api";
-import type { HistoryType, Identity } from "../types/Session";
+import { api } from "@/api/api";
+import { type HistoryType, type Identity } from "@/components/types";
 
 export async function whoAmI(): Promise<Identity> {
     return await api().whoAmI();

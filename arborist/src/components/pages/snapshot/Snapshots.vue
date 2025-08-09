@@ -29,12 +29,12 @@
     </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { 
+import {
+    Btn,
     Page,
-    Btn,    
- } from '@/components/bits';
-import type { SnapshotData } from '../../types/Snapshot';
+} from '@/components/bits';
+import { type SnapshotData } from '@/components/types';
+import { defineComponent } from 'vue';
 import { makeTitle, snapshotDate } from './snapshot-util';
 import Snapshot from './Snapshot.vue';
 import { createSnapshot, loadSnapshots } from './SnapshotInteractor';

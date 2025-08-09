@@ -19,7 +19,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
-import type { Outcome } from '../../types/Outcome';
+import type { Outcome } from '@/components/types';
 import Selct from '@/components/bits/select/Selct.vue';
 import LabelText from '@/components/bits/text/LabelText.vue';
 

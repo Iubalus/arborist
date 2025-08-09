@@ -33,7 +33,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue';
-import type { NamedImage } from '../../types/NamedImage';
+import { type NamedImage } from '@/components/types';
 import Btn from '@/components/bits/button/Btn.vue';
 import Labelled from '@/components/bits/container/Labelled.vue';
 import ImageUpload from "@/components/bits/image/ImageUpload.vue";

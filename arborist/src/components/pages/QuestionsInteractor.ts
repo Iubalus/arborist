@@ -1,6 +1,5 @@
-import { api } from "../../api/api";
-import type { Question, QuestionLink } from "../types/Questions";
-import { HistoryType } from "../types/Session";
+import { api } from "@/api/api";
+import { type Question, type QuestionLink, HistoryType } from "@/components/types";
 import { recordChange } from "./SessionInteractor";
 
 export async function loadQuestions(): Promise<Question[]> {
