@@ -14,17 +14,12 @@ import {
     FlexRow
  } from './bits';
 import {
-    AssumptionMapping,
-    AssumptionTests,
     GrandTree,
-    OpportunitySizing,
     OpportunitySolutionTree,
     Outcomes,
-    Overview,
     Playground,
     Questions,
     Snapshots,
-    SolutionStorymap,
     SystemMenu
 } from './pages';
 
@@ -34,11 +29,6 @@ export default defineComponent({
         return {
             active: markRaw(GrandTree),
             tabs: [
-                {
-                    title: "Home",
-                    active: false,
-                    page: markRaw(Overview)
-                },
                 {
                     title: "The Grand Tree",
                     active: true,
@@ -63,26 +53,6 @@ export default defineComponent({
                     title: "Opportunity Solution Tree",
                     active: false,
                     page: markRaw(OpportunitySolutionTree)
-                },
-                {
-                    title: "Opportunity Sizing",
-                    active: false,
-                    page: markRaw(OpportunitySizing)
-                },
-                {
-                    title: "Story Mapping",
-                    active: false,
-                    page: markRaw(SolutionStorymap)
-                },
-                {
-                    title: "Assumption Mapping",
-                    active: false,
-                    page: markRaw(AssumptionMapping)
-                },
-                {
-                    title: "Assumption Tests",
-                    active: false,
-                    page: markRaw(AssumptionTests)
                 },
                 {
                     title: "Playground",
