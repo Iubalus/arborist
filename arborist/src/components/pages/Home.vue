@@ -1,7 +1,7 @@
 <template>
     <div class="home">
         <div class="tab-to-content-wrap">
-            <Tabs
+            <SystemMenu
                 :tabs="tabs"
                 @tab-selected="activateTab"
             />
@@ -13,7 +13,6 @@
 import { defineComponent, markRaw } from 'vue';
 import FlexRow from '../bits/FlexRow.vue';
 import Page from '../bits/Page.vue';
-import Tabs from './Tabs.vue';
 import AssumptionMapping from './AssumptionMapping.vue';
 import AssumptionTests from './AssumptionTests.vue';
 import OpportunitySizing from './OpportunitySizing.vue';
@@ -25,9 +24,10 @@ import Questions from './Questions.vue';
 import Snapshots from './Snapshots.vue';
 import SolutionStorymap from './SolutionStorymap.vue';
 import GrandTree from './GrandTree.vue';
+import SystemMenu from './SystemMenu.vue';
 
 export default defineComponent({
-    components: { Tabs, FlexRow, Page },
+    components: { SystemMenu, FlexRow, Page },
     data() {
         return {
             active: markRaw(GrandTree),
