@@ -1,5 +1,5 @@
 import { api } from "../../api/api";
-import type { ImageFile } from "../types/ImageFile";
+import type { ImageFile } from "../bits/image/ImageFile";
 import type { NamedImage } from "../types/NamedImage";
 import type { Interviewee, Quote, SnapshotData } from "../types/Snapshot";
 

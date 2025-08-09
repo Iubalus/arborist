@@ -23,11 +23,11 @@
     </FlexRow>
 </template>
 <script lang="ts">
-import { defineComponent, type PropType } from 'vue'
+import { defineComponent, type PropType } from 'vue';
+import FlexRow from '../container/FlexRow.vue';
 import Labelled from '../container/Labelled.vue';
 import LabelText from '../text/LabelText.vue';
-import FlexRow from '../container/FlexRow.vue';
-import type { ImageFile } from '../../types/ImageFile';
+import type { ImageFile } from './ImageFile';
 
 export default defineComponent({
     components: { Labelled, LabelText, FlexRow },

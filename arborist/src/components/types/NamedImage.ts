@@ -1,4 +1,4 @@
-import type { ImageFile } from "./ImageFile";
+import type { ImageFile } from "../bits/image/ImageFile";
 
 export interface NamedImage {
     name: string;

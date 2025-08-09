@@ -120,7 +120,7 @@ import {
     Tree    
 } from '../bits';
 
-import type { ImageFile } from '../types/ImageFile';
+import type { ImageFile } from '../bits/image/ImageFile';
 import Snapshot from './Snapshot.vue';
 import { store } from '../bits/tree/RawTreeBuilderStateStore';
 

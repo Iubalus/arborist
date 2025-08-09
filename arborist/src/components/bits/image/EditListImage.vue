@@ -32,13 +32,13 @@
     </Labelled>
 </template>
 <script lang="ts">
-import { defineComponent, type PropType } from 'vue'
-import LabelText from '../text/LabelText.vue';
+import { defineComponent, type PropType } from 'vue';
+import type { NamedImage } from '../../types/NamedImage';
+import Btn from '../button/Btn.vue';
 import Labelled from '../container/Labelled.vue';
 import ImageUpload from "../image/ImageUpload.vue";
-import Btn from '../button/Btn.vue';
-import type { ImageFile } from '../../types/ImageFile';
-import type { NamedImage } from '../../types/NamedImage';
+import LabelText from '../text/LabelText.vue';
+import type { ImageFile } from './ImageFile';
 
 export default defineComponent({
     components: { LabelText, Labelled, Btn, ImageUpload },

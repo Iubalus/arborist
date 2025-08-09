@@ -1,4 +1,4 @@
-import type { ImageFile } from "./ImageFile";
+import type { ImageFile } from "../bits/image/ImageFile";
 import type { NamedImage } from "./NamedImage";
 
 export interface Interviewee extends NamedImage {

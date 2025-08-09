@@ -1,4 +1,4 @@
-import type { ImageFile } from "../components/types/ImageFile";
+import type { ImageFile } from "../components/bits/image/ImageFile";
 import type { NamedImage } from "../components/types/NamedImage";
 import type { Opportunity } from "../components/types/Opportunity";
 import type { OutcomeNode } from "../components/types/Outcome";
