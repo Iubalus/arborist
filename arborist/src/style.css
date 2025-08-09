@@ -45,17 +45,53 @@ body {
   padding-bottom: 3in;
 }
 
-#app {  
+#app {
   width: 100%;
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;    
+    color: #213547;
     background-color: #ffffff;
   }
 
   a:hover {
     color: #747bff;
   }
+}
+
+.d-flex {
+  display: flex;
+}
+
+.align-center {
+  align-content: center;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-space-between {
+  justify-content: space-between;
+}
+
+.gap-1 {
+  gap: 5px;
+}
+
+.gap-2 {
+  gap: 20px;
+}
+
+.gap-3 {
+  gap: 30px;
 }

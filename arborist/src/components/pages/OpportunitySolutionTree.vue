@@ -22,7 +22,7 @@
                             class="joiner"
                             v-if="!!cell.joiner"
                         >
-                            <div class="cell-actions">
+                            <div class="cell-actions d-flex gap-1">
                                 <span>[x]</span>
                                 <span>[&#9998;]</span>
                             </div>
@@ -215,9 +215,7 @@ table {
     top: 0;
     right: 10px;
     font-size: 10px;
-    color: blue;
-    display: flex;
-    gap: 5px;
+    color: blue;    
 
     span {
         &:hover {

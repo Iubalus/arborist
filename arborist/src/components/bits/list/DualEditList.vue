@@ -1,6 +1,6 @@
 <template>
     <Labelled :label="label">
-        <ul :class="[readOnly ? '' : 'draggable', asRow ? 'as-row' : '']">
+        <ul :class="[readOnly ? '' : 'draggable', asRow ? 'as-row d-flex gap-2 flex-wrap' : '']">
             <li
                 v-for="(v, i) in internalValue"
                 :key="keys[i]"
@@ -11,7 +11,7 @@
                 :data-index="i"
             >
                 <div
-                    class="item-row"
+                    class="d-flex gap-1"
                     :data-use="v"
                 >
                     <LabelText
@@ -145,10 +145,7 @@ export default defineComponent({
     }
 }
 
-.as-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+.as-row {    
     padding: 0;
     margin: 0;
 
@@ -168,10 +165,5 @@ ul {
             margin-top: 5px;
         }
     }
-}
-
-.item-row {
-    display: flex;
-    gap: 5px;
 }
 </style>

@@ -4,7 +4,7 @@
             v-for="(c, i) in internalTree"
             :key="c.uuid"
         >
-            <div class="tree-children">
+            <div class="d-flex gap-2 align-center">
                 <div :class="['label-stick', i === 0 ? 'first-label-stick' : '']">
                     <RawTreeNode
                         v-model:value="c.content"
@@ -198,12 +198,6 @@ export default defineComponent({
 
 </script>
 <style scoped>
-.tree-children {
-    display: flex;
-    gap: 10px;
-    align-content: center;
-}
-
 .root {
     margin-top: 10px;
     padding: 20px;

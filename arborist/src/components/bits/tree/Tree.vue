@@ -1,9 +1,9 @@
 <template>
-    <div :class="['tree-node', horizontal ? 'horizontal' : '']">
+    <div :class="['tree-node', horizontal ? 'horizontal d-flex' : '']">
         <div class="content">{{ root.content }}</div>
         <div
             v-if="root.children && root.children.length > 0"
-            class="children"
+            class="children d-flex gap-3 justify-center"
         >
             <Tree
                 v-for="(node, i) in root.children"
@@ -72,10 +72,7 @@ export default defineComponent({
         }
     }
 
-    .children {
-        display: flex;
-        gap: 21px;
-        justify-content: center;
+    .children {        
         border-top: 1px solid red;
         padding-top: 15px;
         margin-top: 15px;
@@ -83,8 +80,7 @@ export default defineComponent({
 }
 
 .tree-node.horizontal {
-    background: rgb(217, 230, 217);
-    display: flex;
+    background: rgb(217, 230, 217);    
     margin-top: 21px;
 
     &:first-of-type {

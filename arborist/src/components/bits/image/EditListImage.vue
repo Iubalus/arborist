@@ -5,7 +5,7 @@
             :key="i"
             class="image-line"
         >
-            <div class="item-row">
+            <div class="d-flex gap-2">
                 <LabelText
                     v-model:value="v.name"
                     :read-only="readOnly"
@@ -96,11 +96,6 @@ export default defineComponent({
 
     &:first-of-type {
         margin-top: 0;
-    }
-
-    .item-row {
-        display: flex;
-        gap: 10px;
     }
 }
 </style>

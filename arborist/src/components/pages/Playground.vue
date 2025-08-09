@@ -22,7 +22,7 @@
             >
                 {{ message }}
             </div>
-            <div class="data-controls">
+            <div class="d-flex gap-2 align-center">
                 <Btn
                     text="Import"
                     @click="importJSON"
@@ -171,11 +171,5 @@ export default defineComponent({
     box-shadow: 2px 2px 5px rgba(0, 0, 0, .6);
     padding: 10px;
     background: #e4f6ff;
-}
-
-.data-controls {
-    display: flex;
-    gap: 10px;
-    align-content: center;
 }
 </style>

@@ -4,7 +4,7 @@
             :is="node"
             v-model:value="internalValue"
         ></component>
-        <div class="cell-edit-actions-wrap">
+        <div class="d-flex gap-2 align-center">
             <Btn
                 text="&#11205;"
                 @click="up"
@@ -111,11 +111,5 @@ export default defineComponent({
         border: dashed 1px red;
         margin: 4px -1px;
     }
-}
-
-.cell-edit-actions-wrap {
-    display: flex;
-    gap: 10px;
-    align-content: center;
 }
 </style>

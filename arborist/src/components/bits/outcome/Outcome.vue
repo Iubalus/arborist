@@ -1,6 +1,6 @@
 <template>
     <div :class="['outcome', styleClass]">
-        <div class="outcome-options-wrap">
+        <div class="d-flex gap-2 align-center">
             <LabelText
                 v-model:value="internalValue.leading"
                 label="Joiner"
@@ -83,11 +83,5 @@ export default defineComponent({
     &.business-outcome {
         background: rgb(218, 221, 255);
     }
-}
-
-.outcome-options-wrap {
-    display: flex;
-    gap: 10px;
-    align-content: center;
 }
 </style>

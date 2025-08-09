@@ -10,7 +10,7 @@
                 width="100px"
                 @click="() => showEdit = true"
             />
-            <div class="edit-popout-wrap">
+            <div class="d-flex gap-2 align-center">
                 <Card
                     v-show="showEdit"
                     title="Edit values"
@@ -18,7 +18,7 @@
                     closable
                     @close="() => showEdit = false"
                 >
-                    <div class="company-line">
+                    <div class="d-flex gap-2 align-center">
                         <LabelText
                             label="Company"
                             v-model:value="internalSnapshot.company"
@@ -242,17 +242,5 @@ export default defineComponent({
 <style scoped>
 .preview-pane {
     padding: 10px;
-}
-
-.edit-popout-wrap {
-    display: flex;
-    gap: 10px;
-    align-content: center;
-}
-
-.company-line {
-    display: flex;
-    gap: 10px;
-    align-content: center;
 }
 </style>

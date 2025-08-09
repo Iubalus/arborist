@@ -1,6 +1,6 @@
 <template>
     <Labelled :label="label">
-        <div class="image-select">
+        <div class="image-select d-flex gap-2">
             <input
                 @change="handleImage"
                 type="file"
@@ -74,9 +74,7 @@ export default defineComponent({
 </script>
 <style scoped>
 .image-select {
-    margin-top: 12px;
-    display: flex;
-    gap: 10px;
+    margin-top: 12px;    
     width: 100%;
 
     input.fun {

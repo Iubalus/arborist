@@ -1,5 +1,5 @@
 <template>
-    <div class="profile-pictures">
+    <div class="d-flex gap-2 align-center">
         <Labelled
             :label="`${profile.name}${!profile.image ? ' (not pictured below)' : ''}`"
             v-for="profile in profiles"
@@ -44,12 +44,6 @@ export default defineComponent({
 
 </script>
 <style scoped>
-.profile-pictures {
-    display: flex;
-    gap: 10px;
-    align-content: center;
-}
-
 .image-container {
     margin-top: 10px;
     display: inline-block;
