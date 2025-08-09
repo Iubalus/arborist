@@ -15,7 +15,7 @@
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue';
 import { createAPI } from '../../../api/mockapi';
-import Labelled from '../container/Labelled.vue';
+import Labelled from '@/components/bits/container/Labelled.vue';
 import type { ImageFile } from './ImageFile';
 
 export default defineComponent({

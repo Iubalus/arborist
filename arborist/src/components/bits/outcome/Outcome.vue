@@ -20,9 +20,9 @@
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
 import type { Outcome } from '../../types/Outcome';
-import Selct from '../select/Selct.vue';
-import LabelText from '../text/LabelText.vue';
-import FlexRow from '../container/FlexRow.vue';
+import Selct from '@/components/bits/select/Selct.vue';
+import LabelText from '@/components/bits/text/LabelText.vue';
+import FlexRow from '@/components/bits/container/FlexRow.vue';
 
 export default defineComponent({
     components: { LabelText, Selct, FlexRow },

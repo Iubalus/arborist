@@ -60,7 +60,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { Page } from '../bits';
+import { Page } from '@/components/bits';
 
 export interface Cell {
     colSpan?: number;

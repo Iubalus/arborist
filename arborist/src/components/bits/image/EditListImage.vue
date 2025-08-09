@@ -34,10 +34,10 @@
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue';
 import type { NamedImage } from '../../types/NamedImage';
-import Btn from '../button/Btn.vue';
-import Labelled from '../container/Labelled.vue';
-import ImageUpload from "../image/ImageUpload.vue";
-import LabelText from '../text/LabelText.vue';
+import Btn from '@/components/bits/button/Btn.vue';
+import Labelled from '@/components/bits/container/Labelled.vue';
+import ImageUpload from "@/components/bits/image/ImageUpload.vue";
+import LabelText from '@/components/bits/text/LabelText.vue';
 import type { ImageFile } from './ImageFile';
 
 export default defineComponent({

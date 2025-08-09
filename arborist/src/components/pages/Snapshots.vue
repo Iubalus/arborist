@@ -33,7 +33,7 @@ import { defineComponent } from 'vue';
 import { 
     Page,
     Btn,    
- } from '../bits';
+ } from '@/components/bits';
 import type { SnapshotData } from '../types/Snapshot';
 import { makeTitle, snapshotDate } from '../util/snapshot-util';
 import Snapshot from './Snapshot.vue';

@@ -9,7 +9,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, markRaw } from 'vue';
-import { Page, RawTreeBuilder, Outcome } from '../bits';
+import { Page, RawTreeBuilder, Outcome } from '@/components/bits';
 import { api } from '../../api/api';
 
 export default defineComponent({

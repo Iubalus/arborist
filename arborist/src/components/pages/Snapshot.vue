@@ -155,7 +155,7 @@ import {
     Btn,
     EditListImage,
     ImageUpload
- } from '../bits';
+ } from '@/components/bits';
 
 import { makeTitle, snapshotDate } from '../util/snapshot-util';
 import type { SnapshotData } from '../types/Snapshot';

@@ -9,7 +9,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import Labelled from '../container/Labelled.vue';
+import Labelled from '@/components/bits/container/Labelled.vue';
 
 export default defineComponent({
     components: { Labelled },
