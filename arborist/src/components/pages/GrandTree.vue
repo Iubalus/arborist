@@ -1,6 +1,5 @@
 <template>
     <Page title="Coming Soon">
-        {{ depth }}
         <table>
             <tbody>
                 <tr v-for="level in fullTree(root)">
@@ -13,7 +12,6 @@
                 </tr>
             </tbody>
         </table>
-
     </Page>
 </template>
 <script lang="ts">
@@ -21,8 +19,8 @@ import { defineComponent } from 'vue'
 import { Page } from '@/components/bits';
 
 interface Node {
-    contentType: "OUTCOME" | "JOINER" | "FILLER";
-    content?: Outcome | String;
+    contentType: "OUTCOME" | "JOINER" | "FILLER" | "OPPORTUNITY";
+    content?: Outcome | Opportunity | String;
     children?: Node[];
 }
 
@@ -31,10 +29,14 @@ interface Outcome {
     text: String;
 }
 
+interface Opportunity {
+    text: String;
+}
+
 export default defineComponent({
     components: { Page },
     data() {
-        return {            
+        return {
             root: {
                 contentType: "OUTCOME",
                 content: {
@@ -47,7 +49,30 @@ export default defineComponent({
                         content: {
                             type: "BUSINESS",
                             text: "Revenue"
-                        }
+                        },
+                        children: [
+                            {
+                                contentType: "OUTCOME",
+                                content: {
+                                    type: "PRODUCT",
+                                    text: "Increase # of Customers"
+                                },
+                                children: [
+                                    {
+                                        contentType: "OPPORTUNITY",
+                                        content: {
+                                            text: "I want to know about new products"
+                                        }
+                                    },
+                                    {
+                                        contentType: "OPPORTUNITY",
+                                        content: {
+                                            text: "I want the product to be affordable"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
                     },
                     {
                         contentType: "JOINER",
@@ -108,7 +133,7 @@ export default defineComponent({
             flattened[level] = (flattened[level] || []).concat([node]);
             if (!node.children) {
                 for (let i = level + 1; i <= this.depth; i++) {
-                    flattened[i] = (flattened[i] || []).concat([{contentType:"FILLER"}])
+                    flattened[i] = (flattened[i] || []).concat([{ contentType: "FILLER" }])
                 }
             } else {
                 (node.children || [])?.forEach(v => this.walkTree(v, level + 1, flattened))
