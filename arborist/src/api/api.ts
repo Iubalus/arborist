@@ -1,7 +1,7 @@
 import { type ImageFile } from "@/components/bits";
 import {
     type Opportunity,
-    type Outcome,
+    type OutcomeNode,
     type Question,
     type QuestionLink,
     type HistoryType,
@@ -31,8 +31,8 @@ export interface API {
     deleteImage: (imageId: string) => Promise<void>;
     export: () => Promise<any>;
     import: (data: any) => Promise<void>;
-    saveOutcomes: (nodes: Outcome[]) => Promise<void>;
-    loadOutcomes: () => Promise<Outcome[]>;
+    saveOutcomes: (nodes: OutcomeNode[]) => Promise<void>;
+    loadOutcomes: () => Promise<OutcomeNode[]>;
 }
 
 const _api = createAPI();

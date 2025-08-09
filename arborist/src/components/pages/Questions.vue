@@ -11,14 +11,14 @@
 import { defineComponent } from 'vue';
 import { Page, Btn, LabelText, Selct } from '@/components/bits';
 import { api } from '@/api/api';
-import { type Outcome } from '@/components/types';
+import { type OutcomeNode } from '@/components/types';
 
 export default defineComponent({
     components: { Page, Btn, LabelText, Selct },
     data() {
         return {
             selectedOutcome: null as unknown as string,
-            rawOutcomes: [] as Outcome[],
+            rawOutcomes: [] as OutcomeNode[],
             researchQuestions: []
         }
     },

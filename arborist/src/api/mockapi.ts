@@ -5,7 +5,7 @@ import {
     type Interviewee,
     type NamedImage,
     type Opportunity,
-    type Outcome,
+    type OutcomeNode,
     type Question,
     type QuestionLink,
     type Quote,
@@ -86,7 +86,7 @@ let data = {
             story: null as unknown as string
         }
     ] as SnapshotData[],
-    outcomes: [] as Outcome[]
+    outcomes: [] as OutcomeNode[]
 }
 
 let fromLocal = localStorage.getItem(ARBORIST_DATA_KEY);
@@ -233,13 +233,13 @@ export function createAPI(): API {
             commitStore();
             return Promise.resolve();
         },
-        saveOutcomes: function (nodes: Outcome[]): Promise<void> {
+        saveOutcomes: function (nodes: OutcomeNode[]): Promise<void> {
             data.outcomes = nodes;
             commitStore();
             return Promise.resolve();
         },
-        loadOutcomes: function (): Promise<Outcome[]> {
-            return Promise.resolve(data.outcomes as Outcome[])
+        loadOutcomes: function (): Promise<OutcomeNode[]> {
+            return Promise.resolve(data.outcomes as OutcomeNode[])
         }
     } as API
 }
