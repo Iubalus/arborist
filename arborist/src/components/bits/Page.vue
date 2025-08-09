@@ -28,15 +28,13 @@ export default defineComponent({
     overflow: auto;
     box-sizing: border-box;
     display: block;
-    padding: var(--page-pad);
-    margin-top: 10px;
+    padding: var(--page-pad);    
     border-radius: 5px;
     box-shadow: 2px 2px 5px gray;
     background: white;
     position: relative;
     text-align: center;
-    min-width: 900px;
-    min-height: 100vh;
+    min-width: 900px;    
 
     >h1 {
         margin: var(--page-pad) 0 30px;

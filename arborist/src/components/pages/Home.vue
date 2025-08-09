@@ -1,13 +1,12 @@
 <template>
     <div class="home">
-        <div class="branding">
-            <img src="/image/arborist-full.png"></img>
+        <div class="tab-to-content-wrap">
+            <Tabs
+                :tabs="tabs"
+                @tab-selected="activateTab"
+            />
+            <component :is="active"></component>
         </div>
-        <Tabs
-            :tabs="tabs"
-            @tab-selected="activateTab"
-        />
-        <component :is="active"></component>
     </div>
 </template>
 <script lang="ts">
@@ -95,12 +94,7 @@ export default defineComponent({
 })
 </script>
 <style scoped>
-.branding {
-    position: relative;
-    padding-bottom: 20px;
-
-    img {
-        width: 300px
-    }
+.tab-to-content-wrap {
+    margin-left: 230px;
 }
 </style>
