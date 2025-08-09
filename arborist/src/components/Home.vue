@@ -9,19 +9,19 @@
 </template>
 <script lang="ts">
 import { defineComponent, markRaw } from 'vue';
-import FlexRow from '../bits/FlexRow.vue';
-import Page from '../bits/Page.vue';
-import AssumptionMapping from './AssumptionMapping.vue';
-import AssumptionTests from './AssumptionTests.vue';
-import OpportunitySizing from './OpportunitySizing.vue';
-import OpportunitySolutionTree from './OpportunitySolutionTree.vue';
-import Outcomes from './Outcomes.vue';
-import Overview from './Overview.vue';
-import Playground from './Playground.vue';
-import Questions from './Questions.vue';
-import Snapshots from './Snapshots.vue';
-import SolutionStorymap from './SolutionStorymap.vue';
-import GrandTree from './GrandTree.vue';
+import FlexRow from './bits/FlexRow.vue';
+import Page from './bits/Page.vue';
+import AssumptionMapping from './pages/AssumptionMapping.vue';
+import AssumptionTests from './pages/AssumptionTests.vue';
+import OpportunitySizing from './pages/OpportunitySizing.vue';
+import OpportunitySolutionTree from './pages/OpportunitySolutionTree.vue';
+import Outcomes from './pages/Outcomes.vue';
+import Overview from './pages/Overview.vue';
+import Playground from './pages/Playground.vue';
+import Questions from './pages/Questions.vue';
+import Snapshots from './pages/Snapshots.vue';
+import SolutionStorymap from './pages/SolutionStorymap.vue';
+import GrandTree from './pages/GrandTree.vue';
 import SystemMenu from './SystemMenu.vue';
 
 export default defineComponent({
