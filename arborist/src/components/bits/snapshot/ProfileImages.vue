@@ -24,10 +24,10 @@
 </template>
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
-import Labelled from './Labelled.vue';
-import LabelText from './LabelText.vue';
-import FlexRow from './FlexRow.vue';
-import type { ImageFile } from '../types/ImageFile';
+import Labelled from '../container/Labelled.vue';
+import LabelText from '../text/LabelText.vue';
+import FlexRow from '../container/FlexRow.vue';
+import type { ImageFile } from '../../types/ImageFile';
 
 export default defineComponent({
     components: { Labelled, LabelText, FlexRow },

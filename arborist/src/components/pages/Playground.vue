@@ -122,7 +122,7 @@ import {
 
 import type { ImageFile } from '../types/ImageFile';
 import Snapshot from './Snapshot.vue';
-import { store } from '../bits/RawTreeBuilderStateStore';
+import { store } from '../bits/tree/RawTreeBuilderStateStore';
 
 export default defineComponent({
     components: { LabelText, Card, EditList, Btn, Page, DragCanvas, DualEditList, Snapshot, Selct, FlexRow, ImageUpload, RawTreeBuilder, Tree },

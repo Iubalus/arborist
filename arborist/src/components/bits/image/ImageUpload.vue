@@ -14,9 +14,9 @@
 </template>
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
-import type { ImageFile } from '../types/ImageFile';
-import { createAPI } from '../../api/mockapi';
-import Labelled from './Labelled.vue';
+import type { ImageFile } from '../../types/ImageFile';
+import { createAPI } from '../../../api/mockapi';
+import Labelled from '../container/Labelled.vue';
 
 export default defineComponent({
     components: { Labelled },

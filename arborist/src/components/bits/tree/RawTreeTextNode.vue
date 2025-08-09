@@ -3,7 +3,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
-import LabelText from './LabelText.vue';
+import LabelText from '../text/LabelText.vue';
 
 export default defineComponent({
     components: { LabelText },

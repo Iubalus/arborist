@@ -13,7 +13,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
-import Labelled from './Labelled.vue';
+import Labelled from '../container/Labelled.vue';
 
 export default defineComponent({
     components: { Labelled },

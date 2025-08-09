@@ -34,8 +34,8 @@
 </template>
 <script lang="ts">
 import { defineComponent, markRaw, type PropType } from 'vue';
-import Btn from './Btn.vue';
-import FlexRow from './FlexRow.vue';
+import Btn from '../button/Btn.vue';
+import FlexRow from '../container/FlexRow.vue';
 import RawTreeTextNode from './RawTreeTextNode.vue';
 
 export default defineComponent({

@@ -12,8 +12,8 @@
 </template>
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
-import Labelled from './Labelled.vue';
-import { dolist } from '../util/list-util';
+import Labelled from '../container/Labelled.vue';
+import { dolist } from '../../util/list-util';
 
 export default defineComponent({
     components: { Labelled },

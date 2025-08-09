@@ -48,11 +48,11 @@
 </template>
 <script lang="ts">
 import { defineComponent, markRaw, type PropType } from 'vue'
-import Btn from './Btn.vue';
-import FlexRow from './FlexRow.vue';
+import Btn from '../button/Btn.vue';
+import FlexRow from '../container/FlexRow.vue';
 import RawTreeNode from './RawTreeNode.vue';
 import { addListener, getStore, putStore, removeListener, States } from './RawTreeBuilderStateStore';
-import { generateUUID } from '../util/uuid-util';
+import { generateUUID } from '../../util/uuid-util';
 import RawTreeTextNode from './RawTreeTextNode.vue';
 
 interface Node {
