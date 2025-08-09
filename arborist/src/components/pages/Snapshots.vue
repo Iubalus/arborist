@@ -32,14 +32,13 @@
 import { defineComponent } from 'vue';
 import Btn from '../bits/Btn.vue';
 import Page from '../bits/Page.vue';
-import Tabs from '../bits/Tabs.vue';
 import type { SnapshotData } from '../types/Snapshot';
 import { makeTitle, snapshotDate } from '../util/snapshot-util';
 import Snapshot from './Snapshot.vue';
 import { createSnapshot, loadSnapshots } from './SnapshotInteractor';
 
 export default defineComponent({
-    components: { Page, Snapshot, Tabs, Btn },
+    components: { Page, Snapshot, Btn },
     data() {
         return {
             reRender: 0,

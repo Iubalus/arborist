@@ -13,7 +13,7 @@
 import { defineComponent, markRaw } from 'vue';
 import FlexRow from '../bits/FlexRow.vue';
 import Page from '../bits/Page.vue';
-import Tabs from '../bits/Tabs.vue';
+import Tabs from './Tabs.vue';
 import AssumptionMapping from './AssumptionMapping.vue';
 import AssumptionTests from './AssumptionTests.vue';
 import OpportunitySizing from './OpportunitySizing.vue';
