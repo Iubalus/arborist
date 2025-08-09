@@ -17,10 +17,8 @@
 </template>
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
-import { FlexRow } from '@/components/bits';
 
-export default defineComponent({
-    components: { FlexRow },
+export default defineComponent({    
     props: {
         tabs: {
             type: Array as PropType<{ title: String, active: boolean }[]>,

@@ -10,7 +10,7 @@
                 width="100px"
                 @click="() => showEdit = true"
             />
-            <FlexRow>
+            <div class="edit-popout-wrap">
                 <Card
                     v-show="showEdit"
                     title="Edit values"
@@ -18,7 +18,7 @@
                     closable
                     @close="() => showEdit = false"
                 >
-                    <FlexRow>
+                    <div class="company-line">
                         <LabelText
                             label="Company"
                             v-model:value="internalSnapshot.company"
@@ -27,7 +27,7 @@
                             label="When"
                             v-model:value="internalSnapshot.date"
                         />
-                    </FlexRow>
+                    </div>
                     <LabelText
                         label="Recording URL"
                         v-model:value="internalSnapshot.recordingURL"
@@ -98,7 +98,7 @@
                     </a>
                     <ProfileImages :profiles="internalSnapshot.interviewees" />
                     <QuoteDisplay :quotes="internalSnapshot.memorableQuotes" />
-                    <FlexRow>
+                    <div>
                         <PresentDisplay
                             label="Present"
                             :lead-interviewer="internalSnapshot.leadInterviewer"
@@ -109,7 +109,7 @@
                             label="Quick Facts"
                             :values="internalSnapshot.quickFacts"
                         />
-                    </FlexRow>
+                    </div>
                     <DisplayList
                         label="Insights"
                         :values="internalSnapshot.insights"
@@ -130,13 +130,13 @@
                         :text="internalSnapshot.story"
                     />
                 </div>
-            </FlexRow>
+            </div>
         </Page>
     </div>
 </template>
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue';
-import { 
+import {
     Page,
     Card,
     DateTime,
@@ -145,7 +145,6 @@ import {
     DualEditList,
     EditList,
     Exhibits,
-    FlexRow,
     LabelImage,
     LabelText,
     PresentDisplay,
@@ -155,7 +154,7 @@ import {
     Btn,
     EditListImage,
     ImageUpload
- } from '@/components/bits';
+} from '@/components/bits';
 
 import { makeTitle, snapshotDate } from '../util/snapshot-util';
 import type { SnapshotData } from '../types/Snapshot';
@@ -163,7 +162,7 @@ import type { Opportunity } from '../types/Opportunity';
 import { createAPI } from '../../api/mockapi';
 
 export default defineComponent({
-    components: { Page, QuoteDisplay, EditListImage, DualEditList, Card, FlexRow, LabelText, EditList, Selct, PresentDisplay, ProfileImages, DisplayList, DisplayTextBlock, Exhibits, LabelImage, DateTime, Btn, ImageUpload },
+    components: { Page, QuoteDisplay, EditListImage, DualEditList, Card, LabelText, EditList, Selct, PresentDisplay, ProfileImages, DisplayList, DisplayTextBlock, Exhibits, LabelImage, DateTime, Btn, ImageUpload },
     props: {
         snapshot: {
             type: Object as PropType<SnapshotData>,
@@ -243,5 +242,17 @@ export default defineComponent({
 <style scoped>
 .preview-pane {
     padding: 10px;
+}
+
+.edit-popout-wrap {
+    display: flex;
+    gap: 10px;
+    align-content: center;
+}
+
+.company-line {
+    display: flex;
+    gap: 10px;
+    align-content: center;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div :class="['outcome', styleClass]">
-        <FlexRow>
+        <div class="outcome-options-wrap">
             <LabelText
                 v-model:value="internalValue.leading"
                 label="Joiner"
@@ -10,10 +10,10 @@
                 label="Type"
                 :options="typeOptions"
             ></Selct>
-        </FlexRow>
+        </div>
         <LabelText
             v-model:value="internalValue.text"
-            label="Outcome"            
+            label="Outcome"
         />
     </div>
 </template>
@@ -22,10 +22,9 @@ import { defineComponent, type PropType } from 'vue'
 import type { Outcome } from '../../types/Outcome';
 import Selct from '@/components/bits/select/Selct.vue';
 import LabelText from '@/components/bits/text/LabelText.vue';
-import FlexRow from '@/components/bits/container/FlexRow.vue';
 
 export default defineComponent({
-    components: { LabelText, Selct, FlexRow },
+    components: { LabelText, Selct },
     props: {
         value: {
             type: Object as PropType<Outcome>,
@@ -73,9 +72,9 @@ export default defineComponent({
 </script>
 <style scoped>
 .outcome {
-    margin:-10px -10px 0 -10px;
+    margin: -10px -10px 0 -10px;
     padding: 10px;
-    border-bottom: solid 2px rgba(0,0,0,.1);
+    border-bottom: solid 2px rgba(0, 0, 0, .1);
 
     &.product-outcome {
         background: rgb(255, 249, 213);
@@ -84,5 +83,11 @@ export default defineComponent({
     &.business-outcome {
         background: rgb(218, 221, 255);
     }
+}
+
+.outcome-options-wrap {
+    display: flex;
+    gap: 10px;
+    align-content: center;
 }
 </style>

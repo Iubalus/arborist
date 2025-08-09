@@ -4,7 +4,7 @@
             :is="node"
             v-model:value="internalValue"
         ></component>
-        <FlexRow>
+        <div class="cell-edit-actions-wrap">
             <Btn
                 text="&#11205;"
                 @click="up"
@@ -29,17 +29,16 @@
                 text="&#9888; Delete"
                 @click="doDelete"
             />
-        </FlexRow>
+        </div>
     </div>
 </template>
 <script lang="ts">
 import { defineComponent, markRaw, type PropType } from 'vue';
 import Btn from '@/components/bits/button/Btn.vue';
-import FlexRow from '@/components/bits/container/FlexRow.vue';
 import RawTreeTextNode from './RawTreeTextNode.vue';
 
 export default defineComponent({
-    components: { RawTreeTextNode, FlexRow, Btn },
+    components: { RawTreeTextNode, Btn },
     props: {
         value: {
             type: Object as PropType<any>,
@@ -112,5 +111,11 @@ export default defineComponent({
         border: dashed 1px red;
         margin: 4px -1px;
     }
+}
+
+.cell-edit-actions-wrap {
+    display: flex;
+    gap: 10px;
+    align-content: center;
 }
 </style>

@@ -22,7 +22,7 @@
             >
                 {{ message }}
             </div>
-            <FlexRow>
+            <div class="data-controls">
                 <Btn
                     text="Import"
                     @click="importJSON"
@@ -35,7 +35,7 @@
                     text="Clear Cached Data"
                     @click="clearCached"
                 />
-            </FlexRow>
+            </div>
             <LabelText
                 label="To Import"
                 big-text
@@ -112,12 +112,11 @@ import {
     DragCanvas,
     DualEditList,
     EditList,
-    FlexRow,
     ImageUpload,
     LabelText,
     Selct,
     RawTreeBuilder,
-    Tree    
+    Tree
 } from '../bits';
 
 import type { ImageFile } from '../bits/image/ImageFile';
@@ -125,7 +124,7 @@ import Snapshot from './Snapshot.vue';
 import { store } from '@/components/bits/tree/RawTreeBuilderStateStore';
 
 export default defineComponent({
-    components: { LabelText, Card, EditList, Btn, Page, DragCanvas, DualEditList, Snapshot, Selct, FlexRow, ImageUpload, RawTreeBuilder, Tree },
+    components: { LabelText, Card, EditList, Btn, Page, DragCanvas, DualEditList, Snapshot, Selct, ImageUpload, RawTreeBuilder, Tree },
     data() {
         return {
             testValue: "Hello",
@@ -172,5 +171,11 @@ export default defineComponent({
     box-shadow: 2px 2px 5px rgba(0, 0, 0, .6);
     padding: 10px;
     background: #e4f6ff;
+}
+
+.data-controls {
+    display: flex;
+    gap: 10px;
+    align-content: center;
 }
 </style>

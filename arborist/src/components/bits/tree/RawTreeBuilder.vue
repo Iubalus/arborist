@@ -4,7 +4,7 @@
             v-for="(c, i) in internalTree"
             :key="c.uuid"
         >
-            <FlexRow>
+            <div class="tree-children">
                 <div :class="['label-stick', i === 0 ? 'first-label-stick' : '']">
                     <RawTreeNode
                         v-model:value="c.content"
@@ -30,7 +30,7 @@
                     :root="false"
                     :node-type="nodeType"
                 />
-            </FlexRow>
+            </div>
             <Btn
                 v-if="i == internalTree.length - 1 && !root"
                 text="Add Sibling"
@@ -49,7 +49,6 @@
 <script lang="ts">
 import { defineComponent, markRaw, type PropType } from 'vue'
 import Btn from '@/components/bits/button/Btn.vue';
-import FlexRow from '@/components/bits/container/FlexRow.vue';
 import RawTreeNode from './RawTreeNode.vue';
 import { addListener, getStore, putStore, removeListener, States } from './RawTreeBuilderStateStore';
 import { generateUUID } from '../../util/uuid-util';
@@ -62,7 +61,7 @@ interface Node {
 }
 
 export default defineComponent({
-    components: { Btn, RawTreeNode, FlexRow },
+    components: { Btn, RawTreeNode },
     props: {
         tree: {
             type: Array as PropType<any[]>,
@@ -188,7 +187,7 @@ export default defineComponent({
             }
             return cut.uuid === node.uuid || cut.children.some((c: Node): boolean => this.isCut(node, c))
         },
-        isCopy(node: Node, copied: Node) {            
+        isCopy(node: Node, copied: Node) {
             if (!copied) {
                 return false;
             }
@@ -199,10 +198,16 @@ export default defineComponent({
 
 </script>
 <style scoped>
+.tree-children {
+    display: flex;
+    gap: 10px;
+    align-content: center;
+}
+
 .root {
-    margin-top:10px;
-    padding:20px;
-    
+    margin-top: 10px;
+    padding: 20px;
+
     .label-stick {
         position: relative;
         align-content: center;

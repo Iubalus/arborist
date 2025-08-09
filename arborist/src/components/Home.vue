@@ -10,8 +10,7 @@
 <script lang="ts">
 import { defineComponent, markRaw } from 'vue';
 import { 
-    Page,
-    FlexRow
+    Page
  } from './bits';
 import {
     GrandTree,
@@ -24,7 +23,7 @@ import {
 } from './pages';
 
 export default defineComponent({
-    components: { SystemMenu, FlexRow, Page },
+    components: { SystemMenu, Page },
     data() {
         return {
             active: markRaw(GrandTree),

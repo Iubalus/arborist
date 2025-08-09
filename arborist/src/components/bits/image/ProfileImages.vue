@@ -1,5 +1,5 @@
 <template>
-    <FlexRow>
+    <div class="profile-pictures">
         <Labelled
             :label="`${profile.name}${!profile.image ? ' (not pictured below)' : ''}`"
             v-for="profile in profiles"
@@ -20,17 +20,16 @@
                 ></img>
             </div>
         </Labelled>
-    </FlexRow>
+    </div>
 </template>
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue';
-import FlexRow from '@/components/bits/container/FlexRow.vue';
 import Labelled from '@/components/bits/container/Labelled.vue';
 import LabelText from '@/components/bits/text/LabelText.vue';
 import type { ImageFile } from './ImageFile';
 
 export default defineComponent({
-    components: { Labelled, LabelText, FlexRow },
+    components: { Labelled, LabelText },
     props: {
         label: {
             type: String,
@@ -45,6 +44,12 @@ export default defineComponent({
 
 </script>
 <style scoped>
+.profile-pictures {
+    display: flex;
+    gap: 10px;
+    align-content: center;
+}
+
 .image-container {
     margin-top: 10px;
     display: inline-block;

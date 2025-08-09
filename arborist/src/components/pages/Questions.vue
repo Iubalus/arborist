@@ -9,12 +9,12 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { Page, Btn, FlexRow, LabelText, Selct } from '../bits';
+import { Page, Btn, LabelText, Selct } from '../bits';
 import { api } from '../../api/api';
 import type { OutcomeNode } from '../types/Outcome';
 
 export default defineComponent({
-    components: { Page, Btn, FlexRow, LabelText, Selct },
+    components: { Page, Btn, LabelText, Selct },
     data() {
         return {
             selectedOutcome: null as unknown as string,

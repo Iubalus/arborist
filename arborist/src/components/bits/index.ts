@@ -1,6 +1,5 @@
 import Btn from "./button/Btn.vue";
 import Card from "./container/Card.vue";
-import FlexRow from "./container/FlexRow.vue";
 import Labelled from "./container/Labelled.vue";
 import Page from "./container/Page.vue";
 import DateTime from "./date/DateTime.vue";
@@ -35,7 +34,6 @@ export {
     EditList,
     EditListImage,
     Exhibits,
-    FlexRow,
     ImageUpload,
     LabelImage,
     Labelled,
