@@ -1,8 +1,7 @@
 <template>
     <div class="home">
         <div class="branding">
-            <img src="/image/arborist.png"></img>
-            <h1>rborist</h1>
+            <img src="/image/arborist-full.png"></img>
         </div>
         <Tabs
             :tabs="tabs"
@@ -100,10 +99,8 @@ export default defineComponent({
     position: relative;
     padding-bottom: 20px;
 
-    h1 {
-        top: 122px;
-        left: 95px;
-        position: absolute;       
+    img {
+        width: 300px
     }
 }
 </style>
