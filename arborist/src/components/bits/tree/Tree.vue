@@ -7,33 +7,33 @@
                     :colspan="countLeaves(node)"
                     :class="[node.contentType === 'CUSTOM' ? 'align-content-start' : null]"
                 >
-                    <div class="d-flex gap-1">
-                        <div v-if="node.contentType === 'CUSTOM'">
-                            <details>
-                                <summary></summary>
-                                <div class="d-grid gap-1">
-                                    <button @click="cut(x, y)">Cut</button>
-                                    <button @click="copy(x, y)">Copy</button>
-                                    <button @click="paste(x, y)">Paste</button>
-                                    <button @click="remove(x, y)">Delete</button>
-                                    <button @click="right(x, y)">&#8594;</button>
-                                    <button @click="left(x, y)">&#8592;</button>
-                                    <button @click="up(x, y)">&#8593;</button>
-                                    <button @click="down(x, y)">&#8595;</button>
-                                </div>
-                            </details>
+                    <div
+                        v-if="node.contentType === 'CUSTOM'"
+                        class="d-grid gap-1 grid-columns-3"
+                    >
+                        <button @click="cut(x, y)">Cut</button>
+                        <button @click="up(x, y)">&#8593;</button>
+                        <button @click="copy(x, y)">Copy</button>
+                        <div class="d-flex column-span-3 justify-content-space-between">
+                            <button @click="left(x, y)">&#8592;</button>
+                            <div>
+                                <component
+                                    v-if="node.element"
+                                    :is="node.element"
+                                    v-model:content="node.content"
+                                />
+                            </div>
+                            <button @click="right(x, y)">&#8594;</button>
                         </div>
-                        <component
-                            v-if="node.element"
-                            :is="node.element"
-                            v-model:content="node.content"
-                        />
-                        <span
-                            class="separator-content"
-                            v-else
-                        >
-                            {{ node.content }}
-                        </span>
+                        <button @click="paste(x, y)">Paste</button>
+                        <button @click="down(x, y)">&#8595;</button>
+                        <button @click="remove(x, y)">Delete</button>
+                    </div>
+                    <div
+                        class="separator-content"
+                        v-else
+                    >
+                        {{ node.content }}
                     </div>
                 </td>
             </tr>
@@ -148,7 +148,7 @@ export default defineComponent({
 <style scoped>
 td {
     border: solid 1px green;
-    justify-content:space-around;
+    justify-content: space-around;
 
     .separator-content {
         font-size: 60px;

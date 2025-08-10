@@ -68,6 +68,18 @@ body {
   display: grid;
 }
 
+.justify-content-space-between {
+  justify-content: space-between;
+}
+
+.grid-columns-3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.column-span-3 {
+  grid-column: span 3;
+}
+
 .align-content-start {
   align-content: start;
 }
