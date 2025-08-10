@@ -5,6 +5,7 @@
                 <td
                     v-for="(node, x) in level"
                     :colspan="countLeaves(node)"
+                    :class="[node.contentType === 'CUSTOM' ? 'align-content-start' : null]"
                 >
                     <div class="d-flex gap-1">
                         <div v-if="node.contentType === 'CUSTOM'">
@@ -27,7 +28,10 @@
                             :is="node.element"
                             v-model:content="node.content"
                         />
-                        <span v-else>
+                        <span
+                            class="separator-content"
+                            v-else
+                        >
                             {{ node.content }}
                         </span>
                     </div>
@@ -143,7 +147,11 @@ export default defineComponent({
 </script>
 <style scoped>
 td {
-    align-content: start;
     border: solid 1px green;
+    justify-content:space-around;
+
+    .separator-content {
+        font-size: 60px;
+    }
 }
 </style>

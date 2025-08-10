@@ -68,6 +68,10 @@ body {
   display: grid;
 }
 
+.align-content-start {
+  align-content: start;
+}
+
 .align-center {
   align-content: center;
 }
