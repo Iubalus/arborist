@@ -20,6 +20,7 @@ import LabelText from "./text/LabelText.vue";
 import QuoteDisplay from "./text/QuoteDisplay.vue";
 import RawTreeBuilder from "./tree/RawTreeBuilder.vue";
 import RawTreeTextNode from "./tree/RawTreeTextNode.vue";
+import {TreeContentType, type TreeNode} from "./tree/Tree.vue";
 import Tree from "./tree/Tree.vue";
 import { type ImageFile } from "./image/ImageFile";
 
@@ -46,6 +47,8 @@ export {
     RawTreeTextNode,
     Selct,
     Tree,
+    type TreeNode,
+    type TreeContentType,
     type ImageFile
 };
 

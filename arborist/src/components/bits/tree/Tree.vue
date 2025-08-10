@@ -1,37 +1,67 @@
 <template>
-    <div :class="['tree-node', horizontal ? 'horizontal d-flex' : '']">
-        <div class="content">{{ root.content }}</div>
-        <div
-            v-if="root.children && root.children.length > 0"
-            class="children d-flex gap-3 justify-center"
-        >
-            <Tree
-                v-for="(node, i) in root.children"
-                :key="i"
-                :root="node"
-                :horizontal="horizontal"
-            />
-        </div>
-    </div>
+    <table>
+        <tbody>
+            <tr v-for="level in fullTree(root)">
+                <td
+                    v-for="node in level"
+                    :colspan="countLeaves(node)"
+                >
+                    {{ node.content }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </template>
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
 
-export interface Node {
-    content: String;
-    children: Node[]
+export enum TreeContentType {
+    CUSTOM = "CUSTOM",
+    FILLER = "FILLER",
+    JOINER = "JOINER"
+}
+
+export interface TreeNode {
+    contentType: TreeContentType;
+    content?: any;
+    children?: TreeNode[];
 }
 
 export default defineComponent({
     props: {
-        horizontal: {
-            type: Boolean,
-            default: false
-        },
         root: {
-            type: Object as PropType<Node>,
-            default: () => {
-                return { content: "1A", children: [{ content: "2B", children: [{ content: "3C", children: [] }, { content: "3D", children: [] }] }, { content: "2C" }, { content: "2E" }] };
+            type: Object as PropType<TreeNode>,
+            default: () => { return { } }
+        }
+    },
+    computed: {
+        depth() {
+            return this.computeDepth(this.root, 0);
+        }
+    },
+    methods: {
+        countLeaves(node: TreeNode): number {
+            if (!node.children) {
+                return 1;//leaf
+            }
+            return (node.children || []).map(c => this.countLeaves(c)).reduce((l, r) => l + r, 0);
+        },
+        computeDepth(node: TreeNode, current: number): number {
+            return Math.max(...[current].concat((node.children || []).map(v => this.computeDepth(v, current + 1))));
+        },
+        fullTree(node: TreeNode): TreeNode[][] {
+            let nodes = [] as TreeNode[][];
+            this.walkTree(node, 0, nodes);
+            return nodes;
+        },
+        walkTree(node: TreeNode, level: number, flattened: TreeNode[][]) {
+            flattened[level] = (flattened[level] || []).concat([node]);
+            if (!node.children) {
+                for (let i = level + 1; i <= this.depth; i++) {
+                    flattened[i] = (flattened[i] || []).concat([{ contentType: TreeContentType.FILLER }])
+                }
+            } else {
+                (node.children || [])?.forEach(v => this.walkTree(v, level + 1, flattened))
             }
         }
     }
@@ -39,92 +69,7 @@ export default defineComponent({
 
 </script>
 <style scoped>
-.tree-node:not(.horizontal) {
-    margin: 0 auto;
-
-    .content {
-        position: relative;
-        margin: 0 auto;
-        width: 100px;
-        height: 100px;
-        border: solid 1px black;
-        align-content: center;
-        text-align: center;
-
-        &:before {
-            position: absolute;
-            content: ' ';
-            width: 10px;
-            height: 15px;
-            left: 50%;
-            top: -16px;
-            border-left: 1px solid red;
-        }
-
-        &:after {
-            position: absolute;
-            content: ' ';
-            width: 10px;
-            height: 15px;
-            left: 50%;
-            bottom: -16px;
-            border-left: 1px solid red;
-        }
-    }
-
-    .children {        
-        border-top: 1px solid red;
-        padding-top: 15px;
-        margin-top: 15px;
-    }
-}
-
-.tree-node.horizontal {
-    background: rgb(217, 230, 217);    
-    margin-top: 21px;
-
-    &:first-of-type {
-        margin-top: 0;
-    }
-
-    .content {
-        position: relative;
-        margin: auto 0;
-        width: 100px;
-        height: 100px;
-        border: solid 1px black;
-        align-content: center;
-        text-align: center;
-
-        &:before {
-            position: absolute;
-            content: ' ';
-            width: 15px;
-            height: 10px;
-            top: 50%;
-            left: -16px;
-            border-top: 1px solid red;
-        }
-
-        &:after {
-            position: absolute;
-            content: ' ';
-            width: 15px;
-            height: 10px;
-            top: 50%;
-            right: -16px;
-            border-top: 1px solid red;
-        }
-    }
-
-    .children {
-        box-sizing: border-box;
-        position: relative;
-        display: block;
-        padding-left: 15px;
-        margin-left: 15px;
-        box-sizing: border-box;
-        border-left: 1px solid red;
-    }
+td {
+    border: solid 1px blue;
 }
 </style>
