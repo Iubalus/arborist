@@ -9,13 +9,25 @@
                 >
                     <div
                         v-if="node.contentType === 'CUSTOM'"
-                        class="d-grid gap-1 grid-columns-3"
+                        class="d-grid gap-1 grid-columns-3 tree-node-custom"
                     >
-                        <button @click="cut(x, y)">Cut</button>
-                        <button @click="up(x, y)">&#8593;</button>
-                        <button @click="copy(x, y)">Copy</button>
-                        <div class="d-flex column-span-3 justify-content-space-between">
-                            <button @click="left(x, y)">&#8592;</button>
+                        <button
+                            class="tree-node-action"
+                            @click="cut(x, y)"
+                        >Cut</button>
+                        <button
+                            class="tree-node-action"
+                            @click="up(x, y)"
+                        >&#8593;</button>
+                        <button
+                            class="tree-node-action"
+                            @click="copy(x, y)"
+                        >Copy</button>
+                        <div class="d-flex gap-1 column-span-3 justify-content-space-between">
+                            <button
+                                class="tree-node-action"
+                                @click="left(x, y)"
+                            >&#8592;</button>
                             <div>
                                 <component
                                     v-if="node.element"
@@ -23,11 +35,23 @@
                                     v-model:content="node.content"
                                 />
                             </div>
-                            <button @click="right(x, y)">&#8594;</button>
+                            <button
+                                class="tree-node-action"
+                                @click="right(x, y)"
+                            >&#8594;</button>
                         </div>
-                        <button @click="paste(x, y)">Paste</button>
-                        <button @click="down(x, y)">&#8595;</button>
-                        <button @click="remove(x, y)">Delete</button>
+                        <button
+                            class="tree-node-action"
+                            @click="paste(x, y)"
+                        >Paste</button>
+                        <button
+                            class="tree-node-action"
+                            @click="down(x, y)"
+                        >&#8595;</button>
+                        <button
+                            class="tree-node-action"
+                            @click="remove(x, y)"
+                        >Delete</button>
                     </div>
                     <div
                         class="separator-content"
@@ -152,6 +176,24 @@ td {
 
     .separator-content {
         font-size: 60px;
+    }
+
+    .tree-node-custom {
+        .tree-node-action {
+            border-radius: 1000px;
+            border: none;
+            padding: 5px 10px;
+            justify-self: center;
+            align-self: center;
+            background: rgba(218, 255, 239, .5);
+            box-shadow: 0 0 2px rgba(0, 0, 0, .6);
+
+            &:hover {
+                box-shadow: 0 0 4px rgba(0, 0, 0, .6);
+                background: rgb(218, 255, 239);
+                cursor: pointer;
+            }
+        }
     }
 }
 </style>
