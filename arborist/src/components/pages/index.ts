@@ -1,4 +1,4 @@
-import GrandTree from "./GrandTree.vue";
+import GrandTree from "./grand-tree/GrandTree.vue";
 import OpportunitySolutionTree from "./OpportunitySolutionTree.vue";
 import Outcomes from "./Outcomes.vue";
 import Playground from "./Playground.vue";

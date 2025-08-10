@@ -1,7 +1,7 @@
 <template>
     <table>
         <tbody>
-            <tr v-for="(level, y) in fullTree(root)">
+            <tr v-for="(level, y) in fullTree(innerRoot)">
                 <td
                     v-for="(node, x) in level"
                     :colspan="countLeaves(node)"
@@ -22,7 +22,14 @@
                                 </div>
                             </details>
                         </div>
-                        {{ node.content }}
+                        <component
+                            v-if="node.element"
+                            :is="node.element"
+                            v-model:content="node.content"
+                        />
+                        <span v-else>
+                            {{ node.content }}
+                        </span>
                     </div>
                 </td>
             </tr>
@@ -42,6 +49,7 @@ export enum TreeContentType {
 export interface TreeNode {
     contentType: TreeContentType;
     content?: any;
+    element?: any;
     children?: TreeNode[];
 }
 
@@ -53,9 +61,31 @@ export default defineComponent({
             default: () => { return {} }
         }
     },
+    emits: ['update:root'],
+    data() {
+        return {
+            innerRoot: this.root
+        }
+    },
+    watch: {
+        innerRoot: {
+            handler(v) {
+                if (JSON.stringify(v) !== JSON.stringify(this.root)) {
+                    this.$emit("update:root", v);
+                }
+            },
+            deep: true
+        },
+        root: {
+            handler(v) {
+                this.innerRoot = v;
+            },
+            deep: true
+        }
+    },
     computed: {
         depth() {
-            return this.computeDepth(this.root, 0);
+            return this.computeDepth(this.innerRoot, 0);
         }
     },
     methods: {

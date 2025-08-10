@@ -1,11 +1,13 @@
 <template>
     <Page title="Coming Soon">
         <Tree :root="root" />
+        <pre>{{ root }}</pre>
     </Page>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, markRaw } from 'vue'
 import { Page, Tree, type TreeNode } from '@/components/bits';
+import OutcomeNode from './OutcomeNode.vue';
 
 export default defineComponent({
     components: { Page, Tree },
@@ -13,6 +15,7 @@ export default defineComponent({
         return {
             root: {
                 contentType: "CUSTOM",
+                element: markRaw(OutcomeNode),
                 content: {
                     type: "BUSINESS",
                     text: "Profit"
@@ -20,6 +23,7 @@ export default defineComponent({
                 children: [
                     {
                         contentType: "CUSTOM",
+                        element: markRaw(OutcomeNode),
                         content: {
                             type: "BUSINESS",
                             text: "Revenue"
@@ -27,6 +31,7 @@ export default defineComponent({
                         children: [
                             {
                                 contentType: "CUSTOM",
+                                element: markRaw(OutcomeNode),
                                 content: {
                                     type: "PRODUCT",
                                     text: "Increase # of Customers"
@@ -34,12 +39,14 @@ export default defineComponent({
                                 children: [
                                     {
                                         contentType: "CUSTOM",
+                                        element: markRaw(OutcomeNode),
                                         content: {
                                             text: "I want to know about new products"
                                         }
                                     },
                                     {
                                         contentType: "CUSTOM",
+                                        element: markRaw(OutcomeNode),
                                         content: {
                                             text: "I want the product to be affordable"
                                         }
@@ -54,6 +61,7 @@ export default defineComponent({
                     },
                     {
                         contentType: "CUSTOM",
+                        element: markRaw(OutcomeNode),
                         content: {
                             type: "BUSINESS",
                             text: "Cost"
@@ -61,6 +69,7 @@ export default defineComponent({
                         children: [
                             {
                                 contentType: "CUSTOM",
+                                element: markRaw(OutcomeNode),
                                 content: {
                                     type: "BUSINESS",
                                     text: "Infra costs"
@@ -72,6 +81,7 @@ export default defineComponent({
                             },
                             {
                                 contentType: "CUSTOM",
+                                element: markRaw(OutcomeNode),
                                 content: {
                                     type: "BUSINESS",
                                     text: "People Cost"
