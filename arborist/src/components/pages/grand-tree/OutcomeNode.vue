@@ -1,9 +1,8 @@
 <template>
-    <div>
+    <div :class="['outcome-node', outcomeClass]">
         <details :open="!selectedType">
-            <summary>Type {{ selectedType || "Unset" }}</summary>
+            <summary>{{ selectedType || "Unset" }}</summary>
             <Selct
-                label="Type"
                 v-model:selected="innerContent.type"
                 :options="typeOptions"
             />
@@ -54,8 +53,38 @@ export default defineComponent({
         },
         selectedType() {
             return (this.typeOptions.find(v => v.value === this.innerContent.type) || {}).label;
+        },
+        outcomeClass() {
+            if (this.innerContent.type === 'BUSINESS') {
+                return 'business-outcome'
+            }
+            if (this.innerContent.type === 'PRODUCT') {
+                return 'product-outcome'
+            }
+            return null;
         }
     }
 })
 </script>
-<style scoped></style>
+<style scoped>
+.outcome-node {
+    display: grid;
+    justify-items: start;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, .6);
+
+    >details {
+        width: 100%;
+        text-align: left;
+    }
+
+    &.business-outcome {
+        background: linear-gradient(white 20%, rgba(205, 195, 238, 0.5));
+    }
+
+    &.product-outcome {
+        background: linear-gradient(white 20%, rgba(255, 237, 205, 0.5));
+    }
+}
+</style>
