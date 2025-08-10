@@ -1,12 +1,29 @@
 <template>
     <table>
         <tbody>
-            <tr v-for="level in fullTree(root)">
+            <tr v-for="(level, y) in fullTree(root)">
                 <td
-                    v-for="node in level"
+                    v-for="(node, x) in level"
                     :colspan="countLeaves(node)"
                 >
-                    {{ node.content }}
+                    <div class="d-flex gap-1">
+                        <div v-if="node.contentType === 'CUSTOM'">
+                            <details>
+                                <summary></summary>
+                                <div class="d-grid gap-1">
+                                    <button @click="cut(x, y)">Cut</button>
+                                    <button @click="copy(x, y)">Copy</button>
+                                    <button @click="paste(x, y)">Paste</button>
+                                    <button @click="remove(x, y)">Delete</button>
+                                    <button @click="right(x, y)">&#8594;</button>
+                                    <button @click="left(x, y)">&#8592;</button>
+                                    <button @click="up(x, y)">&#8593;</button>
+                                    <button @click="down(x, y)">&#8595;</button>
+                                </div>
+                            </details>
+                        </div>
+                        {{ node.content }}
+                    </div>
                 </td>
             </tr>
         </tbody>
@@ -14,6 +31,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
+import { Btn } from '@/components/bits';
 
 export enum TreeContentType {
     CUSTOM = "CUSTOM",
@@ -28,10 +46,11 @@ export interface TreeNode {
 }
 
 export default defineComponent({
+    components: { Btn },
     props: {
         root: {
             type: Object as PropType<TreeNode>,
-            default: () => { return { } }
+            default: () => { return {} }
         }
     },
     computed: {
@@ -63,6 +82,30 @@ export default defineComponent({
             } else {
                 (node.children || [])?.forEach(v => this.walkTree(v, level + 1, flattened))
             }
+        },
+        cut(x: number, y: number) {
+
+        },
+        copy(x: number, y: number) {
+
+        },
+        paste(x: number, y: number) {
+
+        },
+        remove(x: number, y: number) {
+
+        },
+        up(x: number, y: number) {
+
+        },
+        down(x: number, y: number) {
+
+        },
+        left(x: number, y: number) {
+
+        },
+        right(x: number, y: number) {
+
         }
     }
 })
@@ -70,6 +113,7 @@ export default defineComponent({
 </script>
 <style scoped>
 td {
-    border: solid 1px blue;
+    align-content: start;
+    border: solid 1px green;
 }
 </style>
