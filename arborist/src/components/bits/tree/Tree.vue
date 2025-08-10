@@ -171,7 +171,7 @@ export default defineComponent({
 </script>
 <style scoped>
 td {
-    border: solid 1px green;
+    border: solid 1px rgba(173, 221, 173, .5);
     justify-content: space-around;
 
     .separator-content {
@@ -180,6 +180,7 @@ td {
 
     .tree-node-custom {
         .tree-node-action {
+            opacity: 20%;
             border-radius: 1000px;
             border: none;
             padding: 5px 10px;
@@ -189,6 +190,7 @@ td {
             box-shadow: 0 0 2px rgba(0, 0, 0, .6);
 
             &:hover {
+                opacity: 1;
                 box-shadow: 0 0 4px rgba(0, 0, 0, .6);
                 background: rgb(218, 255, 239);
                 cursor: pointer;
