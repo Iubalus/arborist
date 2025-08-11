@@ -9,21 +9,17 @@
                 >
                     <div
                         v-if="node.contentType === 'CUSTOM'"
-                        class="d-grid gap-1 grid-columns-3 tree-node-custom"
+                        class="d-grid gap-1 grid-columns-2 tree-node-custom"
                     >
                         <button
                             class="tree-node-action"
                             @click="cut(x, y)"
-                        >Cut</button>
-                        <button
-                            class="tree-node-action"
-                            @click="up(x, y)"
-                        >&#8593;</button>
+                        >Cut</button>                        
                         <button
                             class="tree-node-action"
                             @click="copy(x, y)"
                         >Copy</button>
-                        <div class="d-flex gap-1 column-span-3 justify-content-space-between">
+                        <div class="d-flex gap-1 column-span-2 justify-content-space-between">
                             <button
                                 class="tree-node-action"
                                 @click="left(x, y)"
@@ -43,11 +39,7 @@
                         <button
                             class="tree-node-action"
                             @click="paste(x, y)"
-                        >Paste</button>
-                        <button
-                            class="tree-node-action"
-                            @click="down(x, y)"
-                        >&#8595;</button>
+                        >Paste</button>                        
                         <button
                             class="tree-node-action"
                             @click="remove(x, y)"
@@ -152,13 +144,7 @@ export default defineComponent({
         },
         remove(x: number, y: number) {
 
-        },
-        up(x: number, y: number) {
-
-        },
-        down(x: number, y: number) {
-
-        },
+        },        
         left(x: number, y: number) {
 
         },

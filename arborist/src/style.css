@@ -76,11 +76,19 @@ body {
 }
 
 .grid-columns-3 {
-  grid-template-columns: repeat(3, minmax(100px, 1fr));
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.grid-columns-2 {
+  grid-template-columns: 1fr 1fr;
 }
 
 .column-span-3 {
   grid-column: span 3;
+}
+
+.column-span-2 {
+  grid-column: span 2;
 }
 
 .align-content-start {
