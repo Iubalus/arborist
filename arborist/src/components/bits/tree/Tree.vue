@@ -12,6 +12,7 @@
                         class="d-grid gap-1 tree-node-custom"
                     >
                         <div class="d-flex gap-1 flex-nowrap">
+                            <span>x{{ x }},y{{ y }}, hidden {{ isHidden(x, y) }}</span>
                             <button
                                 class="tree-node-action"
                                 @click="cut(x, y)"
@@ -28,6 +29,10 @@
                                 class="tree-node-action"
                                 @click="remove(x, y)"
                             >Delete</button>
+                            <button
+                                class="tree-node-action"
+                                @click="hideChildren(x, y)"
+                            >Hide Children</button>
                         </div>
                         <div class="d-flex gap-1 justify-content-space-between">
                             <button
@@ -86,7 +91,8 @@ export default defineComponent({
     emits: ['update:root'],
     data() {
         return {
-            innerRoot: this.root
+            innerRoot: this.root,
+            hidden: [] as any[]
         }
     },
     watch: {
@@ -122,17 +128,22 @@ export default defineComponent({
         },
         fullTree(node: TreeNode): TreeNode[][] {
             let nodes = [] as TreeNode[][];
-            this.walkTree(node, 0, nodes);
+            this.walkTree(node, 0, 0, nodes);
             return nodes;
         },
-        walkTree(node: TreeNode, level: number, flattened: TreeNode[][]) {
-            flattened[level] = (flattened[level] || []).concat([node]);
-            if (!node.children) {
-                for (let i = level + 1; i <= this.depth; i++) {
+        isHidden(x: number, y: number) {
+            return !!this.hidden.find(v => {
+                return v.x === x && v.y === y
+            })
+        },
+        walkTree(node: TreeNode, x: number, y: number, flattened: TreeNode[][]) {
+            flattened[y] = (flattened[y] || []).concat([node]);            
+            if (!node.children || this.isHidden(x, y)) {
+                for (let i = y + 1; i <= this.depth; i++) {
                     flattened[i] = (flattened[i] || []).concat([{ contentType: TreeContentType.FILLER }])
                 }
             } else {
-                (node.children || [])?.forEach(v => this.walkTree(v, level + 1, flattened))
+                (node.children || [])?.forEach((v, x) => this.walkTree(v, x, y + 1, flattened))
             }
         },
         cut(x: number, y: number) {
@@ -152,6 +163,13 @@ export default defineComponent({
         },
         right(x: number, y: number) {
 
+        },
+        hideChildren(x: number, y: number) {
+            if (this.isHidden(x, y)) {
+                this.hidden = this.hidden.filter(v => v.x !== x || v.y !== y);
+            } else {
+                this.hidden.push({ x: x, y: y });
+            }
         }
     }
 })
