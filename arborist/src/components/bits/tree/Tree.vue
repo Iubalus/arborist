@@ -12,7 +12,6 @@
                         class="d-grid gap-1 tree-node-custom"
                     >
                         <div class="d-flex gap-1 flex-nowrap">
-                            <span>x{{ x }},y{{ y }}, hidden {{ isHidden(x, y) }}</span>
                             <button
                                 class="tree-node-action"
                                 @click="cut(x, y)"
@@ -31,8 +30,9 @@
                             >Delete</button>
                             <button
                                 class="tree-node-action"
+                                style="margin-left:auto"
                                 @click="hideChildren(x, y)"
-                            >Hide Children</button>
+                            >{{ isHidden(x, y) ? 'Expand' : 'Collapse' }}</button>
                         </div>
                         <div class="d-flex gap-1 justify-content-space-between">
                             <button
@@ -137,13 +137,21 @@ export default defineComponent({
             })
         },
         walkTree(node: TreeNode, x: number, y: number, flattened: TreeNode[][]) {
-            flattened[y] = (flattened[y] || []).concat([node]);            
-            if (!node.children || this.isHidden(x, y)) {
+            flattened[y] = (flattened[y] || []).concat([node]);
+            if (!node.children) {
                 for (let i = y + 1; i <= this.depth; i++) {
                     flattened[i] = (flattened[i] || []).concat([{ contentType: TreeContentType.FILLER }])
                 }
             } else {
-                (node.children || [])?.forEach((v, x) => this.walkTree(v, x, y + 1, flattened))
+                if (this.isHidden(x, y)) {
+                    for (let i = y + 1; i <= this.depth; i++) {
+                        for (let j = 0; j < node.children.length + 1; j++) {
+                            flattened[i] = (flattened[i] || []).concat([{ contentType: TreeContentType.FILLER }])
+                        }
+                    }
+                } else {
+                    (node.children || [])?.forEach((v, x) => this.walkTree(v, x, y + 1, flattened))
+                }
             }
         },
         cut(x: number, y: number) {
@@ -191,6 +199,7 @@ td {
             opacity: 20%;
             border-radius: 1000px;
             border: none;
+            text-wrap: nowrap;
             padding: 5px 10px;
             justify-self: center;
             align-self: center;
