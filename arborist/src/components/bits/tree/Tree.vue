@@ -1,5 +1,5 @@
 <template>
-    <table>
+    <table class="tree-wrapping-table">
         <tbody>
             <tr v-for="(level, y) in fullTree(innerRoot)">
                 <td
@@ -197,5 +197,9 @@ td {
             }
         }
     }
+}
+
+.tree-wrapping-table {
+    min-width: 100%;
 }
 </style>

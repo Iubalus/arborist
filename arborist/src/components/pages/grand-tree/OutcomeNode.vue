@@ -70,7 +70,7 @@ export default defineComponent({
 .outcome-node {
     display: grid;
     justify-items: start;
-    border-radius: 5px;
+    border-radius: 5px;    
     padding: 10px;
     box-shadow: 0 0 3px rgba(0, 0, 0, .6);
 

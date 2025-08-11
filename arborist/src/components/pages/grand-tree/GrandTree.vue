@@ -1,7 +1,6 @@
 <template>
     <Page title="Coming Soon">
-        <Tree :root="root" />
-        <pre>{{ root }}</pre>
+        <Tree :root="root" />        
     </Page>
 </template>
 <script lang="ts">
