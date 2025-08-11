@@ -9,25 +9,27 @@
                 >
                     <div
                         v-if="node.contentType === 'CUSTOM'"
-                        class="d-grid gap-1 grid-columns-4 tree-node-custom"
+                        class="d-grid gap-1 tree-node-custom"
                     >
-                        <button
-                            class="tree-node-action"
-                            @click="cut(x, y)"
-                        >Cut</button>                        
-                        <button
-                            class="tree-node-action"
-                            @click="copy(x, y)"
-                        >Copy</button>                        
-                        <button
-                            class="tree-node-action"
-                            @click="paste(x, y)"
-                        >Paste</button>                        
-                        <button
-                            class="tree-node-action"
-                            @click="remove(x, y)"
-                        >Delete</button>
-                        <div class="d-flex gap-1 column-span-4 justify-content-space-between">
+                        <div class="d-flex gap-1 flex-nowrap">
+                            <button
+                                class="tree-node-action"
+                                @click="cut(x, y)"
+                            >Cut</button>
+                            <button
+                                class="tree-node-action"
+                                @click="copy(x, y)"
+                            >Copy</button>
+                            <button
+                                class="tree-node-action"
+                                @click="paste(x, y)"
+                            >Paste</button>
+                            <button
+                                class="tree-node-action"
+                                @click="remove(x, y)"
+                            >Delete</button>
+                        </div>
+                        <div class="d-flex gap-1 justify-content-space-between">
                             <button
                                 class="tree-node-action"
                                 @click="left(x, y)"
@@ -144,7 +146,7 @@ export default defineComponent({
         },
         remove(x: number, y: number) {
 
-        },        
+        },
         left(x: number, y: number) {
 
         },
@@ -165,6 +167,8 @@ td {
     }
 
     .tree-node-custom {
+        padding: 5px;
+
         .tree-node-action {
             opacity: 20%;
             border-radius: 1000px;
