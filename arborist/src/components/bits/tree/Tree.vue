@@ -9,7 +9,7 @@
                 >
                     <div
                         v-if="node.contentType === 'CUSTOM'"
-                        class="d-grid gap-1 grid-columns-2 tree-node-custom"
+                        class="d-grid gap-1 grid-columns-4 tree-node-custom"
                     >
                         <button
                             class="tree-node-action"
@@ -18,8 +18,16 @@
                         <button
                             class="tree-node-action"
                             @click="copy(x, y)"
-                        >Copy</button>
-                        <div class="d-flex gap-1 column-span-2 justify-content-space-between">
+                        >Copy</button>                        
+                        <button
+                            class="tree-node-action"
+                            @click="paste(x, y)"
+                        >Paste</button>                        
+                        <button
+                            class="tree-node-action"
+                            @click="remove(x, y)"
+                        >Delete</button>
+                        <div class="d-flex gap-1 column-span-4 justify-content-space-between">
                             <button
                                 class="tree-node-action"
                                 @click="left(x, y)"
@@ -36,14 +44,6 @@
                                 @click="right(x, y)"
                             >&#8594;</button>
                         </div>
-                        <button
-                            class="tree-node-action"
-                            @click="paste(x, y)"
-                        >Paste</button>                        
-                        <button
-                            class="tree-node-action"
-                            @click="remove(x, y)"
-                        >Delete</button>
                     </div>
                     <div
                         class="separator-content"

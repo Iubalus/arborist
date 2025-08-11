@@ -75,12 +75,20 @@ body {
   justify-content: space-between;
 }
 
+.grid-columns-4 {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
 .grid-columns-3 {
   grid-template-columns: 1fr 1fr 1fr;
 }
 
 .grid-columns-2 {
   grid-template-columns: 1fr 1fr;
+}
+
+.column-span-4 {
+  grid-column: span 4;
 }
 
 .column-span-3 {
