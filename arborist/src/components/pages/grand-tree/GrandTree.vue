@@ -1,6 +1,6 @@
 <template>
     <Page title="Coming Soon">
-        <Tree :root="root" />        
+        <Tree :root="root" />
     </Page>
 </template>
 <script lang="ts">
@@ -85,6 +85,108 @@ export default defineComponent({
                                     type: "BUSINESS",
                                     text: "People Cost"
                                 }
+                            }
+                        ]
+                    },
+                    {
+                        contentType: "CUSTOM",
+                        element: markRaw(OutcomeNode),
+                        content: {
+                            type: "BUSINESS",
+                            text: "Revenue"
+                        },
+                        children: [
+                            {
+                                contentType: "CUSTOM",
+                                element: markRaw(OutcomeNode),
+                                content: {
+                                    type: "PRODUCT",
+                                    text: "Increase # of Customers"
+                                },
+                                children: [
+                                    {
+                                        contentType: "CUSTOM",
+                                        element: markRaw(OutcomeNode),
+                                        content: {
+                                            text: "I want to know about new products"
+                                        }
+                                    },
+                                    {
+                                        contentType: "CUSTOM",
+                                        element: markRaw(OutcomeNode),
+                                        content: {
+                                            text: "I want the product to be affordable"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        contentType: "CUSTOM",
+                        element: markRaw(OutcomeNode),
+                        content: {
+                            type: "BUSINESS",
+                            text: "Revenue"
+                        },
+                        children: [
+                            {
+                                contentType: "CUSTOM",
+                                element: markRaw(OutcomeNode),
+                                content: {
+                                    type: "PRODUCT",
+                                    text: "Increase # of Customers"
+                                },
+                                children: [
+                                    {
+                                        contentType: "CUSTOM",
+                                        element: markRaw(OutcomeNode),
+                                        content: {
+                                            text: "I want to know about new products"
+                                        }
+                                    },
+                                    {
+                                        contentType: "CUSTOM",
+                                        element: markRaw(OutcomeNode),
+                                        content: {
+                                            text: "I want the product to be affordable"
+                                        }
+                                    },
+                                    {
+                                        contentType: "CUSTOM",
+                                        element: markRaw(OutcomeNode),
+                                        content: {
+                                            type: "BUSINESS",
+                                            text: "Revenue"
+                                        },
+                                        children: [
+                                            {
+                                                contentType: "CUSTOM",
+                                                element: markRaw(OutcomeNode),
+                                                content: {
+                                                    type: "PRODUCT",
+                                                    text: "Increase # of Customers"
+                                                },
+                                                children: [
+                                                    {
+                                                        contentType: "CUSTOM",
+                                                        element: markRaw(OutcomeNode),
+                                                        content: {
+                                                            text: "I want to know about new products"
+                                                        }
+                                                    },
+                                                    {
+                                                        contentType: "CUSTOM",
+                                                        element: markRaw(OutcomeNode),
+                                                        content: {
+                                                            text: "I want the product to be affordable"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
                             }
                         ]
                     }
