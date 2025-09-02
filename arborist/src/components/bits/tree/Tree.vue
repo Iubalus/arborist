@@ -9,7 +9,7 @@
                 >
                     <div
                         v-if="node.contentType === 'CUSTOM'"
-                        class="d-grid gap-1 tree-node-custom"
+                        class="d-grid tree-node-custom"
                     >
                         <div class="d-flex flex-nowrap">
                             <button
@@ -22,38 +22,42 @@
                                 class="tree-node-action"
                                 @click="copy(node)"
                             >Copy</button>
+
+                            <button
+                                :disabled="node === innerRoot"
+                                class="tree-node-action"
+                                @click="remove(node)"
+                            >Delete</button>                            
+                        </div>
+                        <div
+                            class="d-flex justify-center"
+                            style="padding:0 1px;"
+                        >
+                            <component
+                                v-if="node.element"
+                                :is="node.element"
+                                v-model:content="node.content"
+                            />
+                        </div>
+                        <div class="d-flex">
+                            <button
+                                :disabled="node === innerRoot"
+                                class="tree-node-action"
+                                @click="left(node)"
+                            >&#8592;</button>
                             <button
                                 :disabled="!selectedNode"
                                 class="tree-node-action"
                                 @click="paste(node)"
                             >Paste</button>
                             <button
-                                :disabled="node === innerRoot"
-                                class="tree-node-action"
-                                @click="remove(node)"
-                            >Delete</button>
-                            <button
                                 :disabled="!node.children"
                                 class="tree-node-action"
                                 @click="hideChildren(x, y)"
                             >{{ isHidden(x, y) ? 'Expand' : 'Collapse' }}</button>
-                        </div>
-                        <div class="d-flex gap-1 justify-content-space-between">
                             <button
                                 :disabled="node === innerRoot"
-                                class="tree-node-action"
-                                @click="left(node)"
-                            >&#8592;</button>
-                            <div class="flex-grow d-flex justify-center">
-                                <component
-                                    v-if="node.element"
-                                    :is="node.element"
-                                    v-model:content="node.content"
-                                />
-                            </div>
-                            <button
-                                :disabled="node === innerRoot"
-                                class="tree-node-action"
+                                class="tree-node-action flex-end"
                                 @click="right(node)"
                             >&#8594;</button>
                         </div>
@@ -333,9 +337,11 @@ td {
                     cursor: not-allowed;
                 }
             }
+
             margin-left:-1px;
-            &:first-of-type{
-                margin-left:0;
+
+            &:first-of-type {
+                margin-left: 0;
             }
 
             border: solid 1px #52bafa;
@@ -351,7 +357,6 @@ td {
                 opacity: 1;
                 box-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
                 background: #f0f9ff;
-                cursor: pointer;
             }
         }
     }
