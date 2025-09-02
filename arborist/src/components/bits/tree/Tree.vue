@@ -13,18 +13,22 @@
                     >
                         <div class="d-flex gap-1 flex-nowrap">
                             <button
+                                :disabled="node === innerRoot"
                                 class="tree-node-action"
                                 @click="cut(node)"
                             >Cut</button>
                             <button
+                                :disabled="node === innerRoot"
                                 class="tree-node-action"
                                 @click="copy(node)"
                             >Copy</button>
                             <button
+                                :disabled="node === innerRoot"
                                 class="tree-node-action"
                                 @click="paste(node)"
                             >Paste</button>
                             <button
+                                :disabled="node === innerRoot"
                                 class="tree-node-action"
                                 @click="remove(node)"
                             >Delete</button>
@@ -36,6 +40,7 @@
                         </div>
                         <div class="d-flex gap-1 justify-content-space-between">
                             <button
+                                :disabled="node === innerRoot"
                                 class="tree-node-action"
                                 @click="left(x, y)"
                             >&#8592;</button>
@@ -47,6 +52,7 @@
                                 />
                             </div>
                             <button
+                                :disabled="node === innerRoot"
                                 class="tree-node-action"
                                 @click="right(x, y)"
                             >&#8594;</button>
@@ -164,7 +170,7 @@ export default defineComponent({
         },
         cut(node: TreeNode) {
             this.copyNode = null as unknown as TreeNode;
-            this.doVisit(this.root, (n) => {
+            this.doVisit(this.innerRoot, (n) => {
                 n.isCopy = false;
                 n.isCut = false;
             });
@@ -179,7 +185,7 @@ export default defineComponent({
         },
         copy(node: TreeNode) {
             this.cutNode = null as unknown as TreeNode;
-            this.doVisit(this.root, (n) => {
+            this.doVisit(this.innerRoot, (n) => {
                 n.isCopy = false;
                 n.isCut = false;
             });
@@ -193,10 +199,34 @@ export default defineComponent({
             });
         },
         paste(node: TreeNode) {
-
+            if (this.cutNode) {
+                if(!node.children){
+                    node.children = [];
+                }
+                node.children?.push(JSON.parse(JSON.stringify(this.cutNode)));
+                this.remove(this.cutNode);
+                this.cutNode = null as unknown as TreeNode;
+                this.doVisit(this.innerRoot, (n) => {
+                    n.isCut = false;
+                });
+            }
+            if (this.copyNode) {
+                if(!node.children){
+                    node.children = [];
+                }
+                node.children?.push(JSON.parse(JSON.stringify(this.copyNode)));
+                this.doVisit(this.innerRoot, (n) => {
+                    n.isCopy = false;
+                });
+                this.copyNode = null as unknown as TreeNode;
+            }
         },
         remove(node: TreeNode) {
-
+            this.doVisit(this.innerRoot, (n) => {
+                if (n.children?.find(v => v === node)) {
+                    n.children = n.children.filter(v => v !== node);
+                }
+            })
         },
         left(node: TreeNode) {
 
