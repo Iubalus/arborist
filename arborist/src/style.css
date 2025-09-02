@@ -1,4 +1,7 @@
-:root {
+:root {  
+  &.dark-mode{
+    filter: saturate(2) invert(1);
+  }
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
