@@ -5,7 +5,7 @@
                 <td
                     v-for="(node, x) in level"
                     :colspan="countLeaves(node)"
-                    :class="[node.contentType === 'CUSTOM' ? 'align-content-start' : null]"
+                    :class="[node.contentType === 'CUSTOM' ? 'align-content-start' : null, node.isCut ? 'is-cut' : '', node.isCopy ? 'is-copy' : '']"
                 >
                     <div
                         v-if="node.contentType === 'CUSTOM'"
@@ -14,19 +14,19 @@
                         <div class="d-flex gap-1 flex-nowrap">
                             <button
                                 class="tree-node-action"
-                                @click="cut(x, y)"
+                                @click="cut(node)"
                             >Cut</button>
                             <button
                                 class="tree-node-action"
-                                @click="copy(x, y)"
+                                @click="copy(node)"
                             >Copy</button>
                             <button
                                 class="tree-node-action"
-                                @click="paste(x, y)"
+                                @click="paste(node)"
                             >Paste</button>
                             <button
                                 class="tree-node-action"
-                                @click="remove(x, y)"
+                                @click="remove(node)"
                             >Delete</button>
                             <button
                                 class="tree-node-action"
@@ -78,6 +78,8 @@ export interface TreeNode {
     content?: any;
     element?: any;
     children?: TreeNode[];
+    isCut?: boolean;
+    isCopy?: boolean;
 }
 
 export default defineComponent({
@@ -92,7 +94,9 @@ export default defineComponent({
     data() {
         return {
             innerRoot: this.root,
-            hidden: [] as any[]
+            hidden: [] as any[],
+            copyNode: null as unknown as TreeNode,
+            cutNode: null as unknown as TreeNode,
         }
     },
     watch: {
@@ -154,22 +158,50 @@ export default defineComponent({
                 }
             }
         },
-        cut(x: number, y: number) {
+        doVisit(node: TreeNode, action: (n: TreeNode) => void) {
+            action(node);
+            node.children?.forEach(c => this.doVisit(c, action));
+        },
+        cut(node: TreeNode) {
+            this.copyNode = null as unknown as TreeNode;
+            this.doVisit(this.root, (n) => {
+                n.isCopy = false;
+                n.isCut = false;
+            });
+            if (this.cutNode === node) {
+                this.cutNode = null as unknown as TreeNode;
+                return;
+            }
+            this.cutNode = node;
+            this.doVisit(node, (n) => {
+                n.isCut = true;
+            });
+        },
+        copy(node: TreeNode) {
+            this.cutNode = null as unknown as TreeNode;
+            this.doVisit(this.root, (n) => {
+                n.isCopy = false;
+                n.isCut = false;
+            });
+            if (this.copyNode === node) {
+                this.copyNode = null as unknown as TreeNode;
+                return;
+            }
+            this.copyNode = node;
+            this.doVisit(node, (n) => {
+                n.isCopy = true;
+            });
+        },
+        paste(node: TreeNode) {
 
         },
-        copy(x: number, y: number) {
+        remove(node: TreeNode) {
 
         },
-        paste(x: number, y: number) {
+        left(node: TreeNode) {
 
         },
-        remove(x: number, y: number) {
-
-        },
-        left(x: number, y: number) {
-
-        },
-        right(x: number, y: number) {
+        right(node: TreeNode) {
 
         },
         hideChildren(x: number, y: number) {
@@ -190,6 +222,14 @@ td {
 
     .separator-content {
         font-size: 60px;
+    }
+
+    &.is-cut {
+        border: dashed 1px red;
+    }
+
+    &.is-copy {
+        border: dashed 1px blue;
     }
 
     .tree-node-custom {
