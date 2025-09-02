@@ -11,7 +11,7 @@
                         v-if="node.contentType === 'CUSTOM'"
                         class="d-grid gap-1 tree-node-custom"
                     >
-                        <div class="d-flex gap-1 flex-nowrap">
+                        <div class="d-flex flex-nowrap">
                             <button
                                 :disabled="node === innerRoot"
                                 class="tree-node-action"
@@ -35,7 +35,6 @@
                             <button
                                 :disabled="!node.children"
                                 class="tree-node-action"
-                                style="margin-left:auto"
                                 @click="hideChildren(x, y)"
                             >{{ isHidden(x, y) ? 'Expand' : 'Collapse' }}</button>
                         </div>
@@ -295,11 +294,14 @@ table {
 }
 
 td {
+    padding: 0;
     border-left: solid 1px #52bafaAF;
     border-bottom: solid 1px #52bafaAF;
-    &.filler-cell{
+
+    &.filler-cell {
         border: solid 1px transparent;
     }
+
     justify-content: space-around;
 
     .separator-content {
@@ -319,7 +321,7 @@ td {
     }
 
     .tree-node-custom {
-        padding: 5px;
+        margin: -1px;
 
         .tree-node-action {
             &:disabled {
@@ -331,20 +333,24 @@ td {
                     cursor: not-allowed;
                 }
             }
+            margin-left:-1px;
+            &:first-of-type{
+                margin-left:0;
+            }
 
-            border-radius: 1000px;
-            border: none;
+            border: solid 1px #52bafa;
             text-wrap: nowrap;
-            padding: 5px 10px;
+            padding: 2px 5px;
+            font-size:11px;
             justify-self: center;
             align-self: center;
-            background: #c6e9ff;
-            box-shadow: 0 0 2px rgba(0, 0, 0, .6);
+            background: white;
+            color: #52bafa;
 
             &:hover:not(:disabled) {
                 opacity: 1;
-                box-shadow: 0 0 4px rgba(0, 0, 0, .6);
-                background: #a0dbff;
+                box-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
+                background: #f0f9ff;
                 cursor: pointer;
             }
         }
