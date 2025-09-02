@@ -1,73 +1,75 @@
 <template>
     <table class="tree-wrapping-table">
         <tbody>
-            <tr v-for="(level, y) in fullTree(innerRoot)">
+            <tr v-for="(level) in fullTree(innerRoot)">
                 <td
-                    v-for="(node, x) in level"
+                    v-for="(node) in level"
                     :colspan="countLeaves(node)"
-                    :class="[node.contentType === 'CUSTOM' ? 'align-content-start' : null, node.isCut ? 'is-cut' : '', node.isCopy ? 'is-copy' : '', node.contentType === 'FILLER' ? 'filler-cell' : '']"
+                    :class="[node.contentType === 'CUSTOM' ? 'align-content-start' : null, node.isCut ? 'is-cut' : '', node.isCopy ? 'is-copy' : '', node.contentType === 'FILLER' || node.isHidden ? 'filler-cell' : '']"
                 >
-                    <div
-                        v-if="node.contentType === 'CUSTOM'"
-                        class="d-grid tree-node-custom"
-                    >
-                        <div class="d-flex flex-nowrap">
-                            <button
-                                :disabled="node === innerRoot"
-                                class="tree-node-action"
-                                @click="cut(node)"
-                            >Cut</button>
-                            <button
-                                :disabled="node === innerRoot"
-                                class="tree-node-action"
-                                @click="copy(node)"
-                            >Copy</button>
+                    <template v-if="!node.isHidden">
+                        <div
+                            v-if="node.contentType === 'CUSTOM'"
+                            class="d-grid tree-node-custom"
+                        >
+                            <div class="d-flex flex-nowrap">
+                                <button
+                                    :disabled="node === innerRoot"
+                                    class="tree-node-action"
+                                    @click="cut(node)"
+                                >Cut</button>
+                                <button
+                                    :disabled="node === innerRoot"
+                                    class="tree-node-action"
+                                    @click="copy(node)"
+                                >Copy</button>
 
-                            <button
-                                :disabled="node === innerRoot"
-                                class="tree-node-action"
-                                @click="remove(node)"
-                            >Delete</button>                            
+                                <button
+                                    :disabled="node === innerRoot"
+                                    class="tree-node-action"
+                                    @click="remove(node)"
+                                >Delete</button>
+                            </div>
+                            <div
+                                class="d-flex justify-center"
+                                style="padding:0 1px;"
+                            >
+                                <component
+                                    v-if="node.element"
+                                    :is="node.element"
+                                    v-model:content="node.content"
+                                />
+                            </div>
+                            <div class="d-flex">
+                                <button
+                                    :disabled="node === innerRoot"
+                                    class="tree-node-action"
+                                    @click="left(node)"
+                                >&#8592;</button>
+                                <button
+                                    :disabled="!selectedNode"
+                                    class="tree-node-action"
+                                    @click="paste(node)"
+                                >Paste</button>
+                                <button
+                                    :disabled="!node.children"
+                                    class="tree-node-action"
+                                    @click="toggleCollapse(node)"
+                                >{{ node.isCollapsed ? 'Expand' : 'Collapse' }}</button>
+                                <button
+                                    :disabled="node === innerRoot"
+                                    class="tree-node-action flex-end"
+                                    @click="right(node)"
+                                >&#8594;</button>
+                            </div>
                         </div>
                         <div
-                            class="d-flex justify-center"
-                            style="padding:0 1px;"
+                            class="separator-content"
+                            v-else
                         >
-                            <component
-                                v-if="node.element"
-                                :is="node.element"
-                                v-model:content="node.content"
-                            />
+                            {{ node.content }}
                         </div>
-                        <div class="d-flex">
-                            <button
-                                :disabled="node === innerRoot"
-                                class="tree-node-action"
-                                @click="left(node)"
-                            >&#8592;</button>
-                            <button
-                                :disabled="!selectedNode"
-                                class="tree-node-action"
-                                @click="paste(node)"
-                            >Paste</button>
-                            <button
-                                :disabled="!node.children"
-                                class="tree-node-action"
-                                @click="hideChildren(x, y)"
-                            >{{ isHidden(x, y) ? 'Expand' : 'Collapse' }}</button>
-                            <button
-                                :disabled="node === innerRoot"
-                                class="tree-node-action flex-end"
-                                @click="right(node)"
-                            >&#8594;</button>
-                        </div>
-                    </div>
-                    <div
-                        class="separator-content"
-                        v-else
-                    >
-                        {{ node.content }}
-                    </div>
+                    </template>
                 </td>
             </tr>
         </tbody>
@@ -90,6 +92,8 @@ export interface TreeNode {
     children?: TreeNode[];
     isCut?: boolean;
     isCopy?: boolean;
+    isHidden?: boolean;
+    isCollapsed?: boolean;
 }
 
 export enum SelectType {
@@ -108,8 +112,7 @@ export default defineComponent({
     emits: ['update:root'],
     data() {
         return {
-            innerRoot: this.root,
-            hidden: [] as any[],
+            innerRoot: this.root,            
             selectedNode: null as unknown as TreeNode,
             selectType: null as unknown as SelectType,
         }
@@ -149,12 +152,7 @@ export default defineComponent({
             let nodes = [] as TreeNode[][];
             this.walkTree(node, 0, 0, nodes);
             return nodes;
-        },
-        isHidden(x: number, y: number) {
-            return !!this.hidden.find(v => {
-                return v.x === x && v.y === y
-            })
-        },
+        },        
         walkTree(node: TreeNode, x: number, y: number, flattened: TreeNode[][]) {
             flattened[y] = (flattened[y] || []).concat([node]);
             if (!node.children) {
@@ -162,15 +160,7 @@ export default defineComponent({
                     flattened[i] = (flattened[i] || []).concat([{ contentType: TreeContentType.FILLER }])
                 }
             } else {
-                if (this.isHidden(x, y)) {
-                    for (let i = y + 1; i <= this.depth; i++) {
-                        for (let j = 0; j < node.children.length + 1; j++) {
-                            flattened[i] = (flattened[i] || []).concat([{ contentType: TreeContentType.FILLER }])
-                        }
-                    }
-                } else {
-                    (node.children || [])?.forEach((v, x) => this.walkTree(v, x, y + 1, flattened))
-                }
+                (node.children || [])?.forEach((v, x) => this.walkTree(v, x, y + 1, flattened))
             }
         },
         doVisit(node: TreeNode, action: (n: TreeNode) => void) {
@@ -279,12 +269,14 @@ export default defineComponent({
                 }
             })
         },
-        hideChildren(x: number, y: number) {
-            if (this.isHidden(x, y)) {
-                this.hidden = this.hidden.filter(v => v.x !== x || v.y !== y);
-            } else {
-                this.hidden.push({ x: x, y: y });
-            }
+        toggleCollapse(node: TreeNode) {
+            node.isCollapsed = !node.isCollapsed;
+            this.doVisit(node, (n) => {
+                if (n === node) {
+                    return;
+                }
+                n.isHidden = node.isCollapsed;
+            })
         }
     }
 })
