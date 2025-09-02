@@ -23,7 +23,6 @@
                                 @click="copy(node)"
                             >Copy</button>
                             <button
-                                :disabled="node === innerRoot"
                                 class="tree-node-action"
                                 @click="paste(node)"
                             >Paste</button>
@@ -46,9 +45,9 @@
                                 @click="left(node)"
                             >&#8592;</button>
                             <div class="flex-grow d-flex justify-center">
-                                <component                                    
+                                <component
                                     v-if="node.element"
-                                    :is="node.element"                                    
+                                    :is="node.element"
                                     v-model:content="node.content"
                                 />
                             </div>
