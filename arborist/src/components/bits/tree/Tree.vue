@@ -168,6 +168,15 @@ export default defineComponent({
             action(node);
             node.children?.forEach(c => this.doVisit(c, action));
         },
+        cloneVisit(original: TreeNode, clone: TreeNode, action: (original: TreeNode, clone: TreeNode) => void) {
+            action(original, clone);
+            if (!original.children || !clone.children) {
+                return;
+            }
+            for (let i = 0; i < original.children.length; i++) {
+                this.cloneVisit(original.children[i], clone.children[i], action);
+            }
+        },
         cut(node: TreeNode) {
             this.copyNode = null as unknown as TreeNode;
             this.doVisit(this.innerRoot, (n) => {
@@ -200,10 +209,14 @@ export default defineComponent({
         },
         paste(node: TreeNode) {
             if (this.cutNode) {
-                if(!node.children){
+                if (!node.children) {
                     node.children = [];
                 }
-                node.children?.push(JSON.parse(JSON.stringify(this.cutNode)));
+                let newNode = JSON.parse(JSON.stringify(this.cutNode));
+                this.cloneVisit(this.cutNode, newNode, (original, clone)=>{
+                    clone.element = original.element;
+                })
+                node.children?.push(newNode);
                 this.remove(this.cutNode);
                 this.cutNode = null as unknown as TreeNode;
                 this.doVisit(this.innerRoot, (n) => {
@@ -211,10 +224,14 @@ export default defineComponent({
                 });
             }
             if (this.copyNode) {
-                if(!node.children){
+                if (!node.children) {
                     node.children = [];
                 }
-                node.children?.push(JSON.parse(JSON.stringify(this.copyNode)));
+                let newNode = JSON.parse(JSON.stringify(this.copyNode));
+                this.cloneVisit(this.copyNode, newNode, (original, clone)=>{
+                    clone.element = original.element;
+                })
+                node.children?.push(newNode);
                 this.doVisit(this.innerRoot, (n) => {
                     n.isCopy = false;
                 });
