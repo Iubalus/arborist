@@ -5,7 +5,7 @@
                 <td
                     v-for="(node, x) in level"
                     :colspan="countLeaves(node)"
-                    :class="[node.contentType === 'CUSTOM' ? 'align-content-start' : null, node.isCut ? 'is-cut' : '', node.isCopy ? 'is-copy' : '']"
+                    :class="[node.contentType === 'CUSTOM' ? 'align-content-start' : null, node.isCut ? 'is-cut' : '', node.isCopy ? 'is-copy' : '', node.contentType === 'FILLER' ? 'filler-cell' : '']"
                 >
                     <div
                         v-if="node.contentType === 'CUSTOM'"
@@ -23,6 +23,7 @@
                                 @click="copy(node)"
                             >Copy</button>
                             <button
+                                :disabled="!selectedNode"
                                 class="tree-node-action"
                                 @click="paste(node)"
                             >Paste</button>
@@ -46,7 +47,7 @@
                             >&#8592;</button>
                             <div class="flex-grow d-flex justify-center">
                                 <component
-                                    v-if="node.element"                                    
+                                    v-if="node.element"
                                     :is="node.element"
                                     v-model:content="node.content"
                                 />
@@ -287,40 +288,63 @@ export default defineComponent({
 
 </script>
 <style scoped>
+table {
+    border-spacing: 0;
+    border-top: solid 1px #52bafaAF;
+    border-right: solid 1px #52bafaAF;
+}
+
 td {
-    border: solid 1px rgba(173, 221, 173, .5);
+    border-left: solid 1px #52bafaAF;
+    border-bottom: solid 1px #52bafaAF;
+    &.filler-cell{
+        border: solid 1px transparent;
+    }
     justify-content: space-around;
 
     .separator-content {
         font-size: 60px;
     }
 
+    &:not(.filler-cell)+.filler-cell {
+        border-left: solid 1px #52bafaAF;
+    }
+
     &.is-cut {
-        border: dashed 1px red;
+        filter: brightness(.7) sepia(100%) saturate(2) hue-rotate(280deg);
     }
 
     &.is-copy {
-        border: dashed 1px blue;
+        filter: sepia(100%) saturate(2) hue-rotate(60deg);
     }
 
     .tree-node-custom {
         padding: 5px;
 
         .tree-node-action {
-            opacity: 20%;
+            &:disabled {
+                color: gray;
+                filter: grayscale(1);
+                opacity: 50%;
+
+                &:hover {
+                    cursor: not-allowed;
+                }
+            }
+
             border-radius: 1000px;
             border: none;
             text-wrap: nowrap;
             padding: 5px 10px;
             justify-self: center;
             align-self: center;
-            background: rgba(218, 255, 239, .5);
+            background: #c6e9ff;
             box-shadow: 0 0 2px rgba(0, 0, 0, .6);
 
-            &:hover {
+            &:hover:not(:disabled) {
                 opacity: 1;
                 box-shadow: 0 0 4px rgba(0, 0, 0, .6);
-                background: rgb(218, 255, 239);
+                background: #a0dbff;
                 cursor: pointer;
             }
         }
