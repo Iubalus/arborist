@@ -46,7 +46,7 @@
                             >&#8592;</button>
                             <div class="flex-grow d-flex justify-center">
                                 <component
-                                    v-if="node.element"
+                                    v-if="node.element"                                    
                                     :is="node.element"
                                     v-model:content="node.content"
                                 />

@@ -1,5 +1,9 @@
 <template>
-    <Page title="Coming Soon">
+    <Page
+        title="Coming Soon"
+        v-dragscroll
+        class="grand-tree"
+    >
         <Tree :root="root" />
     </Page>
 </template>
@@ -196,4 +200,17 @@ export default defineComponent({
     }
 })
 </script>
-<style scoped></style>
+<style scoped>
+.grand-tree {
+    height: 80vh;
+
+    &:hover {
+        cursor: grab;
+        user-select: none;
+
+        &:active {
+            cursor: grabbing;
+        }
+    }
+}
+</style>
