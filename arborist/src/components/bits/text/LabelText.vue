@@ -74,8 +74,7 @@ input {
 }
 
 textarea {
-    width: 100%;
-    min-height: 100px;
+    width: 100%;    
     box-sizing: border-box;
     background: transparent;
     border-radius: 5px;

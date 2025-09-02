@@ -33,6 +33,7 @@
                                 @click="remove(node)"
                             >Delete</button>
                             <button
+                                :disabled="!node.children"
                                 class="tree-node-action"
                                 style="margin-left:auto"
                                 @click="hideChildren(x, y)"
@@ -44,10 +45,10 @@
                                 class="tree-node-action"
                                 @click="left(node)"
                             >&#8592;</button>
-                            <div>
-                                <component
+                            <div class="flex-grow d-flex justify-center">
+                                <component                                    
                                     v-if="node.element"
-                                    :is="node.element"
+                                    :is="node.element"                                    
                                     v-model:content="node.content"
                                 />
                             </div>
