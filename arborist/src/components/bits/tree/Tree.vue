@@ -42,7 +42,7 @@
                             <button
                                 :disabled="node === innerRoot"
                                 class="tree-node-action"
-                                @click="left(x, y)"
+                                @click="left(node)"
                             >&#8592;</button>
                             <div>
                                 <component
@@ -54,7 +54,7 @@
                             <button
                                 :disabled="node === innerRoot"
                                 class="tree-node-action"
-                                @click="right(x, y)"
+                                @click="right(node)"
                             >&#8594;</button>
                         </div>
                     </div>
@@ -213,7 +213,7 @@ export default defineComponent({
                     node.children = [];
                 }
                 let newNode = JSON.parse(JSON.stringify(this.cutNode));
-                this.cloneVisit(this.cutNode, newNode, (original, clone)=>{
+                this.cloneVisit(this.cutNode, newNode, (original, clone) => {
                     clone.element = original.element;
                 })
                 node.children?.push(newNode);
@@ -228,7 +228,7 @@ export default defineComponent({
                     node.children = [];
                 }
                 let newNode = JSON.parse(JSON.stringify(this.copyNode));
-                this.cloneVisit(this.copyNode, newNode, (original, clone)=>{
+                this.cloneVisit(this.copyNode, newNode, (original, clone) => {
                     clone.element = original.element;
                 })
                 node.children?.push(newNode);
@@ -245,11 +245,42 @@ export default defineComponent({
                 }
             })
         },
-        left(node: TreeNode) {
+        swap(x1: number, x2: number, nodes: TreeNode[]) {
+            //capture internal element
+            let x1Elt = nodes[x1].element;
+            let x2Elt = nodes[x2].element;
 
+            //clear internal element
+            nodes[x1].element = null;
+            nodes[x2].element = null;
+            
+            let temp = nodes[x2];
+            nodes[x2] = nodes[x1];
+            nodes[x1] = temp;
+
+            this.$nextTick(() => {
+                //re-render with elements swapped
+                nodes[x2].element = x1Elt;
+                nodes[x1].element = x2Elt;
+            })
+        },
+        left(node: TreeNode) {
+            this.doVisit(this.innerRoot, (n) => {
+                if (n.children?.find(v => v === node)) {
+                    let currentInd = n.children?.indexOf(node);
+                    let newInd = currentInd === 0 ? n.children.length - 1 : currentInd - 1;
+                    this.swap(currentInd, newInd, n.children);
+                }
+            })
         },
         right(node: TreeNode) {
-
+            this.doVisit(this.innerRoot, (n) => {
+                if (n.children?.find(v => v === node)) {
+                    let currentInd = n.children?.indexOf(node);
+                    let newInd = currentInd + 1 === n.children.length ? 0 : currentInd + 1;
+                    this.swap(currentInd, newInd, n.children);
+                }
+            })
         },
         hideChildren(x: number, y: number) {
             if (this.isHidden(x, y)) {
