@@ -55,7 +55,7 @@
                                     :disabled="!node.children"
                                     class="tree-node-action"
                                     @click="toggleCollapse(node)"
-                                >{{ node.isCollapsed ? 'Expand' : 'Collapse' }}</button>
+                                >{{ node.isCollapsed ? 'More...' : 'Hide Children' }}</button>
                                 <button
                                     :disabled="node === innerRoot"
                                     class="tree-node-action flex-end"
@@ -226,11 +226,13 @@ export default defineComponent({
             this.clearSelection();
         },
         remove(node: TreeNode) {
-            this.doVisit(this.innerRoot, (n) => {
-                if (n.children?.find(v => v === node)) {
-                    n.children = n.children.filter(v => v !== node);
-                }
-            })
+            if(confirm("Are you sure you want to remove this?")){
+                this.doVisit(this.innerRoot, (n) => {
+                    if (n.children?.find(v => v === node)) {
+                        n.children = n.children.filter(v => v !== node);
+                    }
+                })
+            }
         },
         swap(x1: number, x2: number, nodes: TreeNode[]) {
             //capture internal element

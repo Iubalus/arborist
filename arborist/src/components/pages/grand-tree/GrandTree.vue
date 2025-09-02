@@ -202,7 +202,7 @@ export default defineComponent({
 </script>
 <style scoped>
 .grand-tree {
-    height: 80vh;
+    height: 80vh;    
 
     &:hover {
         cursor: grab;
