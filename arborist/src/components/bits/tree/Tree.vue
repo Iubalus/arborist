@@ -88,6 +88,11 @@ export interface TreeNode {
     isCopy?: boolean;
 }
 
+export enum SelectType {
+    CUT = "CUT",
+    COPY = "COPY"
+}
+
 export default defineComponent({
     components: { Btn },
     props: {
@@ -101,8 +106,8 @@ export default defineComponent({
         return {
             innerRoot: this.root,
             hidden: [] as any[],
-            copyNode: null as unknown as TreeNode,
-            cutNode: null as unknown as TreeNode,
+            selectedNode: null as unknown as TreeNode,
+            selectType: null as unknown as SelectType,
         }
     },
     watch: {
@@ -177,66 +182,54 @@ export default defineComponent({
                 this.cloneVisit(original.children[i], clone.children[i], action);
             }
         },
-        cut(node: TreeNode) {
-            this.copyNode = null as unknown as TreeNode;
+        clearSelection() {
             this.doVisit(this.innerRoot, (n) => {
                 n.isCopy = false;
                 n.isCut = false;
             });
-            if (this.cutNode === node) {
-                this.cutNode = null as unknown as TreeNode;
+        },
+        cut(node: TreeNode) {
+            this.clearSelection();
+            if (this.selectedNode === node && this.selectType === SelectType.CUT) {
+                this.selectedNode = null as unknown as TreeNode;
                 return;
             }
-            this.cutNode = node;
+            this.selectedNode = node;
+            this.selectType = SelectType.CUT;
             this.doVisit(node, (n) => {
                 n.isCut = true;
             });
         },
         copy(node: TreeNode) {
-            this.cutNode = null as unknown as TreeNode;
-            this.doVisit(this.innerRoot, (n) => {
-                n.isCopy = false;
-                n.isCut = false;
-            });
-            if (this.copyNode === node) {
-                this.copyNode = null as unknown as TreeNode;
+            this.clearSelection();
+            if (this.selectedNode === node && this.selectType === SelectType.COPY) {
+                this.selectedNode = null as unknown as TreeNode;
                 return;
             }
-            this.copyNode = node;
+            this.selectedNode = node;
+            this.selectType = SelectType.COPY;
             this.doVisit(node, (n) => {
                 n.isCopy = true;
             });
         },
         paste(node: TreeNode) {
-            if (this.cutNode) {
-                if (!node.children) {
-                    node.children = [];
-                }
-                let newNode = JSON.parse(JSON.stringify(this.cutNode));
-                this.cloneVisit(this.cutNode, newNode, (original, clone) => {
-                    clone.element = original.element;
-                })
-                node.children?.push(newNode);
-                this.remove(this.cutNode);
-                this.cutNode = null as unknown as TreeNode;
-                this.doVisit(this.innerRoot, (n) => {
-                    n.isCut = false;
-                });
+            if (!this.selectedNode) {
+                return;
             }
-            if (this.copyNode) {
-                if (!node.children) {
-                    node.children = [];
-                }
-                let newNode = JSON.parse(JSON.stringify(this.copyNode));
-                this.cloneVisit(this.copyNode, newNode, (original, clone) => {
-                    clone.element = original.element;
-                })
-                node.children?.push(newNode);
-                this.doVisit(this.innerRoot, (n) => {
-                    n.isCopy = false;
-                });
-                this.copyNode = null as unknown as TreeNode;
+            if (!node.children) {
+                node.children = [];
             }
+            let newNode = JSON.parse(JSON.stringify(this.selectedNode));
+            this.cloneVisit(this.selectedNode, newNode, (original, clone) => {
+                clone.element = original.element;
+            })
+            node.children?.push(newNode);
+            if (this.selectType === SelectType.CUT) {
+                this.remove(this.selectedNode);
+            }
+            this.selectedNode = null as unknown as TreeNode;
+            this.selectType = null as unknown as SelectType;
+            this.clearSelection();
         },
         remove(node: TreeNode) {
             this.doVisit(this.innerRoot, (n) => {
@@ -253,7 +246,7 @@ export default defineComponent({
             //clear internal element
             nodes[x1].element = null;
             nodes[x2].element = null;
-            
+
             let temp = nodes[x2];
             nodes[x2] = nodes[x1];
             nodes[x1] = temp;
