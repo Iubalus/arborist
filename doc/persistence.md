@@ -84,7 +84,7 @@ Consider the following 2 approaches
 Let's assume I have 2 questions I want to associate to an outcome
 
 ##### Approach A, direct reference
-```json
+```
 {
     id:'outcome:123-123-123-123',
     ...outcome data
@@ -98,7 +98,7 @@ Let's assume I have 2 questions I want to associate to an outcome
 If the questions are referenced by multiple objects, a deletion of the question would require knowledge about which objects allowed associations. This would be challenging to maintain.
 
 ##### Approach B, global reference lookup
-```json
+```
 {
     id:'outcome:123-123-123-123',    
     ...outcome data
