@@ -10,11 +10,28 @@ const SuccessResponse = {
     message: "Success"
 }
 
+let currentVersions = {} as any;
+let versionTranslators = {} as any;
+
+export function registerCurrentVersion(type: string, version: string) {
+    currentVersions[type] = version;
+}
+
+export function registerVersionTranslator(type: string, fromVersion: string, toVersion: string, translator: (v: any) => any) {
+    if (!versionTranslators[type]) {
+        versionTranslators[type] = {};
+    }
+    versionTranslators[type][fromVersion] = {
+        toVersion: toVersion,
+        translator: translator
+    };
+}
+
 let data = {
     links: []
 } as any;
 
-const ARBORIST_DATA_KEY = "arborist-data-v2";
+const ARBORIST_DATA_KEY = "arborist-persistence";
 let fromLocal = localStorage.getItem(ARBORIST_DATA_KEY);
 if (!!fromLocal) {
     data = { ...data, ...JSON.parse(fromLocal) };
@@ -31,14 +48,14 @@ function createLocator(type: string): Promise<string> {
 function find(locator: string): Promise<Response> {
     return Promise.resolve({
         message: "Success",
-        content: data[locator]
+        content: translate(locator, data[locator])
     });
 }
 
-function list(type: string, filters: ((v: any) => boolean)[]): Promise<Response> {
+function list(type: string, filters: ((v: any) => boolean)[]): Promise<Response> {    
     let found = Object.entries(data)
         .filter(e => e[0].includes(type))
-        .flatMap(e => e[1])
+        .flatMap(e => translate(e[0], e[1]))        
         .filter(v => filters.map(f => f(v)).reduce((l: boolean, r: boolean) => l && r, true))
     return Promise.resolve({
         message: "Success",
@@ -46,8 +63,41 @@ function list(type: string, filters: ((v: any) => boolean)[]): Promise<Response>
     });
 }
 
+function locatorType(locator: string) {
+    return locator.split(":")[0];
+}
+
+function versionLookup(locator: string) {
+    return currentVersions[locatorType(locator)] || "v1"
+}
+
+function translate(locator: string, wrapped: any) {
+    let currentVersion = versionLookup(locator);
+    let wrappedVersion = wrapped.version || "v1";
+    if (wrappedVersion === currentVersion) {
+        return wrapped.content;
+    }
+    let translation = versionTranslators[wrappedVersion] || {
+        toVersion: currentVersion,
+        translator: (v: any) => v
+    }
+    let transformed = translation.translator(wrapped.content);
+
+    while (translation.toVersion !== currentVersion) {
+        translation = versionTranslators[wrappedVersion] || {
+            toVersion: currentVersion,
+            translator: (v: any) => v
+        }
+        transformed = translation.translator(transformed);
+    }
+    return transformed;
+}
+
 function save(locator: string, payload: any): Promise<Response> {
-    data[locator] = payload;
+    data[locator] = {
+        version: versionLookup(locator),
+        content: payload
+    };
     commitStore();
     return Promise.resolve(SuccessResponse);
 }

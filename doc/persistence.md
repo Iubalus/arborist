@@ -189,11 +189,10 @@ I will likely use the B approach for safer deletes, even though it may be frustr
     /** Remove all links for locator */
     function removeLinks(locator:string);
     ```
-    3. Versioning strategy wherin there is a versions file to register types that are not v1 and conversion behaviors for upgraded types. Thsi will be used by persistence to convert loaded values into the newest version.
+    3. Versioning strategy wherin there is a versions file to register types that are not v1 and conversion behaviors for upgraded types. This will be used by persistence to convert loaded values into the newest version.
     ```javascript
     interface Content {
         version:string;
-        content:any;
-        unsupportedContent?: any;
+        content:any;        
     }
     ```
