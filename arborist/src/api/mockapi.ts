@@ -1,6 +1,5 @@
 import { type ImageFile } from "@/components/bits";
-import {
-    type HistoryType,
+import {    
     type Identity,
     type Interviewee,
     type NamedImage,
@@ -108,68 +107,7 @@ export function clearCachedData() {
 }
 
 export function createAPI(): API {
-    return {
-        loadQuestions: function (): Promise<Question[]> {
-            return Promise.resolve([...data.questions]);
-        },
-        loadQuestionLinks: function (): Promise<QuestionLink[]> {
-            return Promise.resolve([...data.questionLink]);
-        },
-        saveQuestion: function (question: Question): Promise<String> {
-            if (!!question.questionId) {
-                for (let i = 0; i < data.questions.length; i++) {
-                    if (data.questions[i].questionId === question.questionId) {
-                        data.questions[i] = question;
-                    }
-                }
-            } else {
-                data.questions.push(question);
-                question.questionId = generateUUID();
-            }
-            commitStore();
-            return Promise.resolve(question.questionId)
-        },
-        archiveQuestion: function (questionId: String): Promise<void> {
-            data.questions.filter(v => v.questionId === questionId).map(q => q.archived = true);
-            commitStore();
-            return Promise.resolve();
-        },
-        linkQuestion: function (link: QuestionLink): Promise<void> {
-            data.questionLink.push(link);
-            commitStore();
-            return Promise.resolve();
-        },
-        unlinkQuestion: function (link: QuestionLink): Promise<void> {
-            data.questionLink.push(link);
-            commitStore();
-            return Promise.resolve();
-        },
-        listIdentities: function (): Promise<Identity[]> {
-            return Promise.resolve([...data.identities])
-        },
-        addIdentity: function (identity: Identity): Promise<void> {
-            data.identities.push(identity);
-            commitStore();
-            return Promise.resolve();
-        },
-        becomeIdentity: function (identity: Identity): Promise<void> {
-            data.currentIdentity = identity;
-            commitStore();
-            return Promise.resolve();
-        },
-        whoAmI: function (): Promise<Identity> {
-            return Promise.resolve(data.currentIdentity);
-        },
-        recordChange: function (identity: Identity, type: HistoryType, id: String, time: Date): Promise<void> {
-            data.history.push({
-                name: identity.name,
-                type: type,
-                id: id,
-                time: time
-            });
-            commitStore();
-            return Promise.resolve();
-        },
+    return {                                                                                
         loadSnapshots: function (): Promise<SnapshotData[]> {
             return Promise.resolve([...data.snapshots]);
         },
