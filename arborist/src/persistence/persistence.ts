@@ -129,6 +129,9 @@ export function persistence() {
         createLocator: createLocator,
         find: find,
         list: list,
-        save: save
+        save: save,
+        link: link,
+        unlink: unlink,
+        removeLinks: removeLinks
     }
 }
