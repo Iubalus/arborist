@@ -160,6 +160,7 @@ import { makeTitle, snapshotDate } from './snapshot-util';
 import type { SnapshotData } from '@/components/types/Snapshot';
 import type { Opportunity } from '@/components/types/Opportunity';
 import { createAPI } from '@/api/mockapi';
+import { saveSnapshot } from './SnapshotInteractor';
 
 export default defineComponent({
     components: { Page, QuoteDisplay, EditListImage, DualEditList, Card, LabelText, EditList, Selct, PresentDisplay, ProfileImages, DisplayList, DisplayTextBlock, Exhibits, LabelImage, DateTime, Btn, ImageUpload },
@@ -186,7 +187,7 @@ export default defineComponent({
         internalSnapshot: {
             handler: async function (v) {
                 this.$emit("update", v);
-                await createAPI().saveSnapshot(v);
+                await saveSnapshot(v);
             },
             deep: true
         },
