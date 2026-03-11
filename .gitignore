@@ -27,7 +27,29 @@ arborist/public/experience.png
 .gradle/
 build
 arborist/.vscode/extensions.json
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
 
-arborist/planter/gradle/wrapper/*
-arborist/planter/src/main/static
-arborist/planter/bin/*
+HELP.md
+.gradle
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+/web/.vscode/extensions.json
+/gradle/wrapper/gradle-wrapper.jar
