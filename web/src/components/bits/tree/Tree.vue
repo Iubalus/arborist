@@ -155,6 +155,7 @@ export default defineComponent({
         },        
         walkTree(node: TreeNode, x: number, y: number, flattened: TreeNode[][]) {
             flattened[y] = (flattened[y] || []).concat([node]);
+            console.log(x, y);
             if (!node.children) {
                 for (let i = y + 1; i <= this.depth; i++) {
                     flattened[i] = (flattened[i] || []).concat([{ contentType: TreeContentType.FILLER }])

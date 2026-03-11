@@ -53,3 +53,4 @@ bin/
 !**/src/test/**/bin/
 /web/.vscode/extensions.json
 /gradle/wrapper/gradle-wrapper.jar
+/src/main/resources/static/*
