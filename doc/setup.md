@@ -1,4 +1,4 @@
-# <img src="arborist.png" width="30"> Setup Instructions
+# <img src="../arborist.png" width="30"> Setup Instructions
 
 
 * Set up a new MongoDB or locate an existing DB
