@@ -18,7 +18,8 @@ Roughing out of data that may need stored
 * InterviewSnapshotInterviewees(<ins>SnapshotId</ins>, <ins>IntervieweeId</ins>)
 * MemorableQuotes(<ins>QuoteId</ins>, Quote, InterviewId, IntervieweeId)
 * Interviewers (<ins>InterviewerId</ins>, Name)
-* InterviewSnapshot (<ins>SnapshotId</ins>, Company, RecordingURL, Date, LeadInterviewerId, InterviewQuestionId, ExperienceMapImageId, Story)
+* InterviewSnapshot (<ins>SnapshotId</ins>, Company, RecordingURL, Date, LeadInterviewerId, InterviewQuestionId,
+  ExperienceMapImageId, Story)
 * ExperienceMapStages(<ins>StageId</ins>, SnapshotId, Order, Text)
 * SnapshotInterviewers (<ins>InterviewerId</ins>, <ins>SnapshotId</ins>)
 * InterviewQuickFacts (<ins>QuickFactId</ins>, InterviewId, Order, Fact)
@@ -34,3 +35,11 @@ Roughing out of data that may need stored
 * AssumptionTest (<ins>AssumptionTestId</ins>, AssumptionId, Text)
 * AssumptionTestOutcome (<ins>AssumptionTestOutcomeId<ins>, Text)
 * AssumptionTestOutcomeExhibit (<ins>AssumptionTestOutcomeId</ins>, <ins>ImageId</ins>)
+
+After some consideration, I've decided to use MongoDB as a storage medium. I haven't used MongoDB before, but my initial impression is that having a NoSQL database storing JSON will align more closely with the structures I'm
+started to build. 
+
+Since I started client/JSON first, it's not a far stretch to shift those structures directly into the
+DB as compared to the heavy re-structuring I was going to need to do to normalize and store the data in traditional SQL
+tables. I may reconsider later as I have vastly more experience with SQL databases, but for now this is what I will build upon.
+
