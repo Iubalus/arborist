@@ -4,6 +4,8 @@ Create a tool to help manage Continuous Discovery synthesis to reduce the manual
 
 Tools within are based on understanding gained from attempting to adopt the Teresa Torres' Continuous Discovery Habits process.
 
+* [Setup Instructions](./doc/setup.md)
+
 ### Development Journal
 * [Design Notes](./doc/design-notes.md)
-* [Data Persistence](./doc/persistence.md) 
+* [Data Persistence](./doc/persistence.md)

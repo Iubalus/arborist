@@ -54,3 +54,4 @@ bin/
 /web/.vscode/extensions.json
 /gradle/wrapper/gradle-wrapper.jar
 /src/main/resources/static/*
+/src/main/resources/application.properties

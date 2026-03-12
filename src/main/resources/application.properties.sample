@@ -1,0 +1,6 @@
+spring.application.name=arborist
+
+#Database
+
+db.mongo-uri=<your mongo db uri>
+db.name=<your mongo db name>
