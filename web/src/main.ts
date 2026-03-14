@@ -7,13 +7,17 @@ import VueDragscroll from 'vue-dragscroll'
 import {Playground, Home, GrandTree, Outcomes, Questions, Snapshots, OpportunitySolutionTree} from "@/components/pages";
 
 const routes = [
-    {path: '/', component: Home},
-    {path: '/grand-tree', component: GrandTree},
-    {path: '/outcomes', component: Outcomes},
-    {path: '/questions', component: Questions},
-    {path: '/opportunity-solution-tree', component: OpportunitySolutionTree},
-    {path: '/snapshots', component: Snapshots},
-    {path: '/playground', component: Playground},
+    {path: '/', component: Home, meta: {title: "Home"}},
+    {path: '/grand-tree', component: GrandTree, meta: {title: "Grand Tree"}},
+    {path: '/outcomes', component: Outcomes, meta: {title: "Outcomes"}},
+    {path: '/questions', component: Questions, meta: {title: "Questions"}},
+    {
+        path: '/opportunity-solution-tree',
+        component: OpportunitySolutionTree,
+        meta: {title: "Opportunity Solution Tree"}
+    },
+    {path: '/snapshots', component: Snapshots, meta: {title: "Snapshots"}},
+    {path: '/playground', component: Playground, meta: {title: "Playground"}},
 ]
 
 const router = createRouter({

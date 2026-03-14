@@ -1,43 +1,16 @@
 <template>
   <div class="float-tab">
     <div class="branding">
-      <img alt="Logo" src="/image/arborist-full.png"></img>
+      <img alt="Logo" src="/image/arborist-full.png">
     </div>
     <table class="tabs">
       <tbody>
-      <tr>
-        <td>
-          <RouterLink to="/">Home</RouterLink>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <RouterLink to="/grand-tree">Grand Tree</RouterLink>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <RouterLink to="/outcomes">Outcomes</RouterLink>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <RouterLink to="/questions">Questions</RouterLink>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <RouterLink to="/opportunity-solution-tree">Opportunity Solution Tree</RouterLink>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <RouterLink to="/snapshots">Snapshots</RouterLink>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <RouterLink to="/playground">Playground</RouterLink>
+      <tr
+          v-for="(r) in routes"
+          :key="r.path"
+      >
+        <td :class="['tab', r.path === route ? 'active' : '']">
+          <RouterLink :to="r.path">{{ r.meta.title }}</RouterLink>
         </td>
       </tr>
       </tbody>
@@ -54,6 +27,14 @@ import {defineComponent} from "vue";
 
 export default defineComponent({
   components: {},
+  computed: {
+    routes() {
+      return this.$router.getRoutes();
+    },
+    route() {
+      return this.$route.path;
+    }
+  }
 })
 </script>
 <style scoped>
@@ -83,7 +64,7 @@ export default defineComponent({
 }
 
 
-.tabs > tbody > tr > td {
+.tab {
   padding: 10px 10px 10px 10px;
   background: rgb(245, 245, 245);
   border-radius: 25px 0 0 25px;
