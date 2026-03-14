@@ -9,8 +9,8 @@
           v-for="(r) in routes"
           :key="r.path"
       >
-        <td :class="['tab', r.path === route ? 'active' : '']">
-          <RouterLink :to="r.path">{{ r.meta.title }}</RouterLink>
+        <td>
+          <RouterLink :class="['tab', r.path === route ? 'active' : '']" :to="r.path">{{ r.meta.title }}</RouterLink>
         </td>
       </tr>
       </tbody>
@@ -60,6 +60,7 @@ export default defineComponent({
 
   table {
     width: 100%;
+    border-spacing:0;
   }
 }
 
@@ -73,17 +74,15 @@ export default defineComponent({
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  text-align: right;
+
   text-wrap: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  width: 100%;
+  display: block;
+  text-align: center;
+  color: black;
 
-  > a {
-    width: 100%;
-    display: block;
-    text-align: center;
-    color: black;
-  }
 
   &.active {
     font-weight: bold;
