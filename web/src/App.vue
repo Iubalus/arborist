@@ -1,26 +1,24 @@
 <template>
-  <div class="float-tab">
-    <div class="branding">
-      <img alt="Logo" src="/image/arborist-full.png">
+  <div>
+    <div class="header-bar">
+      <div class="branding">
+        <img alt="Logo" src="/image/arborist-full.png">
+      </div>
     </div>
-    <table class="tabs">
-      <tbody>
-      <tr
+    <div class="navigation">
+      <RouterLink
           v-for="(r) in routes"
           :key="r.path"
-      >
-        <td>
-          <RouterLink :class="['tab', r.path === route ? 'active' : '']" :to="r.path">{{ r.meta.title }}</RouterLink>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+          :class="['tab', r.path === route ? 'active' : '']" :to="r.path"
+      >{{
+          r.meta.title
+        }}
+      </RouterLink>
+    </div>
+    <main class="main">
+      <RouterView/>
+    </main>
   </div>
-  <nav>
-  </nav>
-  <main class="main">
-    <RouterView/>
-  </main>
 </template>
 <script lang="ts">
 import {defineComponent} from "vue";
@@ -38,39 +36,34 @@ export default defineComponent({
 })
 </script>
 <style scoped>
-.main {
-  margin-left: 230px;
+
+.header-bar {
+  display: flex;
+  gap: 10px;
 }
 
-.float-tab {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  width: 230px;
-  z-index: 2;
+.navigation {
+  padding: 0 0 0 0;
+  border-radius: 25px 25px 0 0;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, .6);
   overflow: hidden;
-
-  .branding {
-    margin-left: 10px;
-
-    img {
-      height: 150px;
-    }
-  }
-
-  table {
-    width: 100%;
-    border-spacing:0;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-items: end;
 }
 
+.branding {
+  img {
+    height: 120px;
+  }
+}
 
 .tab {
-  padding: 10px 10px 10px 10px;
+  padding: 5px 10px;
   background: rgb(245, 245, 245);
-  border-radius: 25px 0 0 25px;
   box-sizing: border-box;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, .6);
+
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
@@ -78,19 +71,18 @@ export default defineComponent({
   text-wrap: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 100%;
+  min-width: max-content;
+  max-height: max-content;
   display: block;
   text-align: center;
   color: black;
 
-
   &.active {
-    font-weight: bold;
     background: white;
   }
 
   &:hover {
-    cursor: pointer;
+    cursor: default;
     background: rgb(235, 235, 235);
   }
 }

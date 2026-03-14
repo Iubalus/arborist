@@ -16,7 +16,7 @@ export default defineComponent({
         },
         superHeader: {
             type: String,
-            defaul: () => null
+            default: () => null
         }
     }
 })
@@ -28,13 +28,12 @@ export default defineComponent({
     overflow: auto;
     box-sizing: border-box;
     display: block;
-    padding: var(--page-pad);    
-    border-radius: 5px;
+    padding: var(--page-pad);
+
     box-shadow: 2px 2px 5px gray;
     background: white;
     position: relative;
     text-align: center;
-    min-width: 900px;    
 
     >h1 {
         margin: var(--page-pad) 0 30px;
