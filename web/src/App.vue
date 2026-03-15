@@ -7,7 +7,7 @@
       <Selct
           v-if="!loading"
           v-model:selected="currentAuthorId"
-          :options="authors"
+          :options="authorOptions"
           style="max-width: 150px;"
           label="Editing As"
       />
@@ -38,12 +38,12 @@ export default defineComponent({
     return {
       loading: true,
       currentAuthorId: null as unknown as string,
-      internalAuthors: [] as Author[]
+      authors: [] as Author[]
     }
   },
   async created() {
     this.currentAuthorId = authorAPI().getCurrentAuthorId();
-    this.internalAuthors = (await authorAPI().loadAuthors());
+    this.authors = (await authorAPI().loadAuthors());
     this.loading = false;
   },
   watch: {
@@ -52,8 +52,10 @@ export default defineComponent({
     }
   },
   computed: {
-    authors() {
-      return this.internalAuthors.map((v: any) => {
+    authorOptions() {
+      return this.authors
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .map((v: any) => {
         return {
           value: v.authorId,
           label: v.name

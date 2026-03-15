@@ -18,13 +18,15 @@ export default defineComponent({
     this.authors = (await authorAPI().loadAuthors());
   },
   computed: {
-    selectableAuthor() {
-      return this.authors.map((v: any) => {
-        return {
-          value: JSON.stringify(v),
-          label: v.name
-        }
-      })
+    authorOptions() {
+      return this.authors
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .map((v: any) => {
+            return {
+              value: JSON.stringify(v),
+              label: v.name
+            }
+          })
     }
   },
   watch: {
@@ -62,10 +64,10 @@ export default defineComponent({
           @click="createAuthor"
       />
       <Selct
-          v-if="selectableAuthor.length > 0"
+          v-if="authorOptions.length > 0"
           v-model:selected="innerSelectedAuthor"
           label="Select Author to Edit"
-          :options="selectableAuthor"
+          :options="authorOptions"
       />
       <LabelText
           v-if="selectedAuthor"
