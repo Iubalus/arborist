@@ -1,5 +1,6 @@
 <template>
     <Labelled :label="label">
+        <span v-if="options.length > 0 && !options[0][valueKey]">Option does not have "{{ valueKey }}"</span>
         <select v-model="internalSelected">
             <option v-if="allowBlank"></option>
             <option

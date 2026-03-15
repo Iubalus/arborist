@@ -1,13 +1,19 @@
 package com.jubalrife.arborist;
 
 import com.jubalrife.arborist.data.ArboristDB;
+import com.mongodb.BasicDBObject;
+import com.mongodb.client.result.InsertOneResult;
+import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.mongodb.client.model.Filters.eq;
 
 @RestController
 @EnableConfigurationProperties(ArboristDB.class)
@@ -18,22 +24,63 @@ public class AuthorController {
     @Autowired
     ArboristDB db;
 
-    @PostMapping("/author/" + API_VERSION + "/post")
-    public void createAuthor(@RequestParam(value = "name") String name) {
-        System.out.println("Post " + name);
+    @PostMapping("/author/" + API_VERSION + "/create")
+    public Object createAuthor(@RequestBody CreateAuthorRequest request) {
+        return db.withDatabase(database -> {
+            Document document = new Document();
+            document.put("name", request.getName());
+            document.put("apiVersion", API_VERSION);
+            InsertOneResult result = database.getCollection("author").insertOne(document);
+            if (result.wasAcknowledged()) {
+                return new AuthorResponse(
+                        String.valueOf(document.get("_id")),
+                        API_VERSION,
+                        String.valueOf(request.getName())
+                );
+            } else {
+                return new ErrorResponse("Failed to create");
+            }
+        });
     }
 
-    @PutMapping("/author/" + API_VERSION + "/put")
-    public void updateAuthor(@RequestParam(value = "id") String id, @RequestParam(value = "name") String name) {
-        System.out.println("Put " + id + ", " + name);
+    @PutMapping("/author/" + API_VERSION + "/update")
+    public Object updateAuthor(@RequestBody UpdateAuthorRequest request) {
+        return db.withDatabase(database -> {
+            BasicDBObject toUpdate = new BasicDBObject();
+            toUpdate.append("name", request.getName());
+            toUpdate.append("apiVersion", API_VERSION);
+            UpdateResult result = database.getCollection("author").updateOne(
+                    eq("_id", new ObjectId(request.getAuthorId())),
+                    new BasicDBObject("$set", toUpdate)
+            );
+            if (result.wasAcknowledged()) {
+                return new AuthorResponse(
+                        request.getAuthorId(),
+                        API_VERSION,
+                        String.valueOf(request.getName())
+                );
+            } else {
+                return new ErrorResponse("Failed to save");
+            }
+        });
     }
 
     @GetMapping("/author/" + API_VERSION + "/get")
     public Object getAuthor(@RequestParam(value = "id") String id) {
-        if (id.isEmpty()) {
-            return new ErrorResponse("no id provided");
-        }
-        return new AuthorResponse(id, API_VERSION, "testuser");
+        return db.withDatabase(database -> {
+            Document author = database
+                    .getCollection("author")
+                    .find(eq("_id", new ObjectId(id)))
+                    .first();
+            if (author == null) {
+                return new ErrorResponse("No such author exists");
+            }
+            return new AuthorResponse(
+                    String.valueOf(author.get("_id")),
+                    String.valueOf(author.get("apiVersion")),
+                    String.valueOf(author.get("name"))
+            );
+        });
     }
 
     @GetMapping("/author/" + API_VERSION + "/list")
@@ -44,8 +91,8 @@ public class AuthorController {
                     .getCollection("author")
                     .find()) {
                 rtv.add(new AuthorResponse(
-                        String.valueOf(author.get("id")),
-                        String.valueOf(author.get("version")),
+                        String.valueOf(author.get("_id")),
+                        String.valueOf(author.get("apiVersion")),
                         String.valueOf(author.get("name"))
                 ));
             }
@@ -53,19 +100,52 @@ public class AuthorController {
         });
     }
 
+    public static class UpdateAuthorRequest {
+        private String name;
+        private String authorId;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getAuthorId() {
+            return authorId;
+        }
+
+        public void setAuthorId(String authorId) {
+            this.authorId = authorId;
+        }
+    }
+
+    public static class CreateAuthorRequest {
+        private String name;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+    }
+
     public static class AuthorResponse {
-        private final String id;
+        private final String authorId;
         private final String apiVersion;
         private final String name;
 
-        public AuthorResponse(String id, String apiVersion, String name) {
-            this.id = id;
+        public AuthorResponse(String authorId, String apiVersion, String name) {
+            this.authorId = authorId;
             this.apiVersion = apiVersion;
             this.name = name;
         }
 
-        public String getId() {
-            return id;
+        public String getAuthorId() {
+            return authorId;
         }
 
         public String getApiVersion() {
