@@ -4,7 +4,13 @@
       <div class="branding">
         <img alt="Logo" src="/image/arborist-full.png">
       </div>
-      <Selct style="max-width: 150px;" label="Editing As" :options="[]"/>
+      <Selct
+          v-if="!loading"
+          v-model:selected="currentAuthorId"
+          :options="authors"
+          style="max-width: 150px;"
+          label="Editing As"
+      />
     </div>
     <div class="navigation">
       <RouterLink
@@ -24,10 +30,36 @@
 <script lang="ts">
 import {defineComponent} from "vue";
 import {Selct} from "@/components/bits";
+import {type Author, authorAPI} from "@/persistence/authorAPI.ts";
 
 export default defineComponent({
   components: {Selct},
+  data() {
+    return {
+      loading: true,
+      currentAuthorId: null as unknown as string,
+      internalAuthors: [] as Author[]
+    }
+  },
+  async created() {
+    this.currentAuthorId = authorAPI().getCurrentAuthorId();
+    this.internalAuthors = (await authorAPI().loadAuthors());
+    this.loading = false;
+  },
+  watch: {
+    currentAuthorId: function (v) {
+      authorAPI().setCurrentAuthor(v);
+    }
+  },
   computed: {
+    authors() {
+      return this.internalAuthors.map((v: any) => {
+        return {
+          value: v.authorId,
+          label: v.name
+        }
+      });
+    },
     routes() {
       return this.$router.getRoutes();
     },

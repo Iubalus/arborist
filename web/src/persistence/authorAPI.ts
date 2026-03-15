@@ -1,27 +1,45 @@
-import type {APIResponse} from "@/persistence/APIResponse.ts";
-
+let authorSession = {
+    currentAuthorId: null as unknown as string
+}
 let currentAuthor = null as unknown as Author;
 let apiVersion = "v1";
 
-function setCurrentAuthor(author: Author) {
-    currentAuthor = author;
+const AUTHOR_SESSION_TOKEN = "arborist-author-session";
+let fromLocal = localStorage.getItem(AUTHOR_SESSION_TOKEN);
+if (!!fromLocal) {
+    authorSession = {...authorSession, ...JSON.parse(fromLocal)};
 }
 
-function getCurrentAuthor(): Author {
-    return currentAuthor;
+function setCurrentAuthor(authorId: string) {
+    authorSession.currentAuthorId = authorId;
+    localStorage.setItem(AUTHOR_SESSION_TOKEN, JSON.stringify(authorSession));
 }
 
-async function loadAuthor(id: string): Promise<APIResponse<Author>> {
+function getCurrentAuthorId(): string{
+    return authorSession.currentAuthorId;
+}
+
+async function getCurrentAuthor(): Promise<Author> {
+    if (!!currentAuthor) {
+        return Promise.resolve(currentAuthor);
+    }
+    if (!!authorSession.currentAuthorId) {
+        return await loadAuthor(authorSession.currentAuthorId);
+    }
+    return Promise.resolve(null as unknown as Author);
+}
+
+async function loadAuthor(id: string): Promise<Author> {
     let response = await fetch(`author/${apiVersion}/get?id=${id}`)
     return response.json();
 }
 
-async function loadAuthors(): Promise<APIResponse<Author[]>> {
+async function loadAuthors(): Promise<Author[]> {
     let response = await fetch(`author/${apiVersion}/list`);
     return response.json();
 }
 
-async function createAuthor(name: string): Promise<APIResponse<Author>> {
+async function createAuthor(name: string): Promise<Author> {
     let response = await fetch(`author/${apiVersion}/create`, {
         method: "POST",
         headers: {
@@ -32,7 +50,7 @@ async function createAuthor(name: string): Promise<APIResponse<Author>> {
     return response.json();
 }
 
-async function updateAuthor(toUpdate: Author): Promise<APIResponse<Author>> {
+async function updateAuthor(toUpdate: Author): Promise<Author> {
     let response = await fetch(`author/${apiVersion}/update`, {
         method: "PUT",
         headers: {
@@ -45,21 +63,24 @@ async function updateAuthor(toUpdate: Author): Promise<APIResponse<Author>> {
 
 export interface Author {
     authorId: string;
+    apiVersion: string;
     name: string;
 }
 
 export interface AuthorAPI {
-    loadAuthor(id:string): Promise<APIResponse<Author>>
+    loadAuthor(id: string): Promise<Author>
 
-    loadAuthors(): Promise<APIResponse<Author[]>>;
+    loadAuthors(): Promise<Author[]>;
 
-    createAuthor(name: String): Promise<APIResponse<Author>>;
+    createAuthor(name: String): Promise<Author>;
 
-    updateAuthor(toUpdate: Author): Promise<APIResponse<Author>>;
+    updateAuthor(toUpdate: Author): Promise<Author>;
 
-    setCurrentAuthor(author: Author): void;
+    setCurrentAuthor(authorId: string): void;
 
-    getCurrentAuthor(): Author;
+    getCurrentAuthorId(): string;
+
+    getCurrentAuthor(): Promise<Author>;
 }
 
 export function authorAPI(): AuthorAPI {
@@ -69,6 +90,7 @@ export function authorAPI(): AuthorAPI {
         createAuthor,
         updateAuthor,
         setCurrentAuthor,
+        getCurrentAuthorId,
         getCurrentAuthor
     }
 }

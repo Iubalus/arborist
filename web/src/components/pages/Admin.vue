@@ -9,7 +9,7 @@ export default defineComponent({
   data() {
     return {
       newAuthorName: "",
-      authors: [] as any,
+      authors: [] as Author[],
       innerSelectedAuthor: null as unknown as string,
       selectedAuthor: null as unknown as Author
     }
@@ -70,7 +70,7 @@ export default defineComponent({
       <LabelText
           v-if="selectedAuthor"
           v-model:value="selectedAuthor.name"
-          label="Current Author"
+          label="Edit Name"
       />
       <Btn
           v-if="selectedAuthor"
