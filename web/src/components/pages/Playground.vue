@@ -3,10 +3,6 @@
         title="Playground"
         super-header="Hello"
     >
-        <div style="overflow-x: scroll;padding:30px;">
-            <RawTreeBuilder v-model:tree="tree" />
-        </div>
-
         <Tree></Tree>
         <Tree horizontal></Tree>
 
@@ -115,16 +111,14 @@ import {
     ImageUpload,
     LabelText,
     Selct,
-    RawTreeBuilder,
     Tree
 } from '@/components/bits';
 
 import type { ImageFile } from '@/components/bits/image/ImageFile';
 import Snapshot from './snapshot/Snapshot.vue';
-import { store } from '@/components/bits/tree/RawTreeBuilderStateStore';
 
 export default defineComponent({
-    components: { LabelText, Card, EditList, Btn, Page, DragCanvas, DualEditList, Snapshot, Selct, ImageUpload, RawTreeBuilder, Tree },
+    components: { LabelText, Card, EditList, Btn, Page, DragCanvas, DualEditList, Snapshot, Selct, ImageUpload, Tree },
     data() {
         return {
             testValue: "Hello",
@@ -135,8 +129,7 @@ export default defineComponent({
             toImport: "",
             message: "",
             imageTest: null as unknown as ImageFile,
-            tree: [],
-            myStore: store
+            tree: []
         }
     },
     methods: {
