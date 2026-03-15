@@ -11,7 +11,6 @@ import {
     Outcomes,
     Questions,
     Snapshots,
-    OpportunitySolutionTree,
     Admin
 } from "@/components/pages";
 
@@ -20,11 +19,6 @@ const routes = [
     {path: '/grand-tree', component: GrandTree, meta: {title: "Grand Tree"}},
     {path: '/outcomes', component: Outcomes, meta: {title: "Outcomes"}},
     {path: '/questions', component: Questions, meta: {title: "Questions"}},
-    {
-        path: '/opportunity-solution-tree',
-        component: OpportunitySolutionTree,
-        meta: {title: "Opportunity Solution Tree"}
-    },
     {path: '/snapshots', component: Snapshots, meta: {title: "Snapshots"}},
     {path: '/playground', component: Playground, meta: {title: "Playground"}},
     {path: "/admin", component: Admin, meta: {title: "Admin"}}
