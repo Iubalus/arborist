@@ -4,6 +4,7 @@
       <div class="branding">
         <img alt="Logo" src="/image/arborist-full.png">
       </div>
+      <Selct style="max-width: 150px;" label="Editing As" :options="[]"/>
     </div>
     <div class="navigation">
       <RouterLink
@@ -22,9 +23,10 @@
 </template>
 <script lang="ts">
 import {defineComponent} from "vue";
+import {Selct} from "@/components/bits";
 
 export default defineComponent({
-  components: {},
+  components: {Selct},
   computed: {
     routes() {
       return this.$router.getRoutes();
@@ -40,6 +42,9 @@ export default defineComponent({
 .header-bar {
   display: flex;
   gap: 10px;
+  align-items: end;
+  padding: 0 0 10px 0;
+  justify-content: space-between;
 }
 
 .navigation {

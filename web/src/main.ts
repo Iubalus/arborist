@@ -4,7 +4,16 @@ import './style.css'
 import App from './App.vue'
 import VueDragscroll from 'vue-dragscroll'
 
-import {Playground, Home, GrandTree, Outcomes, Questions, Snapshots, OpportunitySolutionTree} from "@/components/pages";
+import {
+    Playground,
+    Home,
+    GrandTree,
+    Outcomes,
+    Questions,
+    Snapshots,
+    OpportunitySolutionTree,
+    Admin
+} from "@/components/pages";
 
 const routes = [
     {path: '/', component: Home, meta: {title: "Home"}},
@@ -18,6 +27,7 @@ const routes = [
     },
     {path: '/snapshots', component: Snapshots, meta: {title: "Snapshots"}},
     {path: '/playground', component: Playground, meta: {title: "Playground"}},
+    {path: "/admin", component: Admin, meta: {title: "Admin"}}
 ]
 
 const router = createRouter({

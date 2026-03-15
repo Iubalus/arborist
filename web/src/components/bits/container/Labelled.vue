@@ -30,7 +30,6 @@ export default defineComponent({
 </script>
 <style scoped>
 .label-container {
-    margin-top: 10px;
     width: 100%;
     box-sizing: border-box;
     align-content: center;
