@@ -3,9 +3,6 @@
         title="Playground"
         super-header="Hello"
     >
-        <Tree></Tree>
-        <Tree horizontal></Tree>
-
         <ImageUpload v-model:value="imageTest" />
         {{ imageTest?.filename }}
         {{ imageTest?.size }}
@@ -110,15 +107,14 @@ import {
     EditList,
     ImageUpload,
     LabelText,
-    Selct,
-    Tree
+    Selct
 } from '@/components/bits';
 
 import type { ImageFile } from '@/components/bits/image/ImageFile';
 import Snapshot from './snapshot/Snapshot.vue';
 
 export default defineComponent({
-    components: { LabelText, Card, EditList, Btn, Page, DragCanvas, DualEditList, Snapshot, Selct, ImageUpload, Tree },
+    components: { LabelText, Card, EditList, Btn, Page, DragCanvas, DualEditList, Snapshot, Selct, ImageUpload },
     data() {
         return {
             testValue: "Hello",
