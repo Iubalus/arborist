@@ -1,11 +1,11 @@
 <script lang="ts">
 import {defineComponent} from 'vue'
-import {Btn, LabelText, Page, Selct} from "@/components/bits";
+import {Btn, Card, LabelText, Page, Selct} from "@/components/bits";
 import {type Author, authorAPI} from "@/persistence/authorAPI.ts";
 
 export default defineComponent({
   name: "Admin",
-  components: {Selct, LabelText, Btn, Page},
+  components: {Card, Selct, LabelText, Btn, Page},
   data() {
     return {
       newAuthorName: "",
@@ -52,36 +52,66 @@ export default defineComponent({
 </script>
 
 <template>
-  <Page title="Admin">
-    <div style="display:grid; gap:10px;align-items:end; grid-template-columns: 1fr 1fr 1fr;">
-      <LabelText
-          v-model:value="newAuthorName"
-          style="grid-column: span 2;"
-          label="New Author"
-      />
-      <Btn
-          text="Create Author"
-          @click="createAuthor"
-      />
-      <Selct
-          v-if="authorOptions.length > 0"
-          v-model:selected="innerSelectedAuthor"
-          label="Select Author to Edit"
-          :options="authorOptions"
-      />
-      <LabelText
-          v-if="selectedAuthor"
-          v-model:value="selectedAuthor.name"
-          label="Edit Name"
-      />
-      <Btn
-          v-if="selectedAuthor"
-          text="Update Author"
-          @click="updateAuthor"
-      />
+  <Page title="Admin" class="admin-style">
+    <div style="display:grid; gap:20px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+      <Card
+          title="Create Author"
+          class="admin-style"
+      >
+        <div
+            style="display:grid; gap:10px; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); align-items:end;"
+        >
+          <LabelText
+              v-model:value="newAuthorName"
+              style="grid-column: span 2;"
+              label="New Author"
+          />
+          <Btn
+              text="Create Author"
+              style="filter: grayscale(1);"
+              fun
+              @click="createAuthor"
+          />
+        </div>
+      </Card>
+      <Card
+          title="Edit Author"
+          class="admin-style"
+      >
+        <div
+            style="display:grid; gap:10px; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); align-items:end;"
+        >
+          <Selct
+              v-if="authorOptions.length > 0"
+              v-model:selected="innerSelectedAuthor"
+              label="Select Author to Edit"
+              :options="authorOptions"
+          />
+          <LabelText
+              v-if="selectedAuthor"
+              v-model:value="selectedAuthor.name"
+              label="Edit Name"
+          />
+          <Btn
+              v-if="selectedAuthor"
+              style="filter: grayscale(1);"
+              text="Update Author"
+              fun
+              @click="updateAuthor"
+          />
+        </div>
+      </Card>
     </div>
   </Page>
 </template>
 
 <style scoped>
+.admin-style {
+  font-family: monospace;
+  color: blue;
+  text-transform: uppercase;
+  background: #eaeaea;
+  border-radius: 0;
+  box-shadow: 1px 1px 3px gray;
+}
 </style>
