@@ -10,17 +10,26 @@
     />
     <div>Total Revenue</div>
     <div class="revenue-formula">
-      <span
+      <div
           v-for="(v, i) in revenueFragments"
-          :class="v.type"
           :key="`${i}_${v.text}`"
-      >{{ v.text }}</span>
+          style="display: grid; gap:10px;"
+      >
+        <span :class="v.type">{{ v.text }}</span>
+        <div v-if="v.children && v.children.length > 0" class="revenue-formula">
+          <span v-for="(c, j) in v.children" :key="`${j}_${c.text}`" :class="c.type">{{ c.text }}</span>
+        </div>
+      </div>
       <span class="operator">-</span>
-      <span
+      <div
           v-for="(v, i) in costFragments"
-          :class="v.type"
           :key="`${i}_${v.text}`"
-      >{{ v.text }}</span>
+      >
+        <span :class="v.type">{{ v.text }}</span>
+        <div v-if="v.children && v.children.length > 0" class="revenue-formula">
+          <span v-for="(c, j) in v.children" :key="`${j}_${c.text}`" :class="c.type">{{ c.text }}</span>
+        </div>
+      </div>
     </div>
   </Page>
 </template>
@@ -39,39 +48,65 @@ export default defineComponent({
   computed: {
     revenueFragments() {
       if (!this.rawRevenueFormula) {
-        return [{text: "Revenue", type: "revenue-outcome"}]
+        return [{text: "Revenue", type: "revenue-outcome", children: []}]
       }
       return this.tokenize(this.rawRevenueFormula, "revenue-outcome");
     },
     costFragments() {
       if (!this.rawCostFormula) {
-        return [{text: "Cost", type: "cost-outcome"}]
+        return [{text: "Cost", type: "cost-outcome", children: []}]
       }
       return this.tokenize(this.rawCostFormula, "cost-outcome")
     }
   },
-  methods:{
-    tokenize(source:string, outcome: string){
+  methods: {
+    tokenize(source: string, outcome: string): any {
       let operators = "()+-/*";
       let operatorSubstitutes = {
         "*": "x"
       } as any
       let stream = [];
       let word = "";
+      let inSubParse = false;
+      let subParse = "";
+      let children = [];
+      let depth = 0;
       for (let i = 0; i < source.length; i++) {
+        if (!inSubParse && source[i] === '[') {
+          inSubParse = true;
+          continue;
+        }
+        if (inSubParse && source[i] == ']') {
+          inSubParse = false;
+          children = this.tokenize(subParse, outcome);
+          subParse = "";
+          continue;
+        }
+        if (inSubParse) {
+          subParse += source[i];
+          continue;
+        }
         if (operators.includes(source[i])) {
+          if (source[i] === '(') {
+            depth++;
+          }
           if (!!word && !!word.trim()) {
             stream.push({
               text: word,
-              type: outcome
+              type: outcome,
+              children: children
             })
             word = "";
+            children = [];
           }
           let op = source[i];
           stream.push({
             text: operatorSubstitutes[op] || op,
-            type: "operator"
+            type: `operator depth-${depth}`
           })
+          if (source[i] === ')') {
+            depth--;
+          }
         } else {
           word += source[i];
         }
@@ -91,6 +126,7 @@ export default defineComponent({
 .revenue-formula {
   display: flex;
   flex-wrap: wrap;
+  align-items: start;
   gap: 5px;
 
   .revenue-outcome {
@@ -109,6 +145,26 @@ export default defineComponent({
     font-weight: bold;
     font-size: 16px;
     color: blue;
+
+    &.depth-1 {
+      color: gold;
+    }
+
+    &.depth-2 {
+      color: magenta;
+    }
+
+    &.depth-3 {
+      color: limegreen;
+    }
+
+    &.depth-4 {
+      color: cyan;
+    }
+
+    &.depth-5 {
+      color: red;
+    }
   }
 }
 
